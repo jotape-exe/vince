@@ -8,11 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
+import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -21,9 +24,15 @@ import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityLoginBinding
 import com.company.ourfinances.view.assets.LoadingDialog
 import com.company.ourfinances.viewmodel.LoginViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.lang.Exception
@@ -35,6 +44,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth;
     private lateinit var loadingDialog: LoadingDialog
+
+    private val SERVER_CLIENT_ID = "688509858493-ih7seb3jb90qp0916qhgp12vcr264nrg.apps.googleusercontent.com"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +59,13 @@ class LoginActivity : AppCompatActivity() {
         listeners()
 
         auth = Firebase.auth
+
+        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(SERVER_CLIENT_ID)
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(applicationContext, googleSignInOptions)
 
         val fullTextRegister = binding.textRegister.text.toString()
 
@@ -79,40 +97,55 @@ class LoginActivity : AppCompatActivity() {
 
         binding.buttonLogin.setOnClickListener {
             loadingDialog.startLoadingDialog()
-            val email = binding.editEmailLogin.text.toString()
-            val password = binding.editPasswordLogin.text.toString()
-            try {
-                loginWithEmailAndPassword(email, password)
-            } catch (ex: Exception) {
-                changeEditTextOutlineColor(
-                    binding.editEmailLogin,
-                    binding.editPasswordLogin,
-                    colorId = R.color.red
-                )
-                Snackbar.make(
-                    binding.loginMain,
-                    "Preencha os campos corretamente!",
-                    Snackbar.LENGTH_SHORT
-                ).show()
+            val email = binding.editEmailLogin.text
+            val password = binding.editPasswordLogin.text
+            if(TextUtils.isEmpty(email)){
+                binding.editEmailLogin.error = "Usuário não pode ser vazio!"
                 loadingDialog.dismissDialog()
+            } else if(TextUtils.isEmpty(password)){
+                binding.editPasswordLogin.error = "Senha não pode ser vazia!"
+                loadingDialog.dismissDialog()
+            } else {
+                loginWithEmailAndPassword(email.toString(), password.toString())
             }
         }
 
-        binding.editEmailLogin.onFocusChangeListener =
-            View.OnFocusChangeListener { v, hasFocus ->
-                if (hasFocus) {
-                    changeEditTextOutlineColor(binding.editEmailLogin, colorId = R.color.black)
-                }
+        binding.googleButton.setOnClickListener {
+            signIn()
+        }
+
+    }
+
+    private fun signIn() {
+        val intent = googleSignInClient.signInIntent
+        startActivityWithGoogle.launch(intent)
+    }
+
+    var startActivityWithGoogle = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        result: ActivityResult ->
+
+        if (result.resultCode == RESULT_OK){
+            val intent = result.data
+            val task = GoogleSignIn.getSignedInAccountFromIntent(intent)
+
+            try {
+                val account = task.getResult(ApiException::class.java)
+                loginWithGoogle(account.idToken!!)
+            } catch (e: ApiException){
+
+            }
+        }
+    }
+
+    private fun loginWithGoogle(token: String) {
+        val credential = GoogleAuthProvider.getCredential(token, null)
+        auth.signInWithCredential(credential).addOnCompleteListener{
+            task: Task<AuthResult> ->
+            if (task.isSuccessful){
+                openMainActivity()
             }
 
-        binding.editPasswordLogin.onFocusChangeListener =
-            View.OnFocusChangeListener { v, hasFocus ->
-                if (hasFocus) {
-                    changeEditTextOutlineColor(binding.editPasswordLogin, colorId = R.color.black)
-                }
-            }
-
-
+        }
     }
 
     private fun loginWithEmailAndPassword(email: String, password: String) {
@@ -140,14 +173,6 @@ class LoginActivity : AppCompatActivity() {
     private fun openMainActivity() {
         startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
-    }
-
-    private fun changeEditTextOutlineColor(vararg editTexts: EditText, colorId: Int) {
-        val color = ContextCompat.getColor(this, colorId)
-        for (editText in editTexts) {
-            val outlineDrawable: Drawable? = editText.background
-            outlineDrawable?.setTint(color)
-        }
     }
 
     private fun observer() {

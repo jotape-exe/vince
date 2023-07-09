@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:id="@+id/login_main"
+    tools:context=".view.LoginActivity">
+
+    <ImageView
+        android:id="@+id/image_vince"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/ic_vince"
+        app:layout_constraintBottom_toTopOf="@+id/text_welcome_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/text_welcome_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="40dp"
+        android:fontFamily="@font/inter"
+        android:text="Login"
+        android:textAlignment="center"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/edit_email_login"
+        app:layout_constraintEnd_toEndOf="@+id/image_vince"
+        app:layout_constraintStart_toStartOf="@+id/image_vince"
+        app:layout_constraintTop_toBottomOf="@+id/image_vince" />
+
+    <EditText
+        android:id="@+id/edit_email_login"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:drawableStart="@drawable/ic_email"
+        android:drawablePadding="10dp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:paddingStart="10dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/edit_password_login"
+        app:layout_constraintEnd_toEndOf="@+id/text_welcome_login"
+        app:layout_constraintStart_toStartOf="@+id/text_welcome_login"
+        app:layout_constraintTop_toBottomOf="@id/text_welcome_login" />
+
+    <EditText
+        android:id="@+id/edit_password_login"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        android:drawableStart="@drawable/ic_lock"
+        android:drawablePadding="10dp"
+        android:hint="Senha"
+        android:inputType="textPassword"
+        android:paddingStart="10dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/button_login"
+        app:layout_constraintEnd_toEndOf="@+id/edit_email_login"
+        app:layout_constraintStart_toStartOf="@+id/edit_email_login"
+        app:layout_constraintTop_toBottomOf="@id/edit_email_login" />
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:padding="14dp"
+        android:text="Login"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/text_or"
+        app:layout_constraintEnd_toEndOf="@+id/edit_password_login"
+        app:layout_constraintStart_toStartOf="@+id/edit_password_login"
+        app:layout_constraintTop_toBottomOf="@+id/edit_password_login" />
+
+    <TextView
+        android:id="@+id/text_or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ou"
+        app:layout_constraintBottom_toTopOf="@id/signin_button"
+        app:layout_constraintEnd_toEndOf="@+id/button_login"
+        app:layout_constraintStart_toStartOf="@+id/button_login"
+        app:layout_constraintTop_toBottomOf="@id/button_login" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/signin_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/text_register"
+        app:layout_constraintEnd_toEndOf="@+id/text_or"
+        app:layout_constraintStart_toStartOf="@+id/text_or"
+        app:layout_constraintTop_toBottomOf="@+id/text_or" />
+
+    <TextView
+        android:id="@+id/text_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Não possui login? \nEntão Cadastre-se"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/signin_button"
+        app:layout_constraintStart_toStartOf="@+id/signin_button"
+        app:layout_constraintTop_toBottomOf="@id/signin_button" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

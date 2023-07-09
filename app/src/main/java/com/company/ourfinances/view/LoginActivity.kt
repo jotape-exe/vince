@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider
 
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityLoginBinding
+import com.company.ourfinances.model.constants.RemoteConstants
 import com.company.ourfinances.view.assets.LoadingDialog
 import com.company.ourfinances.viewmodel.LoginViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -45,8 +46,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth;
     private lateinit var loadingDialog: LoadingDialog
 
-    private val SERVER_CLIENT_ID = "688509858493-ih7seb3jb90qp0916qhgp12vcr264nrg.apps.googleusercontent.com"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -61,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(SERVER_CLIENT_ID)
+            .requestIdToken(RemoteConstants.SERVER_CLIENT_ID)
             .requestEmail()
             .build()
 
@@ -100,10 +99,10 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.editEmailLogin.text
             val password = binding.editPasswordLogin.text
             if(TextUtils.isEmpty(email)){
-                binding.editEmailLogin.error = "Usuário não pode ser vazio!"
+                binding.editEmailLogin.error = getString(R.string.user_not_empty)
                 loadingDialog.dismissDialog()
             } else if(TextUtils.isEmpty(password)){
-                binding.editPasswordLogin.error = "Senha não pode ser vazia!"
+                binding.editPasswordLogin.error = getString(R.string.password_not_empty)
                 loadingDialog.dismissDialog()
             } else {
                 loginWithEmailAndPassword(email.toString(), password.toString())
@@ -155,14 +154,12 @@ class LoginActivity : AppCompatActivity() {
         )
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.d(TAG, "signInWithCustomToken:success")
                     val user = auth.currentUser
                     openMainActivity()
                 } else {
-                    Log.w(TAG, "signInWithCustomToken:failure", task.exception)
                     Snackbar.make(
                         binding.loginMain,
-                        "Usuário ou senha inválidos!",
+                        getString(R.string.invalid_user_or_password),
                         Snackbar.LENGTH_SHORT
                     ).show()
                     loadingDialog.dismissDialog()

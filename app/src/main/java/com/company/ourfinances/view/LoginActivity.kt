@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
     private lateinit var googleSignInClient: GoogleSignInClient
-    private lateinit var auth: FirebaseAuth;
+    private lateinit var auth: FirebaseAuth
     private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,16 +95,14 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.buttonLogin.setOnClickListener {
-            loadingDialog.startLoadingDialog()
             val email = binding.editEmailLogin.text
             val password = binding.editPasswordLogin.text
             if(TextUtils.isEmpty(email)){
                 binding.editEmailLogin.error = getString(R.string.user_not_empty)
-                loadingDialog.dismissDialog()
             } else if(TextUtils.isEmpty(password)){
                 binding.editPasswordLogin.error = getString(R.string.password_not_empty)
-                loadingDialog.dismissDialog()
             } else {
+                loadingDialog.startLoadingDialog()
                 loginWithEmailAndPassword(email.toString(), password.toString())
             }
         }
@@ -115,13 +113,14 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    //Create service for login features
     private fun signIn() {
         val intent = googleSignInClient.signInIntent
         startActivityWithGoogle.launch(intent)
     }
 
-    var startActivityWithGoogle = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        result: ActivityResult ->
+    private var startActivityWithGoogle = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            result: ActivityResult ->
 
         if (result.resultCode == RESULT_OK){
             val intent = result.data
@@ -139,7 +138,7 @@ class LoginActivity : AppCompatActivity() {
     private fun loginWithGoogle(token: String) {
         val credential = GoogleAuthProvider.getCredential(token, null)
         auth.signInWithCredential(credential).addOnCompleteListener{
-            task: Task<AuthResult> ->
+                task: Task<AuthResult> ->
             if (task.isSuccessful){
                 openMainActivity()
             }

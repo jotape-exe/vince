@@ -9,4 +9,5 @@
     <string name="user_not_empty">Usuário não pode ser vazio!</string>
     <string name="password_not_empty">Senha não pode ser vazia!</string>
     <string name="invalid_user_or_password">Usuário ou senha inválidos!</string>
+    <string name="name_not_empty">Nome não pode ser vazio!</string>
 </resources>

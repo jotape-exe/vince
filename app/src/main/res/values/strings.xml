@@ -13,4 +13,23 @@
     <string name="email_has_been_registered">Email já foi cadastrado!</string>
     <string name="Password_had_more_than_6_characters">Senha teve mais de 6 caracteres!</string>
     <string name="error_when_registering">Erro ao cadastrar!</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="forgot_password">Esqueci a senha</string>
+    <string name="or">Ou</string>
+    <string name="dont_have_a_login_then_register">Não possui login? \nEntão Cadastre-se</string>
+    <string name="go_register">Faça seu cadastro</string>
+    <string name="name">Nome</string>
+    <string name="register">Cadastrar</string>
+    <string name="already_have_a_register_then_login">ja possui login? \nEntão faça Login</string>
+    <string name="loading">Carregando...</string>
+    <string name="home">Home</string>
+    <string name="insights">Insights</string>
+    <string name="cards">Cards</string>
+    <string name="goals">Goals</string>
+    <string name="settings">Configurações</string>
+    <string name="help">Ajuda</string>
+    <string name="info">Info</string>
+    <string name="logout">Logout</string>
 </resources>

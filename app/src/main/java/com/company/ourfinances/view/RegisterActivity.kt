@@ -7,12 +7,16 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
+import android.util.Log
+import android.view.View
+import android.widget.TextView
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityRegisterBinding
 import com.company.ourfinances.view.assets.LoadingDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -69,6 +73,8 @@ class RegisterActivity : AppCompatActivity() {
         binding.textToLogin.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
+
+
     }
 
     private fun registerWithEmailAndPassword(email: String, password: String) {
@@ -77,13 +83,17 @@ class RegisterActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     loadingDialog.dismissDialog()
                     openMainActivity()
-                } else {
-                    Snackbar.make(
-                        binding.registerMain,
-                        "Email já foi cadastrado!",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                    loadingDialog.dismissDialog()
+                } else{
+                    task.exception?.let { exception ->
+                        when(exception){
+                            is FirebaseAuthUserCollisionException -> showErrorMessage(binding.editEmailRegister, getString(R.string.email_has_been_registered))
+                            is FirebaseAuthWeakPasswordException -> showErrorMessage(binding.editPasswordRegister, getString(R.string.Password_had_more_than_6_characters))
+                            else -> {
+                                Log.e("error: ", exception.toString())
+                                showSnackbarMessage(binding.registerMain, getString(R.string.error_when_registering))
+                            }
+                        }
+                    }
                 }
             }
     }
@@ -92,5 +102,16 @@ class RegisterActivity : AppCompatActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
+
+    private fun showErrorMessage(textView: TextView, message: String) {
+        textView.error = message
+        loadingDialog.dismissDialog()
+    }
+
+    private fun showSnackbarMessage(view: View, message: String){
+        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
+        loadingDialog.dismissDialog()
+    }
+
 
 }

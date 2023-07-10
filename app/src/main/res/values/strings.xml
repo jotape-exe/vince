@@ -6,8 +6,11 @@
     <string name="open_nav">Open</string>
     <string name="close_nav">Close</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="user_not_empty">Usuário não pode ser vazio!</string>
+    <string name="user_not_empty">Email não pode ser vazio!</string>
     <string name="password_not_empty">Senha não pode ser vazia!</string>
-    <string name="invalid_user_or_password">Usuário ou senha inválidos!</string>
+    <string name="invalid_user_or_password">Email ou senha inválidos!</string>
     <string name="name_not_empty">Nome não pode ser vazio!</string>
+    <string name="email_has_been_registered">Email já foi cadastrado!</string>
+    <string name="Password_had_more_than_6_characters">Senha teve mais de 6 caracteres!</string>
+    <string name="error_when_registering">Erro ao cadastrar!</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.company.ourfinances.view
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,8 +8,11 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
+import android.util.Log
+import android.widget.EditText
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityLoginBinding
@@ -83,9 +87,9 @@ class LoginActivity : AppCompatActivity() {
         binding.buttonLogin.setOnClickListener {
             val email = binding.editEmailLogin.text
             val password = binding.editPasswordLogin.text
-            if(TextUtils.isEmpty(email)){
+            if (TextUtils.isEmpty(email)) {
                 binding.editEmailLogin.error = getString(R.string.user_not_empty)
-            } else if(TextUtils.isEmpty(password)){
+            } else if (TextUtils.isEmpty(password)) {
                 binding.editPasswordLogin.error = getString(R.string.password_not_empty)
             } else {
                 loadingDialog.startLoadingDialog()
@@ -97,6 +101,12 @@ class LoginActivity : AppCompatActivity() {
             signIn()
         }
 
+        binding.textForgotPassword.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("email", binding.editEmailLogin.text.toString())
+            startActivity(Intent(this, ForgotPasswordActivity::class.java).putExtras(bundle))
+        }
+
     }
 
     //Create service for login features
@@ -105,27 +115,26 @@ class LoginActivity : AppCompatActivity() {
         startActivityWithGoogle.launch(intent)
     }
 
-    private var startActivityWithGoogle = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            result: ActivityResult ->
+    private var startActivityWithGoogle =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
 
-        if (result.resultCode == RESULT_OK){
-            val intent = result.data
-            val task = GoogleSignIn.getSignedInAccountFromIntent(intent)
+            if (result.resultCode == RESULT_OK) {
+                val intent = result.data
+                val task = GoogleSignIn.getSignedInAccountFromIntent(intent)
 
-            try {
-                val account = task.getResult(ApiException::class.java)
-                loginWithGoogle(account.idToken!!)
-            } catch (e: ApiException){
-
+                try {
+                    val account = task.getResult(ApiException::class.java)
+                    loginWithGoogle(account.idToken!!)
+                } catch (e: ApiException) {
+                    Log.e("error: ",e.toString())
+                }
             }
         }
-    }
 
     private fun loginWithGoogle(token: String) {
         val credential = GoogleAuthProvider.getCredential(token, null)
-        auth.signInWithCredential(credential).addOnCompleteListener{
-                task: Task<AuthResult> ->
-            if (task.isSuccessful){
+        auth.signInWithCredential(credential).addOnCompleteListener { task: Task<AuthResult> ->
+            if (task.isSuccessful) {
                 openMainActivity()
             }
 

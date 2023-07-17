@@ -1,10 +1,10 @@
 package com.company.ourfinances.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -12,17 +12,17 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityMainBinding
-import com.company.ourfinances.view.ui.CardFragment
-import com.company.ourfinances.view.ui.GoalFragment
-import com.company.ourfinances.view.ui.HelpFragment
-import com.company.ourfinances.view.ui.HomeFragment
-import com.company.ourfinances.view.ui.InfoFragment
-import com.company.ourfinances.view.ui.SettingsFragment
-import com.company.ourfinances.view.ui.InsightsFragment
+import com.company.ourfinances.view.fragments.CardFragment
+import com.company.ourfinances.view.fragments.GoalFragment
+import com.company.ourfinances.view.fragments.HelpFragment
+import com.company.ourfinances.view.fragments.HomeFragment
+import com.company.ourfinances.view.fragments.InfoFragment
+import com.company.ourfinances.view.fragments.InsightsFragment
+import com.company.ourfinances.view.fragments.SettingsFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 

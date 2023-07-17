@@ -14,7 +14,6 @@
         android:src="@drawable/ic_vince"
         app:layout_constraintBottom_toTopOf="@+id/text_welcome_register"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,9 +80,8 @@
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:layout_marginTop="70dp"
         android:text="@string/register"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@id/text_to_login"
         app:layout_constraintEnd_toEndOf="parent"

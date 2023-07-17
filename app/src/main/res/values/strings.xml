@@ -23,7 +23,7 @@
     <string name="name">Nome</string>
     <string name="register">Cadastrar</string>
     <string name="already_have_a_register_then_login">ja possui login? \nEntão faça Login</string>
-    <string name="loading">Carregando...</string>
+    <string name="loading">Carregando…</string>
     <string name="home">Home</string>
     <string name="insights">Insights</string>
     <string name="cards">Cards</string>
@@ -32,4 +32,7 @@
     <string name="help">Ajuda</string>
     <string name="info">Info</string>
     <string name="logout">Logout</string>
+    <string name="send_to_email">Enviado!</string>
+    <string name="open_email_app">Abrir email</string>
+    <string name="com_google_android_gm">com.google.android.gm</string>
 </resources>

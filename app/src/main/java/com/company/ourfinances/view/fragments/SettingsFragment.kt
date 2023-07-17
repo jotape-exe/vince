@@ -1,4 +1,4 @@
-package com.company.ourfinances.view.ui
+package com.company.ourfinances.view.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,16 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.company.ourfinances.R
 
-
-class HelpFragment : Fragment() {
-
-
+class SettingsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_help, container, false)
+        return inflater.inflate(R.layout.fragment_settings, container, false)
     }
-
-
 }

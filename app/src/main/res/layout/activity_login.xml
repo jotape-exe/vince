@@ -12,7 +12,7 @@
         android:id="@+id/image_vince"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/ic_vince"
+        android:src="@drawable/logo_vince_clean"
         app:layout_constraintBottom_toTopOf="@+id/text_welcome_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

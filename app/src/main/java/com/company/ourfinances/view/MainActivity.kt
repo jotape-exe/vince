@@ -19,7 +19,6 @@ import com.company.ourfinances.view.fragments.HomeFragment
 import com.company.ourfinances.view.fragments.InfoFragment
 import com.company.ourfinances.view.fragments.InsightsFragment
 import com.company.ourfinances.view.fragments.SettingsFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -114,15 +113,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
-    }
-
-    override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-            //super.getOnBackPressedDispatcher()
-        }
     }
 
 }

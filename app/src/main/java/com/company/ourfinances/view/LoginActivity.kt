@@ -1,19 +1,15 @@
 package com.company.ourfinances.view
 
-import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.util.Log
-import android.widget.EditText
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
-
+import androidx.appcompat.app.AppCompatActivity
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityLoginBinding
 import com.company.ourfinances.model.constants.RemoteConstants
@@ -132,6 +128,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
     private fun loginWithGoogle(token: String) {
+        loadingDialog.startLoadingDialog()
         val credential = GoogleAuthProvider.getCredential(token, null)
         auth.signInWithCredential(credential).addOnCompleteListener { task: Task<AuthResult> ->
             if (task.isSuccessful) {
@@ -148,7 +145,6 @@ class LoginActivity : AppCompatActivity() {
         )
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val user = auth.currentUser
                     openMainActivity()
                 } else {
                     Snackbar.make(

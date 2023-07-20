@@ -81,8 +81,17 @@ class RegisterActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+
+                    val bundle = Bundle()
+
+                    bundle.putString("nome", binding.editNameRegister.text.toString())
+
+                    val intent = Intent(this, MainActivity::class.java)
+
+                    intent.putExtras(bundle)
+
                     loadingDialog.dismissDialog()
-                    openMainActivity()
+                    openMainActivity(intent)
                 } else{
                     task.exception?.let { exception ->
                         when(exception){
@@ -98,8 +107,8 @@ class RegisterActivity : AppCompatActivity() {
             }
     }
 
-    private fun openMainActivity() {
-        startActivity(Intent(this, MainActivity::class.java))
+    private fun openMainActivity(intent: Intent) {
+        startActivity(intent)
         finish()
     }
 

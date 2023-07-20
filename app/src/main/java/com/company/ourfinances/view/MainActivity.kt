@@ -19,6 +19,7 @@ import com.company.ourfinances.view.fragments.HomeFragment
 import com.company.ourfinances.view.fragments.InfoFragment
 import com.company.ourfinances.view.fragments.InsightsFragment
 import com.company.ourfinances.view.fragments.SettingsFragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var fab: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +36,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
+
+        fab = findViewById(R.id.floating_btn)
 
         listeners()
 
@@ -51,6 +55,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun listeners() {
+        fab.setOnClickListener {
+            startActivity(Intent(this, RecordFinancialActivity::class.java))
+        }
     }
 
     private fun setDrawerMenu() {
@@ -75,6 +82,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
     }
 
+    private fun replaceFragment(fragment: Fragment): Boolean {
+        val fragmentManager: FragmentManager = supportFragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_bottom, fragment).commit()
+
+        return true
+    }
+
     private fun setBottomMenu() {
         replaceFragment(HomeFragment())
         binding.bottomNavigationView.background = null
@@ -90,25 +105,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private fun replaceFragment(fragment: Fragment): Boolean {
-        val fragmentManager: FragmentManager = supportFragmentManager
-        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_bottom, fragment).commit()
-
-        return true
-    }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_settings -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, SettingsFragment()).commit()
-
-            R.id.item_help -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, HelpFragment()).commit()
-
-            R.id.item_info -> supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, InfoFragment()).commit()
-
+            R.id.item_settings -> replaceFragment(SettingsFragment())
+            R.id.item_help -> replaceFragment(HelpFragment())
+            R.id.item_info -> replaceFragment(InfoFragment())
             R.id.item_logout -> firebaseLogout()
         }
         drawerLayout.closeDrawer(GravityCompat.START)

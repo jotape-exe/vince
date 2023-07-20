@@ -5,17 +5,18 @@
     android:layout_height="match_parent"
     android:id="@+id/header_title"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/weak_green_2"
-        android:padding="40dp"
-        android:layout_height="170dp">
+        android:layout_height="170dp"
+        android:background="@color/weak_green"
+        android:padding="40dp">
 
         <ImageView
             android:id="@+id/image_person_header"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="18dp"
             android:src="@drawable/user_img"
             app:layout_constraintBottom_toTopOf="@id/text_name_header"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,8 +27,9 @@
             android:id="@+id/text_name_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:layout_margin="8dp"
             android:text="@string/name"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/image_person_header"
             app:layout_constraintStart_toStartOf="parent"

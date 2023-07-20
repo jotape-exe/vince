@@ -3,6 +3,8 @@
     <style name="Base.Theme.OurFinances" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
          <item name="colorPrimary">@color/weak_green_2</item>
+        <item name="colorSecondary">@color/strength_green</item>
+        <item name="colorTertiary">@color/main_green_2</item>
     </style>
 
     <style name="Theme.OurFinances" parent="Base.Theme.OurFinances" />

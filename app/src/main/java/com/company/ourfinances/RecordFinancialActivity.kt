@@ -1,8 +1,7 @@
-package com.company.ourfinances.view
+package com.company.ourfinances
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityRecordFinancialBinding
 
 class RecordFinancialActivity : AppCompatActivity() {
@@ -14,6 +13,7 @@ class RecordFinancialActivity : AppCompatActivity() {
         binding = ActivityRecordFinancialBinding.inflate(layoutInflater)
 
         super.onCreate(savedInstanceState)
+
         setContentView(binding.root)
     }
 }

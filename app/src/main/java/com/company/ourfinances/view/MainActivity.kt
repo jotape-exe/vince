@@ -10,8 +10,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.company.ourfinances.FinanceActivity
 import com.company.ourfinances.R
-import com.company.ourfinances.RecordFinancialActivity
 import com.company.ourfinances.databinding.ActivityMainBinding
 import com.company.ourfinances.view.fragments.CardFragment
 import com.company.ourfinances.view.fragments.GoalFragment
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun listeners() {
         fab.setOnClickListener {
-            startActivity(Intent(this, RecordFinancialActivity::class.java))
+            startActivity(Intent(this, FinanceActivity::class.java))
         }
     }
 

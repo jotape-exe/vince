@@ -13,10 +13,7 @@
         android:theme="@style/Theme.OurFinances"
         tools:targetApi="31">
         <activity
-            android:name=".RecordFinancialActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.RecordFinancialActivity"
+            android:name=".FinanceActivity"
             android:exported="false" />
         <activity
             android:name=".view.ForgotPasswordActivity"

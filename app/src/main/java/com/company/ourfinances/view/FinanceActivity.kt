@@ -1,4 +1,4 @@
-package com.company.ourfinances
+package com.company.ourfinances.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

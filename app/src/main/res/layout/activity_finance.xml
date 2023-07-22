@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="22dp"
-    tools:context=".FinanceActivity">
+    tools:context=".view.FinanceActivity">
 
     <TextView
         android:id="@+id/text_add_record"

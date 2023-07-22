@@ -35,4 +35,5 @@
     <string name="send_to_email">Enviado!</string>
     <string name="open_email_app">Abrir email</string>
     <string name="com_google_android_gm">com.google.android.gm</string>
+    <string name="error_with_google">Erro ao fazer login com google!</string>
 </resources>

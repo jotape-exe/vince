@@ -69,6 +69,13 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+       if (::loadingDialog.isInitialized){
+            loadingDialog.dismissDialog()
+        }
+    }
+
     public override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
@@ -122,7 +129,7 @@ class LoginActivity : AppCompatActivity() {
                     val account = task.getResult(ApiException::class.java)
                     loginWithGoogle(account.idToken!!)
                 } catch (e: ApiException) {
-                    Log.e("error: ",e.toString())
+                    Log.e("error: ", e.toString())
                 }
             }
         }
@@ -147,6 +154,7 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     openMainActivity()
                 } else {
+                    Log.e("erro: ", task.exception.toString())
                     Snackbar.make(
                         binding.loginMain,
                         getString(R.string.invalid_user_or_password),

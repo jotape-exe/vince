@@ -60,6 +60,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
                             Log.e("error: ", task.exception.toString())
                         }
                     }
+                loadingDialog.dismissDialog()
             }
         }
     }

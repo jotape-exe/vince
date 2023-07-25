@@ -10,38 +10,28 @@
     <TextView
         android:id="@+id/text_add_record"
         android:layout_width="match_parent"
-        app:layout_constraintVertical_chainStyle="packed"
         android:layout_height="wrap_content"
         android:text="Novo Registro"
         android:textColor="@color/dark_green"
         android:textSize="26sp"
-        app:layout_constraintBottom_toTopOf="@id/view_separator"
+        app:layout_constraintBottom_toTopOf="@id/tab_finance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
-    <View
-        android:id="@+id/view_separator"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/vibrant_dark_green"
-        app:layout_constraintBottom_toTopOf="@id/tab_finance"
-        app:layout_constraintEnd_toEndOf="@+id/tab_finance"
-        app:layout_constraintStart_toStartOf="@+id/tab_finance"
-        app:layout_constraintTop_toBottomOf="@id/text_add_record" />
 
     <com.google.android.material.tabs.TabLayout
-        android:layout_marginTop="2dp"
         android:id="@+id/tab_finance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="4dp"
         android:theme="@style/Main.Theme.OurFinances"
         app:layout_constraintBottom_toTopOf="@+id/view_pager_finance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_separator">
+        app:layout_constraintTop_toBottomOf="@+id/text_add_record">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -67,6 +57,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tab_finance" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_save_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_shape"
+        android:backgroundTint="@color/weak_green_2"
+        android:contentDescription="Save"
+        app:maxImageSize="30dp"
+        android:src="@drawable/ic_save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

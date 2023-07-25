@@ -26,7 +26,4 @@ class FinanceTabAdapter(fragmentActivity: FragmentActivity) :
     }
 
 
-
-
-
 }

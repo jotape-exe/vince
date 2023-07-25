@@ -14,4 +14,7 @@
         <item name="colorSecondary">@color/vibrant_dark_green</item>
         <item name="colorTertiary">@color/main_green_2</item>
     </style>
+    <style name="ComponentsTheme" parent="Theme.Material3.DayNight">
+        <item name="colorPrimary">@color/light_green</item>
+    </style>
 </resources>

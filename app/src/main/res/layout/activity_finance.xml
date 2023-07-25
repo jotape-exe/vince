@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="22dp"
+    android:padding="18dp"
     tools:context=".view.FinanceActivity">
 
     <TextView
         android:id="@+id/text_add_record"
         android:layout_width="match_parent"
+        app:layout_constraintVertical_chainStyle="packed"
         android:layout_height="wrap_content"
-        android:paddingTop="22dp"
         android:text="Novo Registro"
         android:textColor="@color/dark_green"
         android:textSize="26sp"
+        app:layout_constraintBottom_toTopOf="@id/view_separator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,15 +26,20 @@
         android:layout_height="2dp"
         android:layout_marginTop="8dp"
         android:background="@color/vibrant_dark_green"
-        android:elevation="4dp"
+        app:layout_constraintBottom_toTopOf="@id/tab_finance"
+        app:layout_constraintEnd_toEndOf="@+id/tab_finance"
+        app:layout_constraintStart_toStartOf="@+id/tab_finance"
         app:layout_constraintTop_toBottomOf="@id/text_add_record" />
 
     <com.google.android.material.tabs.TabLayout
+        android:layout_marginTop="2dp"
         android:id="@+id/tab_finance"
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
-        android:theme="@style/Main.Theme.OurFinances"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:theme="@style/Main.Theme.OurFinances"
+        app:layout_constraintBottom_toTopOf="@+id/view_pager_finance"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_separator">
 
@@ -56,7 +62,7 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager_finance"
         android:layout_width="match_parent"
-        android:layout_height="460dp"
+        android:layout_height="600dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

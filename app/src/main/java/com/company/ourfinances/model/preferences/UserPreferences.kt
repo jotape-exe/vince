@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 
 class UserPreferences(context: Context) {
     private val userName: SharedPreferences =
-        context.getSharedPreferences("NameMain", Context.MODE_PRIVATE)
+        context.getSharedPreferences("name", Context.MODE_PRIVATE)
 
     fun putName(key: String, name: String) {
         userName.edit().putString(key, name).apply()

@@ -8,27 +8,27 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentRevenueBinding
-import com.company.ourfinances.view.MainActivity
-import com.google.android.material.datepicker.MaterialDatePicker
-import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
+import com.company.ourfinances.model.entity.FinanceRecordEntity
+import com.company.ourfinances.model.enums.RegisterTypeEnum
+import com.company.ourfinances.view.assets.CustomDatePicker
+import com.company.ourfinances.viewmodel.RevenueFragmentViewModel
+import com.company.ourfinances.viewmodel.service.FabClickListener
 
-class RevenueFragment : Fragment() {
+class RevenueFragment : Fragment(), FabClickListener {
 
     private lateinit var binding: FragmentRevenueBinding
+    private lateinit var viewModel: RevenueFragmentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRevenueBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this)[RevenueFragmentViewModel::class.java]
 
         return binding.root
     }
@@ -36,21 +36,37 @@ class RevenueFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Dados irão vir do SQLite
-        val categoriesList = mutableListOf("Item 1", "Item 2", "item 3")
-        val adapter =
-            activity?.let {
-                ArrayAdapter(
-                    it.applicationContext,
-                    R.layout.style_spinner, categoriesList
-                )
-            }
-
-        binding.spinnerCategory.adapter = adapter
+        adapters()
 
         listeners()
 
+    }
 
+
+    //Revomer logica para viewModel
+    override fun onFabClicked() {
+
+        val financeRecordEntity = FinanceRecordEntity(
+            0,
+            binding.editTitle.text.toString(),
+            binding.editValue.text.toString().toDouble(),
+            null,
+            null,
+            RegisterTypeEnum.REVENUE.value,
+            1, //Selecionar no Spinner
+            1
+        )
+
+        Toast.makeText(requireContext(), "$financeRecordEntity", Toast.LENGTH_LONG).show()
+    }
+
+    private fun adapters() {
+        //Usar SQLITE
+        val categoriesList = mutableListOf("Alimentação", "Lazer", "Moradia")
+        val typePayList = mutableListOf("Cartão 1", "Dinheiro", "Pix")
+
+        binding.spinnerTypePay.adapter = getAdapter(typePayList)
+        binding.spinnerCategory.adapter = getAdapter(categoriesList)
     }
 
     private fun listeners() {
@@ -71,35 +87,23 @@ class RevenueFragment : Fragment() {
         }
 
         binding.buttonDatePicker.setOnClickListener {
-            val materialDatePicker: MaterialDatePicker<Long> =
-                MaterialDatePicker.Builder.datePicker()
-                    .setTitleText("Selecionar Data")
-                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                    .build()
-
-            materialDatePicker.addOnPositiveButtonClickListener { selection ->
-                val calendar = Calendar.getInstance()
-                calendar.timeInMillis = selection
-
-                val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH) + 1
-                val month = calendar.get(Calendar.MONTH) + 1
-                val year = calendar.get(Calendar.YEAR)
-
-                val date: String = String.format(
-                    Locale.getDefault(),
-                    "%02d/%02d/%04d",
-                    dayOfMonth, month, year
-                )
-                binding.buttonDatePicker.text = date
-            }
-
-            activity?.supportFragmentManager?.let { manager ->
-                materialDatePicker.show(
-                    manager,
-                    "tag"
-                )
-            }
+            CustomDatePicker(binding.buttonDatePicker, this)
         }
     }
+
+    private fun observer() {
+
+    }
+
+    private fun getAdapter(itemsList: MutableList<String>): ArrayAdapter<String>? {
+        val adapter = activity?.let {
+            ArrayAdapter(
+                it.applicationContext,
+                R.layout.style_spinner, itemsList
+            )
+        }
+        return adapter
+    }
+
 
 }

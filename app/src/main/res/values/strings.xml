@@ -36,6 +36,10 @@
     <string name="open_email_app">Abrir email</string>
     <string name="com_google_android_gm">com.google.android.gm</string>
     <string name="error_with_google">Erro ao fazer login com google!</string>
+    <string name="value_cannot_be_empty">Valor não pode ser vazio!</string>
+    <string name="title_cannot_be_empty">Título não pode ser vazio!</string>
+    <string name="select_date">Selecionar data</string>
+    <string name="date_cannot_be_empty">Data não pode ser vazia</string>
     <string-array name="categories">
         <item>Item 1</item>
         <item>Item 2</item>

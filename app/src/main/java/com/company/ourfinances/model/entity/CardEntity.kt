@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 )
 data class CardEntity(
     @PrimaryKey(autoGenerate = true)
-    val cardId: Long = 0,
+    var cardId: Long = 0,
     val name: String,
     val cardType: String,
     val cardNumber: String

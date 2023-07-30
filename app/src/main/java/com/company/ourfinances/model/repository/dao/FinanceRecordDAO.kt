@@ -16,7 +16,7 @@ interface FinanceRecordDAO{
     fun update(financeRecordEntity: FinanceRecordEntity)
 
     @Delete
-    fun delete(id: Int)
+    fun delete(financeRecordEntity: FinanceRecordEntity)
 
     @Query("SELECT * FROM finance_records WHERE recordId = :recordId")
     fun getRecordById(recordId: Long): FinanceRecordEntity

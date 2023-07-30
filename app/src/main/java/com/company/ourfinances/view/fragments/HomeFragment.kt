@@ -5,15 +5,70 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.company.ourfinances.R
+import com.company.ourfinances.databinding.FragmentHomeBinding
+import com.company.ourfinances.view.HomeComponent
+import com.company.ourfinances.view.adapters.HomeComponentAdapter
 
+private lateinit var adapter: HomeComponentAdapter
+private lateinit var recyclerView: RecyclerView
+private lateinit var componetsList: ArrayList<HomeComponent>
+
+lateinit var imageId: Array<Int>
+lateinit var textBtn: Array<String>
+lateinit var textTitle: Array<String>
 
 class HomeFragment : Fragment() {
 
+    private lateinit var binding: FragmentHomeBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        dataInitialzr()
+        val layoutManager = LinearLayoutManager(context)
+        recyclerView = view.findViewById(R.id.recycler_home)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.setHasFixedSize(true)
+        adapter = HomeComponentAdapter(componetsList)
+        recyclerView.adapter = adapter
+    }
+
+    private fun dataInitialzr() {
+        componetsList = arrayListOf()
+
+        imageId = arrayOf(
+            R.drawable.ic_calendar_month,
+            R.drawable.ic_lock,
+            R.drawable.ic_home
+        )
+
+        textBtn = arrayOf(
+            "Ver despesas",
+            "Ver Receitas",
+            "Ver Transferencias"
+        )
+
+        textTitle = arrayOf(
+            "Despesas",
+            "Receitas",
+            "Transferencias"
+        )
+
+        for (item in imageId.indices) {
+            val component = HomeComponent(textTitle[item], textBtn[item], imageId[item])
+            componetsList.add(component)
+        }
+    }
+
 }

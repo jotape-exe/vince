@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.company.ourfinances.databinding.ActivityFinanceBinding
 import com.company.ourfinances.view.adapters.FinanceTabAdapter
+import com.company.ourfinances.view.fragments.ExpenseFragment
 import com.company.ourfinances.view.fragments.RevenueFragment
+import com.company.ourfinances.view.fragments.TransferFragment
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 import com.google.android.material.tabs.TabLayout
 
@@ -43,17 +45,16 @@ class FinanceActivity : AppCompatActivity() {
 
     private fun listeners() {
 
-        tabLayout.addOnTabSelectedListener( object : TabLayout.OnTabSelectedListener{
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) {
                     viewPager2.currentItem = tab.position
                     //Depuração
-                    Log.i("info:","Selecionado -> ${viewPager2.currentItem}")
+                    Log.i("info:", "Selecionado -> ${viewPager2.currentItem}")
                 }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -62,7 +63,7 @@ class FinanceActivity : AppCompatActivity() {
 
         })
 
-        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 tabLayout.getTabAt(position)?.select()
@@ -77,24 +78,32 @@ class FinanceActivity : AppCompatActivity() {
             when (currentPosition) {
                 0 -> {
                     val revenueFragment = currentFragment as? RevenueFragment
-                    revenueFragment?.let {
-                        it.onFabClicked()
+
+                    val data = revenueFragment?.getData()
+
+                    if (data != null){
+                        viewModel.insert(data)
                     }
-
-                    viewModel.save()
-
                 }
+
                 1 -> {
+                    val expenseFragment = currentFragment as? ExpenseFragment
+                    expenseFragment?.let {
 
+                    }
                 }
-                2 -> {
 
+                2 -> {
+                    val transferFragment = currentFragment as? TransferFragment
+                    transferFragment?.let {
+
+                    }
                 }
             }
         }
     }
 
-    private fun observer(){
+    private fun observer() {
 
     }
 }

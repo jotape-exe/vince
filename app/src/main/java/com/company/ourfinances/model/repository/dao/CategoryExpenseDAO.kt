@@ -17,7 +17,7 @@ interface CategoryExpenseDAO {
     fun update(categoryExpenseEntity: CategoryExpenseEntity)
 
     @Delete
-    fun delete(id: Long)
+    fun delete(categoryExpenseEntity: CategoryExpenseEntity)
 
     @Query("SELECT * FROM expense_records")
     fun getAllCategories():List<CategoryExpenseEntity>

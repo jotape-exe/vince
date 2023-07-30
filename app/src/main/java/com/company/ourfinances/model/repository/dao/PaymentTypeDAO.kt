@@ -17,7 +17,7 @@ interface PaymentTypeDAO {
     fun update(paymentType: PaymentTypeEntity)
 
     @Delete
-    fun delete(id: Int)
+    fun delete(paymentType: PaymentTypeEntity)
 
     @Query("SELECT * FROM payment_types")
     fun getAllPaymentTypes():List<PaymentTypeEntity>

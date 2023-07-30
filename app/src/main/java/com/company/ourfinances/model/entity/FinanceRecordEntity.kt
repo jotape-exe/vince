@@ -24,9 +24,10 @@ import androidx.room.PrimaryKey
 )
 data class FinanceRecordEntity(
     @PrimaryKey(autoGenerate = true)
-    val recordId: Long = 0,
+    var recordId: Long = 0,
     val title: String,
     val value: Double,
+    val dateRecord: String,
     val originAccount: String?,
     val destinationAccount: String?,
     val typeRecord: String,

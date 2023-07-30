@@ -1,7 +1,7 @@
 package com.company.ourfinances.view.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +9,13 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentRevenueBinding
+import com.company.ourfinances.model.entity.CategoryExpenseEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
+import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.view.assets.CustomDatePicker
 import com.company.ourfinances.viewmodel.RevenueFragmentViewModel
@@ -23,6 +26,9 @@ class RevenueFragment : Fragment(), FabClickListener {
     private lateinit var binding: FragmentRevenueBinding
     private lateinit var viewModel: RevenueFragmentViewModel
 
+    private lateinit var paymentTypes: List<PaymentTypeEntity>
+    private lateinit var categoryExpense: List<CategoryExpenseEntity>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,47 +36,73 @@ class RevenueFragment : Fragment(), FabClickListener {
         binding = FragmentRevenueBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[RevenueFragmentViewModel::class.java]
 
+        viewModel.getAllCategories()
+        viewModel.getAllTypePayments()
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapters()
+        observe()
 
         listeners()
 
     }
 
-
     //Revomer logica para viewModel
-    override fun onFabClicked() {
+    override fun getData(): FinanceRecordEntity? {
+        if (TextUtils.isEmpty(binding.editTitle.text)) {
+            binding.editTitle.error = getString(R.string.title_cannot_be_empty)
+            return null
+        } else if (TextUtils.isEmpty(binding.editValue.text)) {
+            binding.editValue.error = getString(R.string.value_cannot_be_empty)
+            return null
+        } else if (TextUtils.equals(
+                binding.buttonDatePicker.text,
+                activity?.getString(R.string.select_date)
+            )
+        ) {
+            binding.buttonDatePicker.error = getString(R.string.date_cannot_be_empty)
+            return null
+        }
 
         val financeRecordEntity = FinanceRecordEntity(
             0,
             binding.editTitle.text.toString(),
             binding.editValue.text.toString().toDouble(),
+            binding.buttonDatePicker.text.toString(),
             null,
             null,
             RegisterTypeEnum.REVENUE.value,
-            1, //Selecionar no Spinner
-            1
+            getIdCategoryExpenseFromName(binding.spinnerCategory.selectedItem.toString(), categoryExpense),
+            getIdPaymentTypeFromName(binding.spinnerTypePay.selectedItem.toString(), paymentTypes)
         )
 
         Toast.makeText(requireContext(), "$financeRecordEntity", Toast.LENGTH_LONG).show()
-    }
 
-    private fun adapters() {
-        //Usar SQLITE
-        val categoriesList = mutableListOf("Alimentação", "Lazer", "Moradia")
-        val typePayList = mutableListOf("Cartão 1", "Dinheiro", "Pix")
-
-        binding.spinnerTypePay.adapter = getAdapter(typePayList)
-        binding.spinnerCategory.adapter = getAdapter(categoriesList)
+        return financeRecordEntity
     }
 
     private fun listeners() {
         binding.spinnerCategory.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+        }
+
+        binding.spinnerTypePay.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -91,11 +123,22 @@ class RevenueFragment : Fragment(), FabClickListener {
         }
     }
 
-    private fun observer() {
+    private fun observe() {
+        viewModel.categoryExpense.observe(viewLifecycleOwner) {
+            categoryExpense = it
+            val nameCategoriesList:List<String> = categoryExpense.map { item -> item.name }
+            binding.spinnerCategory.adapter = getAdapter(nameCategoriesList)
+        }
+
+        viewModel.typePay.observe(viewLifecycleOwner) {
+            paymentTypes = it
+            val namePaymentList:List<String> = paymentTypes.map { item -> item.name }
+            binding.spinnerTypePay.adapter = getAdapter(namePaymentList)
+        }
 
     }
 
-    private fun getAdapter(itemsList: MutableList<String>): ArrayAdapter<String>? {
+    private fun getAdapter(itemsList: List<String>): ArrayAdapter<String>? {
         val adapter = activity?.let {
             ArrayAdapter(
                 it.applicationContext,
@@ -103,6 +146,17 @@ class RevenueFragment : Fragment(), FabClickListener {
             )
         }
         return adapter
+    }
+
+    //Refatorar 
+    private fun getIdCategoryExpenseFromName(name: String, itemList: List<CategoryExpenseEntity>): Long? {
+        val item = itemList.find { it.name == name }
+        return item?.id
+    }
+
+    private fun getIdPaymentTypeFromName(name: String, itemList: List<PaymentTypeEntity>): Long? {
+        val item = itemList.find { it.name == name }
+        return item?.paymentId
     }
 
 

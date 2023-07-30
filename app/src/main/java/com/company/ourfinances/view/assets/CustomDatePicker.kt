@@ -10,7 +10,6 @@ import java.util.Locale
 class CustomDatePicker(button: MaterialButton, fragment: Fragment) {
 
     init {
-        button.setOnClickListener {
             val materialDatePicker: MaterialDatePicker<Long> =
                 MaterialDatePicker.Builder.datePicker()
                     .setTitleText("Selecionar Data")
@@ -36,7 +35,6 @@ class CustomDatePicker(button: MaterialButton, fragment: Fragment) {
             fragment.activity?.supportFragmentManager?.let { manager ->
                 materialDatePicker.show( manager, "tag")
             }
-        }
     }
 
 

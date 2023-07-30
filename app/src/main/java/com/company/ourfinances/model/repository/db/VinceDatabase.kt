@@ -10,6 +10,9 @@ import com.company.ourfinances.model.entity.CardEntity
 import com.company.ourfinances.model.entity.CategoryExpenseEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
+import com.company.ourfinances.model.repository.dao.CategoryExpenseDAO
+import com.company.ourfinances.model.repository.dao.FinanceRecordDAO
+import com.company.ourfinances.model.repository.dao.PaymentTypeDAO
 
 @Database(
     entities = [
@@ -20,7 +23,11 @@ import com.company.ourfinances.model.entity.FinanceRecordEntity
     ],
     version = VinceDatabase.VERSION
 )
-abstract class VinceDatabase: RoomDatabase() {
+abstract class VinceDatabase : RoomDatabase() {
+
+    abstract fun getFinanceRecordDAO(): FinanceRecordDAO
+    abstract fun getCategoryExpenseDAO(): CategoryExpenseDAO
+    abstract fun getPaymentTypeDAO(): PaymentTypeDAO
 
     companion object {
         private lateinit var INSTANCE: VinceDatabase
@@ -30,10 +37,11 @@ abstract class VinceDatabase: RoomDatabase() {
                 if (!::INSTANCE.isInitialized) {
                     INSTANCE = Room.databaseBuilder(context, VinceDatabase::class.java, DB_NAME)
                         .allowMainThreadQueries()
-                        .addCallback(object : Callback(){
+                        .addCallback(object : Callback() {
                             override fun onCreate(db: SupportSQLiteDatabase) {
                                 super.onCreate(db)
-                                db.execSQL("INSERT INTO expense_records (name) VALUES ('ALIMENTACAO'), ('MORADIA'), ('TRANSPORTE'), ('LAZER'), ('INVESTIMENTOS'), ('COMPRAS'), ('VEICULO')")
+                                db.execSQL("INSERT INTO expense_records (name) VALUES ('Alimentação'), ('Moradia'), ('Transporte'), ('Lazer'), ('Investimentos'), ('Compras'), ('Veículo')")
+                                db.execSQL("INSERT INTO payment_types (name) VALUES ('Pix'), ('Dinheiro'), ('Boleto')")
                             }
                         })
                         .build()

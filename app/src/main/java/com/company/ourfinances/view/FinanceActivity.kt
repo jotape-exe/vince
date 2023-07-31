@@ -71,6 +71,7 @@ class FinanceActivity : AppCompatActivity() {
         })
 
         binding.fabSaveRegister.setOnClickListener {
+
             val currentPosition = viewPager2.currentItem
             val currentFragmentTag = "f$currentPosition"
             val currentFragment = supportFragmentManager.findFragmentByTag(currentFragmentTag)

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentHomeBinding
 import com.company.ourfinances.view.HomeComponent
@@ -15,7 +14,7 @@ import com.company.ourfinances.view.adapters.HomeComponentAdapter
 
 private lateinit var adapter: HomeComponentAdapter
 private lateinit var recyclerView: RecyclerView
-private lateinit var componetsList: ArrayList<HomeComponent>
+private lateinit var componentsList: ArrayList<HomeComponent>
 
 lateinit var imageId: Array<Int>
 lateinit var textBtn: Array<String>
@@ -36,21 +35,25 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dataInitialzr()
+
         val layoutManager = LinearLayoutManager(context)
+
         recyclerView = view.findViewById(R.id.recycler_home)
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
-        adapter = HomeComponentAdapter(componetsList)
-        recyclerView.adapter = adapter
-    }
 
+        adapter = HomeComponentAdapter(componentsList)
+        recyclerView.adapter = adapter
+
+
+    }
     private fun dataInitialzr() {
-        componetsList = arrayListOf()
+        componentsList = arrayListOf()
 
         imageId = arrayOf(
-            R.drawable.ic_calendar_month,
-            R.drawable.ic_lock,
-            R.drawable.ic_home
+            R.drawable.ic_expense,
+            R.drawable.ic_money,
+            R.drawable.ic_transfer
         )
 
         textBtn = arrayOf(
@@ -67,7 +70,7 @@ class HomeFragment : Fragment() {
 
         for (item in imageId.indices) {
             val component = HomeComponent(textTitle[item], textBtn[item], imageId[item])
-            componetsList.add(component)
+            componentsList.add(component)
         }
     }
 

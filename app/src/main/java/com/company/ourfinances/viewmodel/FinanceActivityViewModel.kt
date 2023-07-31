@@ -12,4 +12,8 @@ class FinanceActivityViewModel(application: Application) : AndroidViewModel(appl
         repository.save(recordEntity)
     }
 
+    fun getAll():List<FinanceRecordEntity>{
+        return repository.findAll()
+    }
+
 }

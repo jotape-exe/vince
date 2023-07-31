@@ -59,11 +59,7 @@ class RevenueFragment : Fragment(), FabClickListener {
         } else if (TextUtils.isEmpty(binding.editValue.text)) {
             binding.editValue.error = getString(R.string.value_cannot_be_empty)
             return null
-        } else if (TextUtils.equals(
-                binding.buttonDatePicker.text,
-                activity?.getString(R.string.select_date)
-            )
-        ) {
+        } else if (TextUtils.equals(binding.buttonDatePicker.text, getString(R.string.select_date))) {
             binding.buttonDatePicker.error = getString(R.string.date_cannot_be_empty)
             return null
         }

@@ -22,4 +22,7 @@ interface CategoryExpenseDAO {
     @Query("SELECT * FROM expense_records")
     fun getAllCategories():List<CategoryExpenseEntity>
 
+    @Query("SELECT * FROM expense_records WHERE id = :id")
+    fun findById(id: Long): CategoryExpenseEntity
+
 }

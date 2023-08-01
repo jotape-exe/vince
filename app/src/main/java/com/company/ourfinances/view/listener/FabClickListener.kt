@@ -1,4 +1,4 @@
-package com.company.ourfinances.viewmodel.service
+package com.company.ourfinances.view.listener
 
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 

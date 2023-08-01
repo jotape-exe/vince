@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/record_finance_view_component"
+    android:layout_margin="18dp"
+    android:layout_height="200dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/radius_shape"
+        android:backgroundTint="@color/light_green"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/text_title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_important"
+            android:drawablePadding="4dp"
+            android:text="TITULO"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/text_date_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_tag_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TAG"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/button_delete_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteY="8dp" />
+
+        <TextView
+            android:id="@+id/text_date_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_calendar_month"
+            android:drawablePadding="4dp"
+            android:text="DATA"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/text_value_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_title_view" />
+
+        <TextView
+            android:id="@+id/text_value_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_money"
+            android:drawablePadding="4dp"
+            android:text="VALOR"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_date_view" />
+
+        <ImageButton
+            android:id="@+id/button_delete_view"
+            android:layout_width="90dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@color/red"
+            android:contentDescription="Delete Item"
+            android:src="@drawable/ic_delete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_tag_record"
+            app:tint="@color/dark_red" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

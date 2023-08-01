@@ -10,4 +10,8 @@ class CategoryExpenseRepository(context: Context) {
     fun getAll(): List<CategoryExpenseEntity>{
         return database.getAllCategories()
     }
+
+    fun findById(id: Long): CategoryExpenseEntity{
+        return database.findById(id)
+    }
 }

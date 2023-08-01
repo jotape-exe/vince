@@ -19,7 +19,7 @@ import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.view.assets.CustomDatePicker
 import com.company.ourfinances.viewmodel.RevenueFragmentViewModel
-import com.company.ourfinances.viewmodel.service.FabClickListener
+import com.company.ourfinances.view.listener.FabClickListener
 
 class RevenueFragment : Fragment(), FabClickListener {
 
@@ -120,7 +120,7 @@ class RevenueFragment : Fragment(), FabClickListener {
     }
 
     private fun observe() {
-        viewModel.categoryExpense.observe(viewLifecycleOwner) {
+        viewModel.categoryExpenseList.observe(viewLifecycleOwner) {
             categoryExpense = it
             val nameCategoriesList:List<String> = categoryExpense.map { item -> item.name }
             binding.spinnerCategory.adapter = getAdapter(nameCategoriesList)

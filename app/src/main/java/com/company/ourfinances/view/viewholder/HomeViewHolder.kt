@@ -1,16 +1,20 @@
 package com.company.ourfinances.view.viewholder
 
-import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.company.ourfinances.R
+import com.company.ourfinances.databinding.HomeListItemBinding
+import com.company.ourfinances.view.HomeComponent
+import com.company.ourfinances.view.fragments.imageId
+import com.company.ourfinances.view.listener.OnComponentHomeListener
 
-class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class HomeViewHolder(private var bind: HomeListItemBinding, private val listener: OnComponentHomeListener) : RecyclerView.ViewHolder(bind.root) {
+    fun bind(component: HomeComponent) {
+        bind.textTitle.text = component.title
+        bind.imageComponentHome.setImageResource(component.icon)
+        bind.buttonComponentHome.text = component.buttonText
 
-    val titleComponent: TextView = itemView.findViewById(R.id.text_title)
-    val iconComponent: ImageView = itemView.findViewById(R.id.image_component_home)
-    val buttonComponent: Button = itemView.findViewById(R.id.button_component_home)
+        bind.buttonComponentHome.setOnClickListener {
+            listener.onClick(component.title)
+        }
+    }
 
 }

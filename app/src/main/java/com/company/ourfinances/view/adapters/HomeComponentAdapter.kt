@@ -4,24 +4,35 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.company.ourfinances.R
+import com.company.ourfinances.databinding.FinaceRecordViewItemBinding
+import com.company.ourfinances.databinding.HomeListItemBinding
+import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.view.HomeComponent
+import com.company.ourfinances.view.listener.OnComponentHomeListener
 import com.company.ourfinances.view.viewholder.HomeViewHolder
 
-class HomeComponentAdapter(private val componentsList: List<HomeComponent>): RecyclerView.Adapter<HomeViewHolder>() {
+class HomeComponentAdapter(): RecyclerView.Adapter<HomeViewHolder>() {
+
+    private var _componentsList: List<HomeComponent> = arrayListOf()
+    private lateinit var listener: OnComponentHomeListener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.home_list_item, parent, false)
-        return HomeViewHolder(itemView)
+        val itemView = HomeListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return HomeViewHolder(itemView, listener)
     }
 
     override fun getItemCount(): Int {
-        return componentsList.size
+        return _componentsList.size
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        val currentItem = componentsList[position]
+        holder.bind(_componentsList[position])
+    }
 
-        holder.titleComponent.text = currentItem.title
-        holder.buttonComponent.text = currentItem.buttonText
-        holder.iconComponent.setImageResource(currentItem.icon)
+    fun updateList(componentList: List<HomeComponent>) {
+        _componentsList = componentList
+    }
+
+    fun attachToListener(componentListener: OnComponentHomeListener){
+        listener = componentListener
     }
 }

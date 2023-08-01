@@ -1,16 +1,20 @@
 package com.company.ourfinances.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentHomeBinding
 import com.company.ourfinances.view.HomeComponent
+import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.adapters.HomeComponentAdapter
+import com.company.ourfinances.view.listener.OnComponentHomeListener
 
 private lateinit var adapter: HomeComponentAdapter
 private lateinit var recyclerView: RecyclerView
@@ -29,6 +33,8 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+
+
         return binding.root
     }
 
@@ -42,11 +48,50 @@ class HomeFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(true)
 
-        adapter = HomeComponentAdapter(componentsList)
+        adapter = HomeComponentAdapter()
         recyclerView.adapter = adapter
 
+        listeners()
+
+        adapter.updateList(componentsList)
+
+        val listener = object : OnComponentHomeListener {
+            override fun onClick(fragmentIdentifier: String) {
+
+                val bundle = Bundle()
+
+                when (fragmentIdentifier) {
+                    "Despesas" -> {
+                        bundle.putString("fragmentIdentifier", "Despesas")
+                    }
+
+                    "Receitas" -> {
+                        bundle.putString("fragmentIdentifier", "Receitas")
+                    }
+
+                    "Transferencias" -> {
+                        bundle.putString("fragmentIdentifier", "Transferencias")
+                    }
+                }
+
+                activity!!.startActivity(
+                    Intent(
+                        activity!!.applicationContext,
+                        ShowRecordListActivity::class.java
+                    ).putExtras(bundle)
+                )
+            }
+        }
+
+        adapter.attachToListener(listener)
 
     }
+
+
+    private fun listeners() {
+
+    }
+
     private fun dataInitialzr() {
         componentsList = arrayListOf()
 

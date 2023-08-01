@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/radius_shape"
-        android:backgroundTint="@color/light_green"
+        android:backgroundTint="@color/light_green_2"
         android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,13 +21,13 @@
             android:id="@+id/text_title_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_important"
             android:drawablePadding="4dp"
             android:text="TITULO"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/text_date_view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableStartCompat="@drawable/ic_important" />
 
         <TextView
             android:id="@+id/text_tag_record"
@@ -44,25 +44,25 @@
             android:id="@+id/text_date_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_calendar_month"
             android:drawablePadding="4dp"
             android:text="DATA"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/text_value_view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_title_view" />
+            app:layout_constraintTop_toBottomOf="@id/text_title_view"
+            app:drawableStartCompat="@drawable/ic_calendar_month" />
 
         <TextView
             android:id="@+id/text_value_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_money"
             android:drawablePadding="4dp"
             android:text="VALOR"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_date_view" />
+            app:layout_constraintTop_toBottomOf="@id/text_date_view"
+            app:drawableStartCompat="@drawable/ic_money" />
 
         <ImageButton
             android:id="@+id/button_delete_view"
@@ -70,7 +70,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="40dp"
             android:backgroundTint="@color/red"
-            android:contentDescription="Delete Item"
+            android:contentDescription="@string/delete_item"
             android:src="@drawable/ic_delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

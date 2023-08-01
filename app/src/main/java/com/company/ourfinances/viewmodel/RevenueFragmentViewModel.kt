@@ -14,6 +14,7 @@ import com.company.ourfinances.model.repository.PaymentTypeRepository
 
 
 class RevenueFragmentViewModel(application: Application) : AndroidViewModel(application) {
+
     private val financeRepository = FinanceRecordRepository(application.applicationContext)
     private val categoryRepository = CategoryExpenseRepository(application.applicationContext)
     private val paymentTypeRepository = PaymentTypeRepository(application.applicationContext)
@@ -33,7 +34,7 @@ class RevenueFragmentViewModel(application: Application) : AndroidViewModel(appl
 
     fun getAllRecords(){
         _financeRecord.value = financeRepository.findAll()
-    }
+   }
 
     fun getAllCategories(){
         _categoryExpenseList.value = categoryRepository.getAll()
@@ -46,6 +47,19 @@ class RevenueFragmentViewModel(application: Application) : AndroidViewModel(appl
     fun getCategoryById(id: Long){
         _categoryExpense.value = categoryRepository.findById(id)
     }
+
+    fun getAllByExpenseCategory(typeRecord: String) {
+        _financeRecord.value = financeRepository.getAllByExpenseCategory(typeRecord)
+    }
+
+    fun delete(id: Long) {
+        financeRepository.delete(id)
+    }
+
+    fun getById(id: Long): FinanceRecordEntity {
+        return financeRepository.findById(id)
+    }
+
 
 
 }

@@ -33,6 +33,7 @@ class FinanceRecordAdapter(
 
     fun updateList(list: List<FinanceRecordEntity>) {
         _list = list
+        notifyDataSetChanged()
     }
 
     fun attachToListener(itemListener: OnFinanceRecordListener){

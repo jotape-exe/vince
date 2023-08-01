@@ -40,6 +40,7 @@
     <string name="title_cannot_be_empty">Título não pode ser vazio!</string>
     <string name="select_date">Selecionar data</string>
     <string name="date_cannot_be_empty">Data não pode ser vazia</string>
+    <string name="delete_item">Delete Item</string>
     <string-array name="categories">
         <item>Item 1</item>
         <item>Item 2</item>

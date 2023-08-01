@@ -23,4 +23,7 @@ interface FinanceRecordDAO{
 
     @Query("SELECT * FROM finance_records")
     fun getAllRecords(): List<FinanceRecordEntity>
+
+    @Query("SELECT * FROM finance_records WHERE typeRecord = :typeRecord")
+    fun getAllByExpenseCategory(typeRecord: String): List<FinanceRecordEntity>
 }

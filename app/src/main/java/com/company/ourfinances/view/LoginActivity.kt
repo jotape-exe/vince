@@ -57,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
         binding.textRegister.apply {
             val coloredText = SpannableString(fullTextRegister)
             coloredText.setSpan(
-                ForegroundColorSpan(getColor(R.color.main_dark_green)),
+                ForegroundColorSpan(getColor(R.color.variant_green)),
                 25,
                 36,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE

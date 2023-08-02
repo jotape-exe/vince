@@ -41,6 +41,12 @@
     <string name="select_date">Selecionar data</string>
     <string name="date_cannot_be_empty">Data não pode ser vazia</string>
     <string name="delete_item">Delete Item</string>
+    <string name="edit_item">Edit Item</string>
+    <string name="next">Next</string>
+    <string name="fragmentidentifier">fragmentIdentifier</string>
+    <string name="show_expense">Ver Despesas</string>
+    <string name="show_revenue">Ver Receitas</string>
+    <string name="show_trasnfer">Ver Transferencias</string>
     <string-array name="categories">
         <item>Item 1</item>
         <item>Item 2</item>

@@ -17,4 +17,8 @@
     <color name="dark_green">#014815</color>
     <color name="red">#FF0000</color>
     <color name="dark_red">#4C0303</color>
+    <color name="variant_green">#03835F</color>
+    <color name="variant_green_2">#A2D1C4</color>
+    <color name="variant_green_3">#04533D</color>
+    <color name="variant_green_4">#C8E8DF</color>
 </resources>

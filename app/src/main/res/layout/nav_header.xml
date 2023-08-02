@@ -9,8 +9,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:background="@color/weak_green"
-        android:padding="40dp">
+        android:background="@color/variant_green_3"
+        android:padding="20dp">
 
         <ImageView
             android:id="@+id/image_person_header"

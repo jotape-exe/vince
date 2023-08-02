@@ -6,11 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentHomeBinding
+import com.company.ourfinances.model.enums.RegisterTypeEnum
+import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.view.HomeComponent
 import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.adapters.HomeComponentAdapter
@@ -21,7 +22,7 @@ private lateinit var recyclerView: RecyclerView
 private lateinit var componentsList: ArrayList<HomeComponent>
 
 lateinit var imageId: Array<Int>
-lateinit var textBtn: Array<String>
+lateinit var textDescription: Array<String>
 lateinit var textTitle: Array<String>
 
 class HomeFragment : Fragment() {
@@ -61,16 +62,16 @@ class HomeFragment : Fragment() {
                 val bundle = Bundle()
 
                 when (fragmentIdentifier) {
-                    "Despesas" -> {
-                        bundle.putString("fragmentIdentifier", "Despesas")
+                    TitleEnum.DESPESA.value -> {
+                        bundle.putString(getString(R.string.fragmentidentifier), TitleEnum.DESPESA.value)
                     }
 
-                    "Receitas" -> {
-                        bundle.putString("fragmentIdentifier", "Receitas")
+                    TitleEnum.RECEITA.value -> {
+                        bundle.putString(getString(R.string.fragmentidentifier), TitleEnum.RECEITA.value)
                     }
 
-                    "Transferencias" -> {
-                        bundle.putString("fragmentIdentifier", "Transferencias")
+                    TitleEnum.TRANSFERENCIA.value -> {
+                        bundle.putString(getString(R.string.fragmentidentifier), TitleEnum.TRANSFERENCIA.value)
                     }
                 }
 
@@ -101,20 +102,20 @@ class HomeFragment : Fragment() {
             R.drawable.ic_transfer
         )
 
-        textBtn = arrayOf(
-            "Ver despesas",
-            "Ver Receitas",
-            "Ver Transferencias"
+        textDescription = arrayOf(
+            getString(R.string.show_expense),
+            getString(R.string.show_revenue),
+            getString(R.string.show_trasnfer)
         )
 
         textTitle = arrayOf(
-            "Despesas",
-            "Receitas",
-            "Transferencias"
+            TitleEnum.DESPESA.value,
+            TitleEnum.RECEITA.value,
+            TitleEnum.TRANSFERENCIA.value
         )
 
         for (item in imageId.indices) {
-            val component = HomeComponent(textTitle[item], textBtn[item], imageId[item])
+            val component = HomeComponent(textTitle[item], textDescription[item], imageId[item])
             componentsList.add(component)
         }
     }

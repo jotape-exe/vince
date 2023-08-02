@@ -10,9 +10,9 @@ class HomeViewHolder(private var bind: HomeListItemBinding, private val listener
     fun bind(component: HomeComponent) {
         bind.textTitle.text = component.title
         bind.imageComponentHome.setImageResource(component.icon)
-        bind.buttonComponentHome.text = component.buttonText
+        bind.textComponentHome.text = component.descriptionText
 
-        bind.buttonComponentHome.setOnClickListener {
+        bind.buttonNext.setOnClickListener {
             listener.onClick(component.title)
         }
     }

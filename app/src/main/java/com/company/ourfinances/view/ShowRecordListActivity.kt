@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityShowRecordListBinding
+import com.company.ourfinances.model.enums.RegisterTypeEnum
+import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.view.fragments.ExpenseListFragment
 import com.company.ourfinances.view.fragments.RevenueListFragment
 import com.company.ourfinances.view.fragments.TransferListFragment
@@ -21,10 +23,10 @@ class ShowRecordListActivity : AppCompatActivity() {
         binding = ActivityShowRecordListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        when (intent.getStringExtra("fragmentIdentifier")) {
-            "Despesas" -> replaceFragment(ExpenseListFragment())
-            "Receitas" -> replaceFragment(RevenueListFragment())
-            "Transferencias" -> replaceFragment(TransferListFragment())
+        when (intent.getStringExtra(getString(R.string.fragmentidentifier))) {
+            TitleEnum.DESPESA.value  -> replaceFragment(ExpenseListFragment())
+            TitleEnum.RECEITA.value  -> replaceFragment(RevenueListFragment())
+            TitleEnum.TRANSFERENCIA.value -> replaceFragment(TransferListFragment())
         }
     }
 

@@ -62,7 +62,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floating_btn"
             android:layout_width="wrap_content"
-            android:backgroundTint="@color/main_dark_green"
+            android:backgroundTint="@color/variant_green"
             android:src="@drawable/ic_add"
             app:layout_anchor="@id/bottom_app_bar"
             app:maxImageSize="40dp"
@@ -77,8 +77,8 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/nav_menu"
-        app:itemTextColor="@color/main_dark_green"
-        app:itemIconTint="@color/main_dark_green"
+        app:itemTextColor="@color/variant_green_3"
+        app:itemIconTint="@color/variant_green_3"
         android:layout_height="match_parent"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

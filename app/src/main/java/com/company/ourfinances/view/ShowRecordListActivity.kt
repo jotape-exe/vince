@@ -24,8 +24,8 @@ class ShowRecordListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         when (intent.getStringExtra(getString(R.string.fragmentidentifier))) {
-            TitleEnum.DESPESA.value  -> replaceFragment(ExpenseListFragment())
-            TitleEnum.RECEITA.value  -> replaceFragment(RevenueListFragment())
+            TitleEnum.DESPESA.value -> replaceFragment(ExpenseListFragment())
+            TitleEnum.RECEITA.value -> replaceFragment(RevenueListFragment())
             TitleEnum.TRANSFERENCIA.value -> replaceFragment(TransferListFragment())
         }
     }

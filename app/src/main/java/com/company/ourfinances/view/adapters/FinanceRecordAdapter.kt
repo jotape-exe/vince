@@ -13,18 +13,25 @@ import com.company.ourfinances.viewmodel.RevenueFragmentViewModel
 
 class FinanceRecordAdapter(
     private val viewModel: RevenueFragmentViewModel
-): RecyclerView.Adapter<FinanceRecordViewHolder>() {
+) : RecyclerView.Adapter<FinanceRecordViewHolder>() {
 
     private var _list: List<FinanceRecordEntity> = listOf()
     private lateinit var listener: OnFinanceRecordListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FinanceRecordViewHolder {
-        val itemView = FinaceRecordViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemView = FinaceRecordViewItemBinding
+            .inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
         return FinanceRecordViewHolder(itemView, viewModel, listener)
     }
 
     override fun onBindViewHolder(holder: FinanceRecordViewHolder, position: Int) {
-        holder.bind(_list[position])
+        _list[position].categoryExpenseId?.let { id ->
+            viewModel.getCategoryById(id).name
+        }?.let { tag ->
+            holder.bind(_list[position], tag)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -36,7 +43,7 @@ class FinanceRecordAdapter(
         notifyDataSetChanged()
     }
 
-    fun attachToListener(itemListener: OnFinanceRecordListener){
+    fun attachToListener(itemListener: OnFinanceRecordListener) {
         listener = itemListener
     }
 }

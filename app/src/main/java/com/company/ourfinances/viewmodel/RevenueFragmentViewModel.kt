@@ -44,8 +44,8 @@ class RevenueFragmentViewModel(application: Application) : AndroidViewModel(appl
         _typePayment.value = paymentTypeRepository.getAll()
     }
 
-    fun getCategoryById(id: Long){
-        _categoryExpense.value = categoryRepository.findById(id)
+    fun getCategoryById(id: Long): CategoryExpenseEntity {
+        return categoryRepository.findById(id)
     }
 
     fun getAllByExpenseCategory(typeRecord: String) {

@@ -1,6 +1,7 @@
 package com.company.ourfinances.view.fragments
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.company.ourfinances.databinding.FragmentRevenueListBinding
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
+import com.company.ourfinances.view.MainActivity
 import com.company.ourfinances.view.adapters.FinanceRecordAdapter
 import com.company.ourfinances.view.listener.OnFinanceRecordListener
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
@@ -23,7 +25,6 @@ class RevenueListFragment : Fragment() {
     private lateinit var binding: FragmentRevenueListBinding
     private lateinit var viewModel: RevenueFragmentViewModel
     private lateinit var adapter: FinanceRecordAdapter
-    //private lateinit var financeViewModel: FinanceActivityViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +32,6 @@ class RevenueListFragment : Fragment() {
     ): View? {
         binding = FragmentRevenueListBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[RevenueFragmentViewModel::class.java]
-        //financeViewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
 
         viewModel.getAllByExpenseCategory(RegisterTypeEnum.REVENUE.value)
 
@@ -65,4 +65,6 @@ class RevenueListFragment : Fragment() {
             adapter.updateList(it)
         }
     }
+
+
 }

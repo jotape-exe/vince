@@ -13,7 +13,6 @@ import com.company.ourfinances.viewmodel.RevenueFragmentViewModel
 
 class FinanceRecordViewHolder(
     private val bind: FinaceRecordViewItemBinding,
-    private val viewModel: RevenueFragmentViewModel,
     private val listener: OnFinanceRecordListener
 ) : RecyclerView.ViewHolder(bind.root) {
 
@@ -21,7 +20,7 @@ class FinanceRecordViewHolder(
 
         bind.textTitleView.text = financeRecordEntity.title
         bind.textDateView.text = financeRecordEntity.dateRecord
-        bind.textValueView.text = financeRecordEntity.value.toString()
+        bind.textValueView.text = "R$ ${financeRecordEntity.value}"
         bind.textTagRecord.text = tag
 
         bind.buttonDeleteView.setOnClickListener {

@@ -5,7 +5,9 @@
     android:id="@+id/record_finance_view_component"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:layout_margin="18dp">
+    android:layout_marginTop="18dp"
+    android:layout_marginEnd="18dp"
+    android:layout_marginStart="18sp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

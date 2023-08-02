@@ -1,13 +1,11 @@
 package com.company.ourfinances.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityShowRecordListBinding
-import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.view.fragments.ExpenseListFragment
 import com.company.ourfinances.view.fragments.RevenueListFragment
@@ -28,11 +26,21 @@ class ShowRecordListActivity : AppCompatActivity() {
             TitleEnum.RECEITA.value -> replaceFragment(RevenueListFragment())
             TitleEnum.TRANSFERENCIA.value -> replaceFragment(TransferListFragment())
         }
+
+        binding.textTitle.text = intent.getStringExtra(getString(R.string.fragmentidentifier))
+
+        listener()
     }
 
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_list, fragment).commit()
+    }
+
+    private fun listener(){
+        binding.imageBack.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
     }
 
 

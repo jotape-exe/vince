@@ -23,7 +23,7 @@ class FinanceRecordAdapter(
             .inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
-        return FinanceRecordViewHolder(itemView, viewModel, listener)
+        return FinanceRecordViewHolder(itemView, listener)
     }
 
     override fun onBindViewHolder(holder: FinanceRecordViewHolder, position: Int) {

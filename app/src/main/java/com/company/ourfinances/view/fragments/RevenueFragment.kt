@@ -1,5 +1,6 @@
 package com.company.ourfinances.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -17,9 +18,12 @@ import com.company.ourfinances.model.entity.CategoryExpenseEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
+import com.company.ourfinances.model.enums.TitleEnum
+import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.assets.CustomDatePicker
 import com.company.ourfinances.viewmodel.RevenueFragmentViewModel
 import com.company.ourfinances.view.listener.FabClickListener
+import com.google.android.material.snackbar.Snackbar
 
 class RevenueFragment : Fragment(), FabClickListener {
 
@@ -51,7 +55,6 @@ class RevenueFragment : Fragment(), FabClickListener {
 
     }
 
-    //Revomer logica para viewModel
     override fun getData(): FinanceRecordEntity? {
         if (TextUtils.isEmpty(binding.editTitle.text)) {
             binding.editTitle.error = getString(R.string.title_cannot_be_empty)
@@ -59,7 +62,8 @@ class RevenueFragment : Fragment(), FabClickListener {
         } else if (TextUtils.isEmpty(binding.editValue.text)) {
             binding.editValue.error = getString(R.string.value_cannot_be_empty)
             return null
-        } else if (TextUtils.equals(binding.buttonDatePicker.text, getString(R.string.select_date))) {
+        } else if (TextUtils.equals(binding.buttonDatePicker.text,getString(R.string.select_date))
+        ) {
             binding.buttonDatePicker.error = getString(R.string.date_cannot_be_empty)
             return null
         }
@@ -72,11 +76,29 @@ class RevenueFragment : Fragment(), FabClickListener {
             null,
             null,
             RegisterTypeEnum.REVENUE.value,
-            getIdCategoryExpenseFromName(binding.spinnerCategory.selectedItem.toString(), categoryExpense),
+            getIdCategoryExpenseFromName(
+                binding.spinnerCategory.selectedItem.toString(),
+                categoryExpense
+            ),
             getIdPaymentTypeFromName(binding.spinnerTypePay.selectedItem.toString(), paymentTypes)
         )
 
-        Toast.makeText(requireContext(), "$financeRecordEntity", Toast.LENGTH_LONG).show()
+        val bundle = Bundle()
+
+        bundle.putString(getString(R.string.fragmentidentifier), TitleEnum.RECEITA.value)
+
+        clearAll()
+
+        Snackbar.make(binding.root, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
+            .setAction("Ver") {
+                activity?.startActivity(
+                    Intent(
+                        context,
+                        ShowRecordListActivity::class.java
+                    ).putExtras(bundle)
+                )
+                activity?.finish()
+            }.show()
 
         return financeRecordEntity
     }
@@ -122,13 +144,13 @@ class RevenueFragment : Fragment(), FabClickListener {
     private fun observe() {
         viewModel.categoryExpenseList.observe(viewLifecycleOwner) {
             categoryExpense = it
-            val nameCategoriesList:List<String> = categoryExpense.map { item -> item.name }
+            val nameCategoriesList: List<String> = categoryExpense.map { item -> item.name }
             binding.spinnerCategory.adapter = getAdapter(nameCategoriesList)
         }
 
         viewModel.typePay.observe(viewLifecycleOwner) {
             paymentTypes = it
-            val namePaymentList:List<String> = paymentTypes.map { item -> item.name }
+            val namePaymentList: List<String> = paymentTypes.map { item -> item.name }
             binding.spinnerTypePay.adapter = getAdapter(namePaymentList)
         }
 
@@ -145,7 +167,10 @@ class RevenueFragment : Fragment(), FabClickListener {
     }
 
     //Refatorar 
-    private fun getIdCategoryExpenseFromName(name: String, itemList: List<CategoryExpenseEntity>): Long? {
+    private fun getIdCategoryExpenseFromName(
+        name: String,
+        itemList: List<CategoryExpenseEntity>
+    ): Long? {
         val item = itemList.find { it.name == name }
         return item?.id
     }
@@ -153,6 +178,12 @@ class RevenueFragment : Fragment(), FabClickListener {
     private fun getIdPaymentTypeFromName(name: String, itemList: List<PaymentTypeEntity>): Long? {
         val item = itemList.find { it.name == name }
         return item?.paymentId
+    }
+
+    private fun clearAll() {
+        binding.editTitle.text.clear()
+        binding.editValue.text.clear()
+        binding.buttonDatePicker.text = activity?.getString(R.string.select_date)
     }
 
 

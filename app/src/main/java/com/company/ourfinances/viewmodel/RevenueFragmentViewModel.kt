@@ -32,10 +32,6 @@ class RevenueFragmentViewModel(application: Application) : AndroidViewModel(appl
     private val _financeRecord = MutableLiveData<List<FinanceRecordEntity>>()
     val financeRecord: LiveData<List<FinanceRecordEntity>> = _financeRecord
 
-    fun getAllRecords(){
-        _financeRecord.value = financeRepository.findAll()
-   }
-
     fun getAllCategories(){
         _categoryExpenseList.value = categoryRepository.getAll()
     }
@@ -56,9 +52,6 @@ class RevenueFragmentViewModel(application: Application) : AndroidViewModel(appl
         financeRepository.delete(id)
     }
 
-    fun getById(id: Long): FinanceRecordEntity {
-        return financeRepository.findById(id)
-    }
 
 
 

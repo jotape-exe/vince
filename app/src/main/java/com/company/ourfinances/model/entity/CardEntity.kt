@@ -11,5 +11,6 @@ data class CardEntity(
     var cardId: Long = 0,
     val name: String,
     val cardType: String,
+    val cardColor: String,
     val cardNumber: String
 )

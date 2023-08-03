@@ -17,15 +17,15 @@ import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.adapters.HomeComponentAdapter
 import com.company.ourfinances.view.listener.OnComponentHomeListener
 
-private lateinit var adapter: HomeComponentAdapter
-private lateinit var recyclerView: RecyclerView
-private lateinit var componentsList: ArrayList<HomeComponent>
-
-lateinit var imageId: Array<Int>
-lateinit var textDescription: Array<String>
-lateinit var textTitle: Array<String>
-
 class HomeFragment : Fragment() {
+
+    private lateinit var adapter: HomeComponentAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var componentsList: ArrayList<HomeComponent>
+
+    lateinit var imageId: Array<Int>
+    lateinit var textDescription: Array<String>
+    lateinit var textTitle: Array<String>
 
     private lateinit var binding: FragmentHomeBinding
     override fun onCreateView(
@@ -47,12 +47,9 @@ class HomeFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.recycler_home)
         recyclerView.layoutManager = layoutManager
-        recyclerView.setHasFixedSize(true)
 
         adapter = HomeComponentAdapter()
         recyclerView.adapter = adapter
-
-        listeners()
 
         adapter.updateList(componentsList)
 
@@ -85,11 +82,6 @@ class HomeFragment : Fragment() {
         }
 
         adapter.attachToListener(listener)
-
-    }
-
-
-    private fun listeners() {
 
     }
 

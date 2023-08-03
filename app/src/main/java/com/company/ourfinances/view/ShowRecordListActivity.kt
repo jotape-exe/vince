@@ -39,7 +39,7 @@ class ShowRecordListActivity : AppCompatActivity() {
 
     private fun listener(){
         binding.imageBack.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
 

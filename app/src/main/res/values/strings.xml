@@ -47,6 +47,7 @@
     <string name="show_expense">Ver Despesas</string>
     <string name="show_revenue">Ver Receitas</string>
     <string name="show_trasnfer">Ver Transferencias</string>
+    <string name="number_not_empty">Numero não pode ser vazio!</string>
     <string-array name="categories">
         <item>Item 1</item>
         <item>Item 2</item>

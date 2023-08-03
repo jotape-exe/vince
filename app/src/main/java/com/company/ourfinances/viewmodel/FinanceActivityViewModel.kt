@@ -4,15 +4,19 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.company.ourfinances.model.entity.CardEntity
 import com.company.ourfinances.model.entity.CategoryExpenseEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
+import com.company.ourfinances.model.repository.CardRepository
 import com.company.ourfinances.model.repository.CategoryExpenseRepository
 import com.company.ourfinances.model.repository.FinanceRecordRepository
 import com.company.ourfinances.model.repository.PaymentTypeRepository
+import com.company.ourfinances.view.CardComponent
 
 class FinanceActivityViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val cardRepository = CardRepository(application.applicationContext)
     private val financeRepository = FinanceRecordRepository(application.applicationContext)
     private val categoryRepository = CategoryExpenseRepository(application.applicationContext)
     private val paymentTypeRepository = PaymentTypeRepository(application.applicationContext)
@@ -28,6 +32,9 @@ class FinanceActivityViewModel(application: Application) : AndroidViewModel(appl
 
     private val _financeRecord = MutableLiveData<List<FinanceRecordEntity>>()
     val financeRecord: LiveData<List<FinanceRecordEntity>> = _financeRecord
+
+    private val _cardRecord = MutableLiveData<List<CardEntity>>()
+    val cardRecord: LiveData<List<CardEntity>> = _cardRecord
 
     fun insert(recordEntity: FinanceRecordEntity) {
         financeRepository.save(recordEntity)
@@ -51,6 +58,18 @@ class FinanceActivityViewModel(application: Application) : AndroidViewModel(appl
 
     fun getAllByExpenseCategory(typeRecord: String) {
         _financeRecord.value = financeRepository.getAllByExpenseCategory(typeRecord)
+    }
+
+    fun insertCard(cardEntity: CardEntity){
+        cardRepository.insert(cardEntity)
+    }
+
+    fun getAllCards(){
+        _cardRecord.value = cardRepository.getAll()
+    }
+
+    fun deleteCard(id:Long) {
+        cardRepository.deleteCard(id)
     }
 
 }

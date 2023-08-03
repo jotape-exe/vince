@@ -16,8 +16,11 @@ interface CardDAO {
     fun update(cardEntity: CardEntity)
 
     @Delete
-    fun delete(id: Int)
+    fun delete(cardEntity: CardEntity)
 
     @Query("SELECT * FROM cards")
     fun getAllCards(): List<CardEntity>
+
+    @Query("SELECT * FROM cards WHERE cardId = :id")
+    fun getCardById(id: Long): CardEntity
 }

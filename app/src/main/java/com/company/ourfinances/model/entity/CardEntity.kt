@@ -12,5 +12,6 @@ data class CardEntity(
     val name: String,
     val cardType: String,
     val cardColor: String,
-    val cardNumber: String
+    val cardNumber: String,
+    val cardTextColor: String
 )

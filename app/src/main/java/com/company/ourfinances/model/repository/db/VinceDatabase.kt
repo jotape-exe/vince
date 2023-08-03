@@ -10,6 +10,7 @@ import com.company.ourfinances.model.entity.CardEntity
 import com.company.ourfinances.model.entity.CategoryExpenseEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
+import com.company.ourfinances.model.repository.dao.CardDAO
 import com.company.ourfinances.model.repository.dao.CategoryExpenseDAO
 import com.company.ourfinances.model.repository.dao.FinanceRecordDAO
 import com.company.ourfinances.model.repository.dao.PaymentTypeDAO
@@ -28,6 +29,7 @@ abstract class VinceDatabase : RoomDatabase() {
     abstract fun getFinanceRecordDAO(): FinanceRecordDAO
     abstract fun getCategoryExpenseDAO(): CategoryExpenseDAO
     abstract fun getPaymentTypeDAO(): PaymentTypeDAO
+    abstract fun getCardDAO(): CardDAO
 
     companion object {
         private lateinit var INSTANCE: VinceDatabase

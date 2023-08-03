@@ -2,7 +2,6 @@ package com.company.ourfinances.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityCardCreateBinding
 
 class CardCreateActivity : AppCompatActivity() {

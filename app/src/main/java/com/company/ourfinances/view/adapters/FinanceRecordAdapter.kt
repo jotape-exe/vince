@@ -2,17 +2,15 @@ package com.company.ourfinances.view.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.company.ourfinances.databinding.FinaceRecordViewItemBinding
 import com.company.ourfinances.model.entity.FinanceRecordEntity
-import com.company.ourfinances.view.listener.OnComponentHomeListener
 import com.company.ourfinances.view.listener.OnFinanceRecordListener
 import com.company.ourfinances.view.viewholder.FinanceRecordViewHolder
-import com.company.ourfinances.viewmodel.RevenueFragmentViewModel
+import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 
 class FinanceRecordAdapter(
-    private val viewModel: RevenueFragmentViewModel
+    private val viewModel: FinanceActivityViewModel
 ) : RecyclerView.Adapter<FinanceRecordViewHolder>() {
 
     private var _list: List<FinanceRecordEntity> = listOf()

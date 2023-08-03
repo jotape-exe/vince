@@ -79,12 +79,7 @@ class FinanceActivity : AppCompatActivity() {
             when (currentPosition) {
                 0 -> {
                     val revenueFragment = currentFragment as? RevenueFragment
-
-                    val data = revenueFragment?.getData()
-
-                    if (data != null){
-                        viewModel.insert(data)
-                    }
+                    revenueFragment!!.doSave()
                 }
 
                 1 -> {

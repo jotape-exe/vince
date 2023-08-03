@@ -1,15 +1,10 @@
 package com.company.ourfinances.view.viewholder
 
 import android.app.AlertDialog
-import android.content.DialogInterface
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FinaceRecordViewItemBinding
-import com.company.ourfinances.model.entity.CategoryExpenseEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.view.listener.OnFinanceRecordListener
-import com.company.ourfinances.viewmodel.RevenueFragmentViewModel
 
 class FinanceRecordViewHolder(
     private val bind: FinaceRecordViewItemBinding,

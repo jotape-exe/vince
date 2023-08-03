@@ -4,33 +4,53 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.company.ourfinances.model.entity.CategoryExpenseEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
+import com.company.ourfinances.model.entity.PaymentTypeEntity
+import com.company.ourfinances.model.repository.CategoryExpenseRepository
 import com.company.ourfinances.model.repository.FinanceRecordRepository
+import com.company.ourfinances.model.repository.PaymentTypeRepository
 
 class FinanceActivityViewModel(application: Application) : AndroidViewModel(application) {
 
-    val repository = FinanceRecordRepository(application.applicationContext)
+    private val financeRepository = FinanceRecordRepository(application.applicationContext)
+    private val categoryRepository = CategoryExpenseRepository(application.applicationContext)
+    private val paymentTypeRepository = PaymentTypeRepository(application.applicationContext)
+
+    private val _categoryExpenseList = MutableLiveData<List<CategoryExpenseEntity>>()
+    val categoryExpenseList:LiveData<List<CategoryExpenseEntity>> = _categoryExpenseList
+
+    private val _categoryExpense = MutableLiveData<CategoryExpenseEntity>()
+    val categoryExpense:LiveData<CategoryExpenseEntity> = _categoryExpense
+
+    private val _typePayment = MutableLiveData<List<PaymentTypeEntity>>()
+    val typePay: LiveData<List<PaymentTypeEntity>> = _typePayment
 
     private val _financeRecord = MutableLiveData<List<FinanceRecordEntity>>()
     val financeRecord: LiveData<List<FinanceRecordEntity>> = _financeRecord
+
     fun insert(recordEntity: FinanceRecordEntity) {
-        repository.save(recordEntity)
-    }
-
-    fun getAll():List<FinanceRecordEntity>{
-        return repository.findAll()
-    }
-
-    fun getAllByExpenseCategory(typeRecord: String): List<FinanceRecordEntity> {
-        return repository.getAllByExpenseCategory(typeRecord)
+        financeRepository.save(recordEntity)
     }
 
     fun delete(id: Long) {
-        repository.delete(id)
+        financeRepository.delete(id)
     }
 
-    fun getById(id: Long): FinanceRecordEntity {
-        return repository.findById(id)
+    fun getAllCategories(){
+        _categoryExpenseList.value = categoryRepository.getAll()
+    }
+
+    fun getAllTypePayments(){
+        _typePayment.value = paymentTypeRepository.getAll()
+    }
+
+    fun getCategoryById(id: Long): CategoryExpenseEntity {
+        return categoryRepository.findById(id)
+    }
+
+    fun getAllByExpenseCategory(typeRecord: String) {
+        _financeRecord.value = financeRepository.getAllByExpenseCategory(typeRecord)
     }
 
 }

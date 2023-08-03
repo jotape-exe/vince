@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.company.ourfinances.R
@@ -21,14 +20,14 @@ import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.assets.CustomDatePicker
-import com.company.ourfinances.viewmodel.RevenueFragmentViewModel
 import com.company.ourfinances.view.listener.FabClickListener
+import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class RevenueFragment : Fragment(), FabClickListener {
 
     private lateinit var binding: FragmentRevenueBinding
-    private lateinit var viewModel: RevenueFragmentViewModel
+    private lateinit var viewModel: FinanceActivityViewModel
 
     private lateinit var paymentTypes: List<PaymentTypeEntity>
     private lateinit var categoryExpense: List<CategoryExpenseEntity>
@@ -38,7 +37,7 @@ class RevenueFragment : Fragment(), FabClickListener {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRevenueBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this)[RevenueFragmentViewModel::class.java]
+        viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
 
         viewModel.getAllCategories()
         viewModel.getAllTypePayments()
@@ -55,52 +54,51 @@ class RevenueFragment : Fragment(), FabClickListener {
 
     }
 
-    override fun getData(): FinanceRecordEntity? {
+    override fun doSave() {
         if (TextUtils.isEmpty(binding.editTitle.text)) {
             binding.editTitle.error = getString(R.string.title_cannot_be_empty)
-            return null
         } else if (TextUtils.isEmpty(binding.editValue.text)) {
             binding.editValue.error = getString(R.string.value_cannot_be_empty)
-            return null
-        } else if (TextUtils.equals(binding.buttonDatePicker.text,getString(R.string.select_date))
-        ) {
+        } else if (TextUtils.equals(binding.buttonDatePicker.text, getString(R.string.select_date))) {
             binding.buttonDatePicker.error = getString(R.string.date_cannot_be_empty)
-            return null
-        }
-
-        val financeRecordEntity = FinanceRecordEntity(
-            0,
-            binding.editTitle.text.toString(),
-            binding.editValue.text.toString().toDouble(),
-            binding.buttonDatePicker.text.toString(),
-            null,
-            null,
-            RegisterTypeEnum.REVENUE.value,
-            getIdCategoryExpenseFromName(
-                binding.spinnerCategory.selectedItem.toString(),
-                categoryExpense
-            ),
-            getIdPaymentTypeFromName(binding.spinnerTypePay.selectedItem.toString(), paymentTypes)
-        )
-
-        val bundle = Bundle()
-
-        bundle.putString(getString(R.string.fragmentidentifier), TitleEnum.RECEITA.value)
-
-        clearAll()
-
-        Snackbar.make(binding.root, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
-            .setAction("Ver") {
-                activity?.startActivity(
-                    Intent(
-                        context,
-                        ShowRecordListActivity::class.java
-                    ).putExtras(bundle)
+        } else {
+            val financeRecordEntity = FinanceRecordEntity(
+                0,
+                binding.editTitle.text.toString(),
+                binding.editValue.text.toString().toDouble(),
+                binding.buttonDatePicker.text.toString(),
+                null,
+                null,
+                RegisterTypeEnum.REVENUE.value,
+                getIdCategoryExpenseFromName(
+                    binding.spinnerCategory.selectedItem.toString(),
+                    categoryExpense
+                ),
+                getIdPaymentTypeFromName(
+                    binding.spinnerTypePay.selectedItem.toString(),
+                    paymentTypes
                 )
-                activity?.finish()
-            }.show()
+            )
 
-        return financeRecordEntity
+            viewModel.insert(financeRecordEntity)
+
+            val bundle = Bundle()
+
+            bundle.putString(getString(R.string.fragmentidentifier), TitleEnum.RECEITA.value)
+
+            clearAll()
+
+            Snackbar.make(binding.root, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
+                .setAction("Ver") {
+                    activity?.startActivity(
+                        Intent(
+                            context,
+                            ShowRecordListActivity::class.java
+                        ).putExtras(bundle)
+                    )
+                    activity?.finish()
+                }.show()
+        }
     }
 
     private fun listeners() {

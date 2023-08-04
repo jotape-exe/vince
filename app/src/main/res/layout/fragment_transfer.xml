@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="12dp"
-        android:hint="Título"
+        android:hint="Escreva o título"
         app:layout_constraintBottom_toTopOf="@id/text_receiver_transfer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

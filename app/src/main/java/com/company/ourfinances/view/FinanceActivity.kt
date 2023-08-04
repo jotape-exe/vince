@@ -49,8 +49,6 @@ class FinanceActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) {
                     viewPager2.currentItem = tab.position
-                    //Depuração
-                    Log.i("info:", "Selecionado -> ${viewPager2.currentItem}")
                 }
             }
 
@@ -84,16 +82,12 @@ class FinanceActivity : AppCompatActivity() {
 
                 1 -> {
                     val expenseFragment = currentFragment as? ExpenseFragment
-                    expenseFragment?.let {
-
-                    }
+                    expenseFragment!!.doSave()
                 }
 
                 2 -> {
                     val transferFragment = currentFragment as? TransferFragment
-                    transferFragment?.let {
-
-                    }
+                    transferFragment!!.doSave()
                 }
             }
         }

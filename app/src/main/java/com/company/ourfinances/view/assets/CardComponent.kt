@@ -1,4 +1,4 @@
-package com.company.ourfinances.view
+package com.company.ourfinances.view.assets
 
 class CardComponent(
     val cardName: String,

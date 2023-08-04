@@ -8,25 +8,25 @@
     tools:context=".view.fragments.ExpenseFragment">
 
     <TextView
-        android:id="@+id/text_description_expense"
+        android:id="@+id/text_title_expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Descrição"
+        android:text="Título"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/edit_description_expense"
+        app:layout_constraintBottom_toTopOf="@id/edit_title_expense"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edit_description_expense"
+        android:id="@+id/edit_title_expense"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="12dp"
-        android:hint="Descrição"
+        android:hint="Título"
         app:layout_constraintBottom_toTopOf="@id/text_category_expense"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_description_expense" />
+        app:layout_constraintTop_toBottomOf="@id/text_title_expense" />
 
     <TextView
         android:id="@+id/text_category_expense"
@@ -37,7 +37,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/spinner_category_expense"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_description_expense" />
+        app:layout_constraintTop_toBottomOf="@id/edit_title_expense" />
 
     <Spinner
         android:id="@+id/spinner_category_expense"

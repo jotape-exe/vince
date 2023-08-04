@@ -12,7 +12,6 @@ import com.company.ourfinances.model.repository.CardRepository
 import com.company.ourfinances.model.repository.CategoryExpenseRepository
 import com.company.ourfinances.model.repository.FinanceRecordRepository
 import com.company.ourfinances.model.repository.PaymentTypeRepository
-import com.company.ourfinances.view.CardComponent
 
 class FinanceActivityViewModel(application: Application) : AndroidViewModel(application) {
 

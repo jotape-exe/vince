@@ -2,14 +2,10 @@ package com.company.ourfinances.view.viewholder
 
 import android.app.AlertDialog
 import android.graphics.Color
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.company.ourfinances.databinding.CardItemBinding
 import com.company.ourfinances.model.entity.CardEntity
-import com.company.ourfinances.view.CardComponent
-import com.company.ourfinances.view.HomeComponent
 import com.company.ourfinances.view.listener.OnCardListener
-import com.company.ourfinances.view.listener.OnComponentHomeListener
 
 class CardViewHolder(
     private val bind: CardItemBinding,

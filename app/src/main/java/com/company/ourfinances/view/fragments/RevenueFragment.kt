@@ -164,21 +164,21 @@ class RevenueFragment : Fragment(), FabClickListener {
         return adapter
     }
 
-    //Refatorar 
-    private fun getIdCategoryExpenseFromName(
-        name: String,
-        itemList: List<CategoryExpenseEntity>
+    //Logia na viewModel
+    override fun getIdCategoryExpenseFromName(
+        spinnerItemName: String,
+        list: List<CategoryExpenseEntity>
     ): Long? {
-        val item = itemList.find { it.name == name }
+        val item = list.find { it.name == spinnerItemName }
         return item?.id
     }
 
-    private fun getIdPaymentTypeFromName(name: String, itemList: List<PaymentTypeEntity>): Long? {
-        val item = itemList.find { it.name == name }
+    override fun getIdPaymentTypeFromName(spinnerItemName: String, list: List<PaymentTypeEntity>): Long? {
+        val item = list.find { it.name == spinnerItemName }
         return item?.paymentId
     }
 
-    private fun clearAll() {
+    override fun clearAll() {
         binding.editTitle.text.clear()
         binding.editValue.text.clear()
         binding.buttonDatePicker.text = activity?.getString(R.string.select_date)

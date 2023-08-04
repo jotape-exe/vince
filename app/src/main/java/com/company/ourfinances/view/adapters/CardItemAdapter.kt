@@ -4,12 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.company.ourfinances.databinding.CardItemBinding
-import com.company.ourfinances.databinding.HomeListItemBinding
 import com.company.ourfinances.model.entity.CardEntity
-import com.company.ourfinances.view.CardComponent
-import com.company.ourfinances.view.HomeComponent
 import com.company.ourfinances.view.listener.OnCardListener
-import com.company.ourfinances.view.listener.OnComponentHomeListener
 import com.company.ourfinances.view.viewholder.CardViewHolder
 
 

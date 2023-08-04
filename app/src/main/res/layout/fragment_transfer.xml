@@ -8,46 +8,46 @@
     tools:context=".view.fragments.TransferFragment">
 
     <TextView
-        android:id="@+id/text_description_transfer"
+        android:id="@+id/text_title_transfer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Descrição"
+        android:text="Título"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/edit_description_transfer"
+        app:layout_constraintBottom_toTopOf="@id/edit_title_transfer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edit_description_transfer"
+        android:id="@+id/edit_title_transfer"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="12dp"
-        android:hint="Descrição"
-        app:layout_constraintBottom_toTopOf="@id/text_category_transfer"
+        android:hint="Título"
+        app:layout_constraintBottom_toTopOf="@id/text_receiver_transfer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_description_transfer" />
+        app:layout_constraintTop_toBottomOf="@id/text_title_transfer" />
 
     <TextView
-        android:id="@+id/text_category_transfer"
+        android:id="@+id/text_receiver_transfer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Recebedor"
+        android:text="Destinatário"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/edit_receiver_transfer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_description_transfer" />
+        app:layout_constraintTop_toBottomOf="@id/edit_title_transfer" />
 
     <EditText
         android:id="@+id/edit_receiver_transfer"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Recebedor"
+        android:hint="Destinatário"
         app:layout_constraintBottom_toTopOf="@id/text_date_transfer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_category_transfer" />
+        app:layout_constraintTop_toBottomOf="@id/text_receiver_transfer" />
 
     <TextView
         android:id="@+id/text_date_transfer"

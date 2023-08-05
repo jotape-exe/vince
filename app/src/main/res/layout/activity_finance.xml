@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Novo Registro"
-        android:textColor="@color/dark_green"
+        android:textColor="@color/variant_green_3"
         android:textSize="26sp"
         app:layout_constraintBottom_toTopOf="@id/tab_finance"
         app:layout_constraintEnd_toEndOf="parent"

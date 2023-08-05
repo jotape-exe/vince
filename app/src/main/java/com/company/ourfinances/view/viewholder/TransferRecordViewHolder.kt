@@ -17,7 +17,6 @@ class TransferRecordViewHolder(
         bind.textValueViewTransfer.text = "R$ ${financeRecordEntity.value}"
         bind.textReceiverViewTransfer.text = financeRecordEntity.destinationAccount
 
-
         bind.buttonDeleteViewTransfer.setOnClickListener {
 
             AlertDialog.Builder(itemView.context)
@@ -31,6 +30,10 @@ class TransferRecordViewHolder(
                 .create()
                 .show()
 
+        }
+
+        bind.buttonEditViewTransfer.setOnClickListener {
+            listener.onClick(financeRecordEntity.recordId)
         }
     }
 }

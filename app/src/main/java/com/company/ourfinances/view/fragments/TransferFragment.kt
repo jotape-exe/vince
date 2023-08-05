@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentTransferBinding
+import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.entity.CategoryExpenseEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
@@ -27,8 +28,9 @@ class TransferFragment : Fragment(), FabClickListener {
 
     private lateinit var binding: FragmentTransferBinding
     private lateinit var viewModel: FinanceActivityViewModel
-    private lateinit var paymentTypes: List<PaymentTypeEntity>
+    private lateinit var paymentTypesList: List<PaymentTypeEntity>
 
+    private var recordId: Long = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,6 +39,8 @@ class TransferFragment : Fragment(), FabClickListener {
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
 
         viewModel.getAllTypePayments()
+
+        loadRecord()
 
         observe()
 
@@ -47,9 +51,29 @@ class TransferFragment : Fragment(), FabClickListener {
 
     private fun observe() {
         viewModel.typePay.observe(viewLifecycleOwner) { tiposDePagamento ->
-            paymentTypes = tiposDePagamento
-            val namePaymentList: List<String> = paymentTypes.map { item -> item.name }
+            paymentTypesList = tiposDePagamento
+            val namePaymentList: List<String> = paymentTypesList.map { item -> item.name }
             binding.spinnerTypePayTransfer.adapter = getAdapter(namePaymentList)
+        }
+
+        viewModel.financeRecord.observe(viewLifecycleOwner) { financeRecord ->
+
+            binding.editTitleTransfer.setText(financeRecord.title)
+            binding.editValueTransfer.setText(financeRecord.value.toString())
+            binding.buttonDatePickerTransfer.text = financeRecord.dateRecord
+            binding.editReceiverTransfer.setText(financeRecord.destinationAccount)
+
+            val paymentName = financeRecord.paymentTypeId?.let { id ->
+                viewModel.getTypePaymentById(id).name
+            }
+
+            binding.spinnerTypePayTransfer.setSelection(
+                getPositionByName(
+                    paymentName,
+                    paymentList = paymentTypesList
+                )
+            )
+
         }
     }
 
@@ -58,13 +82,17 @@ class TransferFragment : Fragment(), FabClickListener {
             binding.editTitleTransfer.error = getString(R.string.title_cannot_be_empty)
         } else if (TextUtils.isEmpty(binding.editValueTransfer.text)) {
             binding.editValueTransfer.error = getString(R.string.value_cannot_be_empty)
-        } else if (TextUtils.equals(binding.buttonDatePickerTransfer.text, getString(R.string.select_date))) {
+        } else if (TextUtils.equals(
+                binding.buttonDatePickerTransfer.text,
+                getString(R.string.select_date)
+            )
+        ) {
             binding.buttonDatePickerTransfer.error = getString(R.string.date_cannot_be_empty)
-        } else if (TextUtils.isEmpty(binding.editReceiverTransfer.text)){
+        } else if (TextUtils.isEmpty(binding.editReceiverTransfer.text)) {
             binding.editReceiverTransfer.error = getString(R.string.receiver_not_empty)
         } else {
             val financeRecordEntity = FinanceRecordEntity(
-                0,
+                recordId,
                 binding.editTitleTransfer.text.toString(),
                 binding.editValueTransfer.text.toString().toDouble(),
                 binding.buttonDatePickerTransfer.text.toString(),
@@ -74,7 +102,7 @@ class TransferFragment : Fragment(), FabClickListener {
                 null,
                 getIdPaymentTypeFromName(
                     binding.spinnerTypePayTransfer.selectedItem.toString(),
-                    paymentTypes
+                    paymentTypesList
                 )
             )
 
@@ -155,5 +183,31 @@ class TransferFragment : Fragment(), FabClickListener {
         binding.buttonDatePickerTransfer.setOnClickListener {
             CustomDatePicker(binding.buttonDatePickerTransfer, this)
         }
+    }
+
+    private fun loadRecord() {
+        val bundle = activity?.intent?.extras
+        bundle?.let { bundleObj ->
+            if (bundleObj.getString(activity?.getString(R.string.fragmentIdentifier)) == TitleEnum.TRANSFERENCIA.value) {
+                recordId = bundleObj.getLong(DatabaseConstants.FinanceRecord.recordId)
+                viewModel.getRecordById(recordId)
+            }
+        }
+    }
+
+    private fun getPositionByName(name: String?, paymentList: List<PaymentTypeEntity> = listOf()): Int {
+        var position = 0
+
+        name.apply {
+            val paymentPosition = paymentList.map { typePayment ->
+                typePayment.name
+            }.indexOf(this)
+
+            if (paymentPosition != -1) {
+                position = paymentPosition
+            }
+        }
+
+        return position
     }
 }

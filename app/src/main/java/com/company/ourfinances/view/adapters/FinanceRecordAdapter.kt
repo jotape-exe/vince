@@ -25,11 +25,13 @@ class FinanceRecordAdapter(
     }
 
     override fun onBindViewHolder(holder: FinanceRecordViewHolder, position: Int) {
-        _list[position].categoryExpenseId?.let { id ->
-            viewModel.getCategoryById(id).name
-        }?.let { tag ->
-            holder.bind(_list[position], tag)
-        }
+        val tag =
+            _list[position].categoryExpenseId?.let { id -> viewModel.getCategoryById(id).name }
+
+        val paymentName =
+            _list[position].paymentTypeId?.let { id -> viewModel.getTypePaymentById(id).name }
+
+        holder.bind(_list[position], tag as String, paymentName as String)
     }
 
     override fun getItemCount(): Int {

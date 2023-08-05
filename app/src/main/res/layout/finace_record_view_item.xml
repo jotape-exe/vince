@@ -4,20 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/record_finance_view_component"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="234dp"
+    android:layout_marginStart="18sp"
     android:layout_marginTop="18dp"
-    android:layout_marginEnd="18dp"
-    android:layout_marginStart="18sp">
+    android:layout_marginEnd="18dp">
+
+    <TextView
+        android:id="@+id/text_type_pay_card"
+        android:layout_width="160dp"
+        android:layout_height="0dp"
+        android:background="@drawable/shape_title_view"
+        android:backgroundTint="@color/variant_green_5"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:text="Pix"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/radius_shape"
+        android:layout_height="200dp"
+        android:background="@drawable/shape_item_view"
         android:backgroundTint="@color/variant_green_4"
         android:padding="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/text_title_view"
@@ -76,7 +92,7 @@
             android:id="@+id/button_delete_view"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="55dp"
             android:backgroundTint="@color/variant_green_3"
             android:contentDescription="@string/delete_item"
             android:src="@drawable/ic_delete"
@@ -89,10 +105,10 @@
             android:id="@+id/button_edit_view"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
             android:backgroundTint="@color/white"
             android:contentDescription="@string/edit_item"
             android:src="@drawable/ic_edit"
-            android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/button_delete_view"
             app:layout_constraintEnd_toStartOf="@+id/button_delete_view"
             app:layout_constraintTop_toTopOf="@+id/button_delete_view"

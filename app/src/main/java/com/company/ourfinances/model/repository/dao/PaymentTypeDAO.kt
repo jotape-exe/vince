@@ -21,4 +21,7 @@ interface PaymentTypeDAO {
 
     @Query("SELECT * FROM payment_types")
     fun getAllPaymentTypes():List<PaymentTypeEntity>
+
+    @Query("SELECT * FROM payment_types WHERE paymentId = :id")
+    fun findById(id: Long): PaymentTypeEntity
 }

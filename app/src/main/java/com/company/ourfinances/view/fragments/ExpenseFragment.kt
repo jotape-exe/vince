@@ -27,8 +27,8 @@ import com.google.android.material.snackbar.Snackbar
 class ExpenseFragment : Fragment(), FabClickListener {
 
     private lateinit var binding: FragmentExpenseBinding
-    private lateinit var paymentTypes: List<PaymentTypeEntity>
-    private lateinit var categoryExpense: List<CategoryExpenseEntity>
+    private lateinit var paymentTypesList: List<PaymentTypeEntity>
+    private lateinit var categoryExpenseList: List<CategoryExpenseEntity>
     private lateinit var viewModel: FinanceActivityViewModel
 
     private var recordId: Long = 0
@@ -71,11 +71,11 @@ class ExpenseFragment : Fragment(), FabClickListener {
                 RegisterTypeEnum.EXPENSE.value,
                 getIdCategoryExpenseFromName(
                     binding.spinnerCategoryExpense.selectedItem.toString(),
-                    categoryExpense
+                    categoryExpenseList
                 ),
                 getIdPaymentTypeFromName(
                     binding.spinnerTypePayExpense.selectedItem.toString(),
-                    paymentTypes
+                    paymentTypesList
                 )
             )
 
@@ -127,14 +127,14 @@ class ExpenseFragment : Fragment(), FabClickListener {
 
     private fun observe() {
         viewModel.categoryExpenseList.observe(viewLifecycleOwner) { categorias ->
-            categoryExpense = categorias
-            val nameCategoriesList: List<String> = categoryExpense.map { item -> item.name }
+            categoryExpenseList = categorias
+            val nameCategoriesList: List<String> = categoryExpenseList.map { item -> item.name }
             binding.spinnerCategoryExpense.adapter = getAdapter(nameCategoriesList)
         }
 
         viewModel.typePay.observe(viewLifecycleOwner) { tiposDePagamento ->
-            paymentTypes = tiposDePagamento
-            val namePaymentList: List<String> = paymentTypes.map { item -> item.name }
+            paymentTypesList = tiposDePagamento
+            val namePaymentList: List<String> = paymentTypesList.map { item -> item.name }
             binding.spinnerTypePayExpense.adapter = getAdapter(namePaymentList)
         }
 
@@ -148,15 +148,14 @@ class ExpenseFragment : Fragment(), FabClickListener {
                 viewModel.getCategoryById(id).name
             }
 
-            categoryName?.let { name ->
-                val categoryPosition = categoryExpense.map { categoryExpense ->
-                    categoryExpense.name
-                }.indexOf(name)
-
-                if (categoryPosition != -1) {
-                    binding.spinnerCategoryExpense.setSelection(categoryPosition)
-                }
+            val paymentName = financeRecord.paymentTypeId?.let { id ->
+                viewModel.getTypePaymentById(id).name
             }
+
+            binding.spinnerCategoryExpense.setSelection(getPositionByName(categoryName, expenseList = categoryExpenseList))
+
+            binding.spinnerTypePayExpense.setSelection(getPositionByName(paymentName, paymentList = paymentTypesList))
+
         }
     }
 
@@ -218,5 +217,37 @@ class ExpenseFragment : Fragment(), FabClickListener {
                 viewModel.getRecordById(recordId)
             }
         }
+    }
+
+    private fun getPositionByName(
+        name: String?,
+        expenseList: List<CategoryExpenseEntity> = listOf(),
+        paymentList: List<PaymentTypeEntity> = listOf()
+    ): Int {
+        var position = 0
+
+        if (expenseList.isNotEmpty()) {
+            name.apply {
+                val categoryPosition = expenseList.map { categoryExpense ->
+                    categoryExpense.name
+                }.indexOf(this)
+
+                if (categoryPosition != -1) {
+                    position = categoryPosition
+                }
+            }
+        } else if (paymentList.isNotEmpty()) {
+            name.apply {
+                val paymentPosition = paymentList.map { typePayment ->
+                    typePayment.name
+                }.indexOf(this)
+
+                if (paymentPosition != -1) {
+                    position = paymentPosition
+                }
+            }
+        }
+
+        return position
     }
 }

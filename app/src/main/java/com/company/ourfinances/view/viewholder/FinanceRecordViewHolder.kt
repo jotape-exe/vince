@@ -1,6 +1,8 @@
 package com.company.ourfinances.view.viewholder
 
 import android.app.AlertDialog
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.company.ourfinances.databinding.FinaceRecordViewItemBinding
 import com.company.ourfinances.model.entity.FinanceRecordEntity
@@ -10,13 +12,13 @@ class FinanceRecordViewHolder(
     private val bind: FinaceRecordViewItemBinding,
     private val listener: OnFinanceRecordListener
 ) : RecyclerView.ViewHolder(bind.root) {
-
-    fun bind(financeRecordEntity: FinanceRecordEntity, tag: String) {
+    fun bind(financeRecordEntity: FinanceRecordEntity, tag: String, paymentName: String) {
 
         bind.textTitleView.text = financeRecordEntity.title
         bind.textDateView.text = financeRecordEntity.dateRecord
         bind.textValueView.text = "R$ ${financeRecordEntity.value}"
         bind.textTagRecord.text = tag
+        bind.textTypePayCard.text = paymentName
 
         bind.buttonDeleteView.setOnClickListener {
 
@@ -36,6 +38,7 @@ class FinanceRecordViewHolder(
         bind.buttonEditView.setOnClickListener {
             listener.onClick(financeRecordEntity.recordId)
         }
+
     }
 
 }

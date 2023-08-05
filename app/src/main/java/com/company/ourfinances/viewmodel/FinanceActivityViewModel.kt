@@ -62,6 +62,10 @@ class FinanceActivityViewModel(application: Application) : AndroidViewModel(appl
         return categoryRepository.findById(id)
     }
 
+    fun getTypePaymentById(id: Long): PaymentTypeEntity{
+        return paymentTypeRepository.findById(id)
+    }
+
     fun getAllByExpenseCategory(typeRecord: String) {
         _financeRecordList.value = financeRepository.getAllByExpenseCategory(typeRecord)
     }

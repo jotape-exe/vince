@@ -2,23 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="main_green">#50FF6C</color>
-    <color name="main_dark_green">#2D913D</color>
-    <color name="medium_green">#3EB151</color>
-    <color name="vibrant_dark_green">#008D52</color>
-    <color name="weak_green">#488552</color>
-    <color name="strength_green">#005117</color>
-    <color name="ultralight_green">#F3FFF5</color>
-    <color name="light_green">#C0EAC1</color>
-    <color name="light_green_2">#8EEC90</color>
-    <color name="main_green_2">#5BEB72</color>
-    <color name="weak_green_2">#259A37</color>
-    <color name="weak_green_3">#40A750</color>
-    <color name="dark_green">#014815</color>
-    <color name="red">#FF0000</color>
-    <color name="dark_red">#4C0303</color>
     <color name="variant_green">#03835F</color>
     <color name="variant_green_2">#A2D1C4</color>
     <color name="variant_green_3">#04533D</color>
     <color name="variant_green_4">#C8E8DF</color>
+    <color name="variant_green_5">#7E9A92</color>
 </resources>

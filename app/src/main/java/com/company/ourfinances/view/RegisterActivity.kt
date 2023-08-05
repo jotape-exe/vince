@@ -42,7 +42,7 @@ class RegisterActivity : AppCompatActivity() {
         binding.textToLogin.apply {
             val coloredText = SpannableString(binding.textToLogin.text.toString())
             coloredText.setSpan(
-                ForegroundColorSpan(getColor(R.color.main_dark_green)),
+                ForegroundColorSpan(getColor(R.color.variant_green_3)),
                 29,
                 34,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE

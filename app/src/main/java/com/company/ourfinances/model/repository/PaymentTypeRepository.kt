@@ -11,4 +11,8 @@ class PaymentTypeRepository(context: Context) {
     fun getAll(): List<PaymentTypeEntity>{
         return database.getAllPaymentTypes()
     }
+
+    fun findById(id: Long): PaymentTypeEntity {
+        return database.findById(id)
+    }
 }

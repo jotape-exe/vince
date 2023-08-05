@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.company.ourfinances.R
@@ -30,8 +31,8 @@ class RevenueFragment : Fragment(), FabClickListener {
     private lateinit var binding: FragmentRevenueBinding
     private lateinit var viewModel: FinanceActivityViewModel
 
-    private lateinit var paymentTypes: List<PaymentTypeEntity>
-    private lateinit var categoryExpense: List<CategoryExpenseEntity>
+    private lateinit var paymentTypesList: List<PaymentTypeEntity>
+    private lateinit var categoryExpenseList: List<CategoryExpenseEntity>
 
     private var recordId: Long = 0
 
@@ -77,11 +78,11 @@ class RevenueFragment : Fragment(), FabClickListener {
                 RegisterTypeEnum.REVENUE.value,
                 getIdCategoryExpenseFromName(
                     binding.spinnerCategory.selectedItem.toString(),
-                    categoryExpense
+                    categoryExpenseList
                 ),
                 getIdPaymentTypeFromName(
                     binding.spinnerTypePay.selectedItem.toString(),
-                    paymentTypes
+                    paymentTypesList
                 )
             )
 
@@ -171,14 +172,14 @@ class RevenueFragment : Fragment(), FabClickListener {
 
     private fun observe() {
         viewModel.categoryExpenseList.observe(viewLifecycleOwner) {
-            categoryExpense = it
-            val nameCategoriesList: List<String> = categoryExpense.map { item -> item.name }
+            categoryExpenseList = it
+            val nameCategoriesList: List<String> = categoryExpenseList.map { item -> item.name }
             binding.spinnerCategory.adapter = getAdapter(nameCategoriesList)
         }
 
         viewModel.typePay.observe(viewLifecycleOwner) {
-            paymentTypes = it
-            val namePaymentList: List<String> = paymentTypes.map { item -> item.name }
+            paymentTypesList = it
+            val namePaymentList: List<String> = paymentTypesList.map { item -> item.name }
             binding.spinnerTypePay.adapter = getAdapter(namePaymentList)
         }
 
@@ -192,15 +193,25 @@ class RevenueFragment : Fragment(), FabClickListener {
                 viewModel.getCategoryById(id).name
             }
 
-            categoryName?.let { name ->
-                val categoryPosition = categoryExpense.map { categoryExpense ->
-                    categoryExpense.name
-                }.indexOf(name)
-
-                if (categoryPosition != -1) {
-                    binding.spinnerCategory.setSelection(categoryPosition)
-                }
+            val paymentName = financeRecord.paymentTypeId?.let { id ->
+                viewModel.getTypePaymentById(id).name
             }
+
+            binding.spinnerCategory.setSelection(
+                getPositionByName(
+                    categoryName,
+                    expenseList = categoryExpenseList
+                )
+            )
+
+            binding.spinnerTypePay.setSelection(
+                getPositionByName(
+                    paymentName,
+                    paymentList = paymentTypesList
+                )
+            )
+
+
         }
     }
 
@@ -217,11 +228,43 @@ class RevenueFragment : Fragment(), FabClickListener {
     private fun loadRecord() {
         val bundle = activity?.intent?.extras
         bundle?.let { bundleObj ->
-            if (bundleObj.getString(activity?.getString(R.string.fragmentIdentifier)) == TitleEnum.RECEITA.value){
+            if (bundleObj.getString(activity?.getString(R.string.fragmentIdentifier)) == TitleEnum.RECEITA.value) {
                 recordId = bundleObj.getLong(DatabaseConstants.FinanceRecord.recordId)
                 viewModel.getRecordById(recordId)
             }
         }
+    }
+
+    private fun getPositionByName(
+        name: String?,
+        expenseList: List<CategoryExpenseEntity> = listOf(),
+        paymentList: List<PaymentTypeEntity> = listOf()
+    ): Int {
+        var position = 0
+
+        if (expenseList.isNotEmpty()) {
+            name.apply {
+                val categoryPosition = expenseList.map { categoryExpense ->
+                    categoryExpense.name
+                }.indexOf(this)
+
+                if (categoryPosition != -1) {
+                    position = categoryPosition
+                }
+            }
+        } else if (paymentList.isNotEmpty()) {
+            name.apply {
+                val paymentPosition = paymentList.map { typePayment ->
+                    typePayment.name
+                }.indexOf(this)
+
+                if (paymentPosition != -1) {
+                    position = paymentPosition
+                }
+            }
+        }
+
+        return position
     }
 
 

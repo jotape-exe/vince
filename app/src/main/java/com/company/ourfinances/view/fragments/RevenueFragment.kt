@@ -62,14 +62,10 @@ class RevenueFragment : Fragment(), FabClickListener {
     override fun doSave() {
         if (TextUtils.isEmpty(binding.editTitle.text)) {
             binding.editTitle.error = getString(R.string.title_cannot_be_empty)
+        } else if (TextUtils.isEmpty(binding.buttonDatePicker.text)) {
+            binding.buttonDatePicker.error = getString(R.string.date_cannot_be_empty)
         } else if (TextUtils.isEmpty(binding.editValue.text)) {
             binding.editValue.error = getString(R.string.value_cannot_be_empty)
-        } else if (TextUtils.equals(
-                binding.buttonDatePicker.text,
-                getString(R.string.select_date)
-            )
-        ) {
-            binding.buttonDatePicker.error = getString(R.string.date_cannot_be_empty)
         } else {
             val financeRecordEntity = FinanceRecordEntity(
                 recordId,
@@ -91,22 +87,25 @@ class RevenueFragment : Fragment(), FabClickListener {
 
             viewModel.save(financeRecordEntity)
 
+            clearAll()
+
             val bundle = Bundle()
 
             bundle.putString(getString(R.string.fragmentidentifier), TitleEnum.RECEITA.value)
 
-            clearAll()
+            activity?.findViewById<View>(R.id.finance_main)?.let { view ->
+                Snackbar.make(view, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
+                    .setAction("Ver") {
+                        activity?.startActivity(
+                            Intent(
+                                context,
+                                ShowRecordListActivity::class.java
+                            ).putExtras(bundle)
+                        )
+                        activity?.finish()
+                    }.show()
+            }
 
-            Snackbar.make(binding.root, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
-                .setAction("Ver") {
-                    activity?.startActivity(
-                        Intent(
-                            context,
-                            ShowRecordListActivity::class.java
-                        ).putExtras(bundle)
-                    )
-                    activity?.finish()
-                }.show()
         }
     }
 
@@ -203,9 +202,6 @@ class RevenueFragment : Fragment(), FabClickListener {
                 }
             }
         }
-
-
-
     }
 
     private fun getAdapter(itemsList: List<String>): ArrayAdapter<String>? {

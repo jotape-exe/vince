@@ -59,15 +59,15 @@ class HomeFragment : Fragment() {
 
                 when (fragmentIdentifier) {
                     TitleEnum.DESPESA.value -> {
-                        bundle.putString(getString(R.string.fragmentidentifier), TitleEnum.DESPESA.value)
+                        bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.DESPESA.value)
                     }
 
                     TitleEnum.RECEITA.value -> {
-                        bundle.putString(getString(R.string.fragmentidentifier), TitleEnum.RECEITA.value)
+                        bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.RECEITA.value)
                     }
 
                     TitleEnum.TRANSFERENCIA.value -> {
-                        bundle.putString(getString(R.string.fragmentidentifier), TitleEnum.TRANSFERENCIA.value)
+                        bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.TRANSFERENCIA.value)
                     }
                 }
 

@@ -1,6 +1,5 @@
 package com.company.ourfinances.view
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -21,13 +20,13 @@ class ShowRecordListActivity : AppCompatActivity() {
         binding = ActivityShowRecordListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        when (intent.getStringExtra(getString(R.string.fragmentidentifier))) {
+        when (intent.getStringExtra(getString(R.string.fragmentIdentifier))) {
             TitleEnum.DESPESA.value -> replaceFragment(ExpenseListFragment())
             TitleEnum.RECEITA.value -> replaceFragment(RevenueListFragment())
             TitleEnum.TRANSFERENCIA.value -> replaceFragment(TransferListFragment())
         }
 
-        binding.textTitle.text = intent.getStringExtra(getString(R.string.fragmentidentifier))
+        binding.textTitle.text = intent.getStringExtra(getString(R.string.fragmentIdentifier))
 
         listener()
     }

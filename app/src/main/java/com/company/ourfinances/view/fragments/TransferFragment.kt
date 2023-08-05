@@ -82,20 +82,22 @@ class TransferFragment : Fragment(), FabClickListener {
 
             val bundle = Bundle()
 
-            bundle.putString(getString(R.string.fragmentidentifier), TitleEnum.TRANSFERENCIA.value)
+            bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.TRANSFERENCIA.value)
 
             clearAll()
 
-            Snackbar.make(binding.root, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
-                .setAction("Ver") {
-                    activity?.startActivity(
-                        Intent(
-                            context,
-                            ShowRecordListActivity::class.java
-                        ).putExtras(bundle)
-                    )
-                    activity?.finish()
-                }.show()
+            activity?.findViewById<View>(R.id.finance_main)?.let { view ->
+                Snackbar.make(view, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
+                    .setAction("Ver") {
+                        activity?.startActivity(
+                            Intent(
+                                context,
+                                ShowRecordListActivity::class.java
+                            ).putExtras(bundle)
+                        )
+                        activity?.finish()
+                    }.show()
+            }
         }
     }
 

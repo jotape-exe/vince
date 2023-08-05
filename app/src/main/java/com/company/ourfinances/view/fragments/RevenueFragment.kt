@@ -91,7 +91,7 @@ class RevenueFragment : Fragment(), FabClickListener {
 
             val bundle = Bundle()
 
-            bundle.putString(getString(R.string.fragmentidentifier), TitleEnum.RECEITA.value)
+            bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.RECEITA.value)
 
             activity?.findViewById<View>(R.id.finance_main)?.let { view ->
                 Snackbar.make(view, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
@@ -216,9 +216,11 @@ class RevenueFragment : Fragment(), FabClickListener {
 
     private fun loadRecord() {
         val bundle = activity?.intent?.extras
-        bundle?.let { bundleId ->
-            recordId = bundleId.getLong(DatabaseConstants.FinanceRecord.recordId)
-            viewModel.getRecordById(recordId)
+        bundle?.let { bundleObj ->
+            if (bundleObj.getString(activity?.getString(R.string.fragmentIdentifier)) == TitleEnum.RECEITA.value){
+                recordId = bundleObj.getLong(DatabaseConstants.FinanceRecord.recordId)
+                viewModel.getRecordById(recordId)
+            }
         }
     }
 

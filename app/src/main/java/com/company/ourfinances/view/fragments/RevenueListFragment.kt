@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentRevenueListBinding
 import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.enums.RegisterTypeEnum
+import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.view.FinanceActivity
 import com.company.ourfinances.view.adapters.FinanceRecordAdapter
 import com.company.ourfinances.view.listener.OnFinanceRecordListener
@@ -36,16 +38,20 @@ class RevenueListFragment : Fragment() {
 
         val listener = object : OnFinanceRecordListener{
             override fun onDelete(id: Long) {
-
                 viewModel.delete(id)
                 viewModel.getAllByExpenseCategory(RegisterTypeEnum.REVENUE.value)
             }
 
             override fun onClick(id: Long) {
                 val bundle = Bundle()
+
                 bundle.putLong(DatabaseConstants.FinanceRecord.recordId, id)
+                bundle.putString(activity?.getString(R.string.fragmentIdentifier), TitleEnum.RECEITA.value)
+
                 startActivity(Intent(context, FinanceActivity::class.java).putExtras(bundle))
+                activity?.finish()
             }
+
         }
 
         adapter.attachToListener(listener)
@@ -65,8 +71,6 @@ class RevenueListFragment : Fragment() {
             adapter.updateList(it)
         }
 
-
     }
-
 
 }

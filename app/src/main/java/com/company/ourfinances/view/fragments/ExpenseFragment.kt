@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentExpenseBinding
+import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.entity.CategoryExpenseEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
@@ -30,6 +31,8 @@ class ExpenseFragment : Fragment(), FabClickListener {
     private lateinit var categoryExpense: List<CategoryExpenseEntity>
     private lateinit var viewModel: FinanceActivityViewModel
 
+    private var recordId: Long = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,6 +44,8 @@ class ExpenseFragment : Fragment(), FabClickListener {
         viewModel.getAllTypePayments()
 
         observe()
+
+        loadRecord()
 
         listeners()
 
@@ -57,7 +62,7 @@ class ExpenseFragment : Fragment(), FabClickListener {
             binding.buttonDatePickerExpense.error = getString(R.string.date_cannot_be_empty)
         } else {
             val financeRecordEntity = FinanceRecordEntity(
-                0,
+                recordId,
                 binding.editTitleExpense.text.toString(),
                 binding.editValueExpense.text.toString().toDouble(),
                 binding.buttonDatePickerExpense.text.toString(),
@@ -78,20 +83,22 @@ class ExpenseFragment : Fragment(), FabClickListener {
 
             val bundle = Bundle()
 
-            bundle.putString(getString(R.string.fragmentidentifier), TitleEnum.DESPESA.value)
+            bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.DESPESA.value)
 
             clearAll()
 
-            Snackbar.make(binding.root, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
-                .setAction("Ver") {
-                    activity?.startActivity(
-                        Intent(
-                            context,
-                            ShowRecordListActivity::class.java
-                        ).putExtras(bundle)
-                    )
-                    activity?.finish()
-                }.show()
+            activity?.findViewById<View>(R.id.finance_main)?.let { view ->
+                Snackbar.make(view, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
+                    .setAction("Ver") {
+                        activity?.startActivity(
+                            Intent(
+                                context,
+                                ShowRecordListActivity::class.java
+                            ).putExtras(bundle)
+                        )
+                        activity?.finish()
+                    }.show()
+            }
         }
     }
 
@@ -129,6 +136,27 @@ class ExpenseFragment : Fragment(), FabClickListener {
             paymentTypes = tiposDePagamento
             val namePaymentList: List<String> = paymentTypes.map { item -> item.name }
             binding.spinnerTypePayExpense.adapter = getAdapter(namePaymentList)
+        }
+
+        viewModel.financeRecord.observe(viewLifecycleOwner) { financeRecord ->
+
+            binding.editTitleExpense.setText(financeRecord.title)
+            binding.editValueExpense.setText(financeRecord.value.toString())
+            binding.buttonDatePickerExpense.text = financeRecord.dateRecord
+
+            val categoryName = financeRecord.categoryExpenseId?.let { id ->
+                viewModel.getCategoryById(id).name
+            }
+
+            categoryName?.let { name ->
+                val categoryPosition = categoryExpense.map { categoryExpense ->
+                    categoryExpense.name
+                }.indexOf(name)
+
+                if (categoryPosition != -1) {
+                    binding.spinnerCategoryExpense.setSelection(categoryPosition)
+                }
+            }
         }
     }
 
@@ -180,5 +208,15 @@ class ExpenseFragment : Fragment(), FabClickListener {
             )
         }
         return adapter
+    }
+
+    private fun loadRecord() {
+        val bundle = activity?.intent?.extras
+        bundle?.let { bundleObj ->
+            if (bundleObj.getString(activity?.getString(R.string.fragmentIdentifier)) == TitleEnum.DESPESA.value){
+                recordId = bundleObj.getLong(DatabaseConstants.FinanceRecord.recordId)
+                viewModel.getRecordById(recordId)
+            }
+        }
     }
 }

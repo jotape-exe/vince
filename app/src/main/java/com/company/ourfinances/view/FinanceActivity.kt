@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityFinanceBinding
+import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.view.adapters.FinanceTabAdapter
 import com.company.ourfinances.view.fragments.ExpenseFragment
 import com.company.ourfinances.view.fragments.RevenueFragment
@@ -33,6 +35,20 @@ class FinanceActivity : AppCompatActivity() {
         adapters()
 
         listeners()
+
+        when(intent.extras?.getString(getString(R.string.fragmentIdentifier))){
+            TitleEnum.RECEITA.value -> {
+                viewPager2.currentItem = 0
+            }
+            TitleEnum.DESPESA.value -> {
+                viewPager2.currentItem = 1
+            }
+            TitleEnum.TRANSFERENCIA.value -> {
+                viewPager2.currentItem = 2
+            }
+        }
+
+
 
     }
 

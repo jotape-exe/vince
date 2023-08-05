@@ -63,10 +63,13 @@ class RevenueFragment : Fragment(), FabClickListener {
     override fun doSave() {
         if (TextUtils.isEmpty(binding.editTitle.text)) {
             binding.editTitle.error = getString(R.string.title_cannot_be_empty)
-        } else if (TextUtils.isEmpty(binding.buttonDatePicker.text)) {
+
+        } else if (TextUtils.equals(binding.buttonDatePicker.text, requireContext().getString(R.string.select_date))) {
             binding.buttonDatePicker.error = getString(R.string.date_cannot_be_empty)
+
         } else if (TextUtils.isEmpty(binding.editValue.text)) {
             binding.editValue.error = getString(R.string.value_cannot_be_empty)
+
         } else {
             val financeRecordEntity = FinanceRecordEntity(
                 recordId,

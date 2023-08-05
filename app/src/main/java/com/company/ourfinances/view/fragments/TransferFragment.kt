@@ -80,16 +80,16 @@ class TransferFragment : Fragment(), FabClickListener {
     override fun doSave() {
         if (TextUtils.isEmpty(binding.editTitleTransfer.text)) {
             binding.editTitleTransfer.error = getString(R.string.title_cannot_be_empty)
-        } else if (TextUtils.isEmpty(binding.editValueTransfer.text)) {
-            binding.editValueTransfer.error = getString(R.string.value_cannot_be_empty)
-        } else if (TextUtils.equals(
-                binding.buttonDatePickerTransfer.text,
-                getString(R.string.select_date)
-            )
-        ) {
-            binding.buttonDatePickerTransfer.error = getString(R.string.date_cannot_be_empty)
+
         } else if (TextUtils.isEmpty(binding.editReceiverTransfer.text)) {
             binding.editReceiverTransfer.error = getString(R.string.receiver_not_empty)
+
+        } else if  (TextUtils.equals(binding.buttonDatePickerTransfer.text, requireContext().getString(R.string.select_date))) {
+            binding.buttonDatePickerTransfer.error = getString(R.string.date_cannot_be_empty)
+
+        } else if (TextUtils.isEmpty(binding.editValueTransfer.text)) {
+            binding.editValueTransfer.error = getString(R.string.value_cannot_be_empty)
+
         } else {
             val financeRecordEntity = FinanceRecordEntity(
                 recordId,

@@ -69,7 +69,7 @@
         android:drawableEnd="@drawable/ic_calendar_month"
         android:drawableTint="@color/variant_green_3"
         android:text="Selecionar data"
-        android:textColor="@color/variant_green_3"
+        android:textColor="@color/black"
         android:textSize="16sp"
         android:theme="@style/ComponentsTheme"
         app:layout_constraintBottom_toTopOf="@id/text_type_pay_transfer"

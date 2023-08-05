@@ -52,7 +52,6 @@ class CardCreateActivity : AppCompatActivity() {
     }
 
     private fun getAdapter(itemsList: List<String>): ArrayAdapter<String>? {
-        //Adapter para tipo de cartão
         return ArrayAdapter(applicationContext, R.layout.style_spinner, itemsList)
     }
 

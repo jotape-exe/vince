@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="Nome do Cartão"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/edit_card_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_app_bar_card" />
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="Numero do Cartão"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_card_name" />
 
@@ -101,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="Tipo de Cartão"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_card_number" />
 
@@ -122,7 +122,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="Cor do Cartão"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/spinner_card_type" />
 
@@ -138,18 +138,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_select_color" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_save_card"
-        android:layout_width="180dp"
-        android:padding="10dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textSize="18sp"
-        android:text="Salvar"
+        android:layout_margin="40dp"
+        android:background="@drawable/button_shape"
+        android:backgroundTint="@color/variant_green"
+        android:contentDescription="Save"
+        android:elevation="4dp"
+        android:src="@drawable/ic_save"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/colorSpinner" />
+        app:maxImageSize="30dp"
+        app:tint="@color/white" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

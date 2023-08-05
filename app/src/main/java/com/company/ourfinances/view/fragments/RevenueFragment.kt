@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentRevenueBinding
+import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.entity.CategoryExpenseEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
@@ -32,6 +33,8 @@ class RevenueFragment : Fragment(), FabClickListener {
     private lateinit var paymentTypes: List<PaymentTypeEntity>
     private lateinit var categoryExpense: List<CategoryExpenseEntity>
 
+    private var recordId: Long = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,6 +51,8 @@ class RevenueFragment : Fragment(), FabClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        loadRecord()
+
         observe()
 
         listeners()
@@ -59,11 +64,15 @@ class RevenueFragment : Fragment(), FabClickListener {
             binding.editTitle.error = getString(R.string.title_cannot_be_empty)
         } else if (TextUtils.isEmpty(binding.editValue.text)) {
             binding.editValue.error = getString(R.string.value_cannot_be_empty)
-        } else if (TextUtils.equals(binding.buttonDatePicker.text, getString(R.string.select_date))) {
+        } else if (TextUtils.equals(
+                binding.buttonDatePicker.text,
+                getString(R.string.select_date)
+            )
+        ) {
             binding.buttonDatePicker.error = getString(R.string.date_cannot_be_empty)
         } else {
             val financeRecordEntity = FinanceRecordEntity(
-                0,
+                recordId,
                 binding.editTitle.text.toString(),
                 binding.editValue.text.toString().toDouble(),
                 binding.buttonDatePicker.text.toString(),
@@ -80,7 +89,7 @@ class RevenueFragment : Fragment(), FabClickListener {
                 )
             )
 
-            viewModel.insert(financeRecordEntity)
+            viewModel.save(financeRecordEntity)
 
             val bundle = Bundle()
 
@@ -99,6 +108,28 @@ class RevenueFragment : Fragment(), FabClickListener {
                     activity?.finish()
                 }.show()
         }
+    }
+
+    override fun getIdCategoryExpenseFromName(
+        spinnerItemName: String,
+        list: List<CategoryExpenseEntity>
+    ): Long? {
+        val item = list.find { it.name == spinnerItemName }
+        return item?.id
+    }
+
+    override fun getIdPaymentTypeFromName(
+        spinnerItemName: String,
+        list: List<PaymentTypeEntity>
+    ): Long? {
+        val item = list.find { it.name == spinnerItemName }
+        return item?.paymentId
+    }
+
+    override fun clearAll() {
+        binding.editTitle.text.clear()
+        binding.editValue.text.clear()
+        binding.buttonDatePicker.text = activity?.getString(R.string.select_date)
     }
 
     private fun listeners() {
@@ -152,6 +183,29 @@ class RevenueFragment : Fragment(), FabClickListener {
             binding.spinnerTypePay.adapter = getAdapter(namePaymentList)
         }
 
+        viewModel.financeRecord.observe(viewLifecycleOwner) { financeRecord ->
+
+            binding.editTitle.setText(financeRecord.title)
+            binding.editValue.setText(financeRecord.value.toString())
+            binding.buttonDatePicker.text = financeRecord.dateRecord
+
+            val categoryName = financeRecord.categoryExpenseId?.let { id ->
+                viewModel.getCategoryById(id).name
+            }
+
+            categoryName?.let { name ->
+                val categoryPosition = categoryExpense.map { categoryExpense ->
+                    categoryExpense.name
+                }.indexOf(name)
+
+                if (categoryPosition != -1) {
+                    binding.spinnerCategory.setSelection(categoryPosition)
+                }
+            }
+        }
+
+
+
     }
 
     private fun getAdapter(itemsList: List<String>): ArrayAdapter<String>? {
@@ -164,24 +218,12 @@ class RevenueFragment : Fragment(), FabClickListener {
         return adapter
     }
 
-    //Logia na viewModel
-    override fun getIdCategoryExpenseFromName(
-        spinnerItemName: String,
-        list: List<CategoryExpenseEntity>
-    ): Long? {
-        val item = list.find { it.name == spinnerItemName }
-        return item?.id
-    }
-
-    override fun getIdPaymentTypeFromName(spinnerItemName: String, list: List<PaymentTypeEntity>): Long? {
-        val item = list.find { it.name == spinnerItemName }
-        return item?.paymentId
-    }
-
-    override fun clearAll() {
-        binding.editTitle.text.clear()
-        binding.editValue.text.clear()
-        binding.buttonDatePicker.text = activity?.getString(R.string.select_date)
+    private fun loadRecord() {
+        val bundle = activity?.intent?.extras
+        bundle?.let { bundleId ->
+            recordId = bundleId.getLong(DatabaseConstants.FinanceRecord.recordId)
+            viewModel.getRecordById(recordId)
+        }
     }
 
 

@@ -7,11 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.company.ourfinances.R
-import com.company.ourfinances.databinding.FragmentTransferBinding
 import com.company.ourfinances.databinding.FragmentTransferListBinding
 import com.company.ourfinances.model.enums.RegisterTypeEnum
-import com.company.ourfinances.view.adapters.FinanceRecordAdapter
 import com.company.ourfinances.view.adapters.TransferRecordAdapter
 import com.company.ourfinances.view.listener.OnFinanceRecordListener
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
@@ -41,6 +38,10 @@ class TransferListFragment : Fragment() {
                 viewModel.delete(id)
                 viewModel.getAllByExpenseCategory(RegisterTypeEnum.TRANSFER.value)
             }
+
+            override fun onClick(id: Long) {
+
+            }
         }
 
         adapter.attachToListener(listener)
@@ -56,7 +57,7 @@ class TransferListFragment : Fragment() {
     }
 
     private fun observe() {
-        viewModel.financeRecord.observe(viewLifecycleOwner) {
+        viewModel.financeRecordList.observe(viewLifecycleOwner) {
             adapter.updateList(it)
         }
     }

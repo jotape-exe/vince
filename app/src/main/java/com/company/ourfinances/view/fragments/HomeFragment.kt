@@ -2,19 +2,18 @@ package com.company.ourfinances.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentHomeBinding
-import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.model.enums.TitleEnum
-import com.company.ourfinances.view.HomeComponent
 import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.adapters.HomeComponentAdapter
+import com.company.ourfinances.view.assets.HomeComponent
 import com.company.ourfinances.view.listener.OnComponentHomeListener
 
 class HomeFragment : Fragment() {

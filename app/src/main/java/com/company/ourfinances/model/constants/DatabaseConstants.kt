@@ -5,4 +5,8 @@ class DatabaseConstants private constructor(){
         private const val id = "id"
         private const val name = "name"
     }
+
+    object FinanceRecord{
+        const val recordId = "recordId"
+    }
 }

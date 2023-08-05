@@ -2,7 +2,7 @@ package com.company.ourfinances.view.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.company.ourfinances.databinding.HomeListItemBinding
-import com.company.ourfinances.view.HomeComponent
+import com.company.ourfinances.view.assets.HomeComponent
 import com.company.ourfinances.view.listener.OnComponentHomeListener
 
 class HomeViewHolder(private var bind: HomeListItemBinding, private val listener: OnComponentHomeListener) : RecyclerView.ViewHolder(bind.root) {

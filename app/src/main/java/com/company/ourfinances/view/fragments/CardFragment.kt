@@ -2,24 +2,16 @@ package com.company.ourfinances.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentCardBinding
-import com.company.ourfinances.databinding.FragmentRevenueBinding
-import com.company.ourfinances.databinding.FragmentRevenueListBinding
-import com.company.ourfinances.model.entity.CategoryExpenseEntity
-import com.company.ourfinances.model.entity.PaymentTypeEntity
-import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.view.CardCreateActivity
 import com.company.ourfinances.view.adapters.CardItemAdapter
-import com.company.ourfinances.view.adapters.FinanceRecordAdapter
 import com.company.ourfinances.view.listener.OnCardListener
-import com.company.ourfinances.view.listener.OnFinanceRecordListener
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 
 class CardFragment : Fragment() {

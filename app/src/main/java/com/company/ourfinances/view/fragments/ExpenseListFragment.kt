@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentExpenseListBinding
-import com.company.ourfinances.databinding.FragmentRevenueListBinding
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.view.adapters.FinanceRecordAdapter
 import com.company.ourfinances.view.listener.OnFinanceRecordListener
@@ -41,6 +39,10 @@ class ExpenseListFragment : Fragment() {
                 viewModel.delete(id)
                 viewModel.getAllByExpenseCategory(RegisterTypeEnum.EXPENSE.value)
             }
+
+            override fun onClick(id: Long) {
+
+            }
         }
 
         adapter.attachToListener(listener)
@@ -56,7 +58,7 @@ class ExpenseListFragment : Fragment() {
     }
 
     private fun observe() {
-        viewModel.financeRecord.observe(viewLifecycleOwner) {
+        viewModel.financeRecordList.observe(viewLifecycleOwner) {
             adapter.updateList(it)
         }
     }

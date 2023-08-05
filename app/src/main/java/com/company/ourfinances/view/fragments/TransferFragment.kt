@@ -78,7 +78,7 @@ class TransferFragment : Fragment(), FabClickListener {
                 )
             )
 
-            viewModel.insert(financeRecordEntity)
+            viewModel.save(financeRecordEntity)
 
             val bundle = Bundle()
 

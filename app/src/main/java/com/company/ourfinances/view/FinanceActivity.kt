@@ -1,8 +1,8 @@
 package com.company.ourfinances.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.company.ourfinances.databinding.ActivityFinanceBinding
@@ -36,6 +36,7 @@ class FinanceActivity : AppCompatActivity() {
 
     }
 
+
     private fun adapters() {
         tabLayout = binding.tabFinance
         viewPager2 = binding.viewPagerFinance
@@ -53,6 +54,7 @@ class FinanceActivity : AppCompatActivity() {
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
+
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -69,31 +71,30 @@ class FinanceActivity : AppCompatActivity() {
         })
 
         binding.fabSaveRegister.setOnClickListener {
-
-            val currentPosition = viewPager2.currentItem
-            val currentFragmentTag = "f$currentPosition"
-            val currentFragment = supportFragmentManager.findFragmentByTag(currentFragmentTag)
-
-            when (currentPosition) {
-                0 -> {
-                    val revenueFragment = currentFragment as? RevenueFragment
-                    revenueFragment!!.doSave()
-                }
-
-                1 -> {
-                    val expenseFragment = currentFragment as? ExpenseFragment
-                    expenseFragment!!.doSave()
-                }
-
-                2 -> {
-                    val transferFragment = currentFragment as? TransferFragment
-                    transferFragment!!.doSave()
-                }
-            }
+            currentFragmentAtTab(viewPager2.currentItem)
         }
     }
 
-    private fun observer() {
+    private fun currentFragmentAtTab(currentPosition: Int) {
 
+        val currentFragmentTag = "f$currentPosition"
+        val currentFragment: Fragment? = supportFragmentManager.findFragmentByTag(currentFragmentTag)
+
+        when (currentPosition) {
+            0 -> {
+                val revenueFragment = currentFragment as? RevenueFragment
+                revenueFragment!!.doSave()
+            }
+
+            1 -> {
+                val expenseFragment = currentFragment as? ExpenseFragment
+                expenseFragment!!.doSave()
+            }
+
+            2 -> {
+                val transferFragment = currentFragment as? TransferFragment
+                transferFragment!!.doSave()
+            }
+        }
     }
 }

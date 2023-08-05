@@ -29,14 +29,21 @@ class FinanceActivityViewModel(application: Application) : AndroidViewModel(appl
     private val _typePayment = MutableLiveData<List<PaymentTypeEntity>>()
     val typePay: LiveData<List<PaymentTypeEntity>> = _typePayment
 
-    private val _financeRecord = MutableLiveData<List<FinanceRecordEntity>>()
-    val financeRecord: LiveData<List<FinanceRecordEntity>> = _financeRecord
+    private val _financeRecordList = MutableLiveData<List<FinanceRecordEntity>>()
+    val financeRecordList: LiveData<List<FinanceRecordEntity>> = _financeRecordList
+
+    private val _financeRecord = MutableLiveData<FinanceRecordEntity>()
+    val financeRecord: LiveData<FinanceRecordEntity> = _financeRecord
 
     private val _cardRecord = MutableLiveData<List<CardEntity>>()
     val cardRecord: LiveData<List<CardEntity>> = _cardRecord
 
-    fun insert(recordEntity: FinanceRecordEntity) {
-        financeRepository.save(recordEntity)
+    fun save(recordEntity: FinanceRecordEntity) {
+        if (recordEntity.recordId == 0L){
+            financeRepository.save(recordEntity)
+        } else{
+            financeRepository.update(recordEntity)
+        }
     }
 
     fun delete(id: Long) {
@@ -56,7 +63,7 @@ class FinanceActivityViewModel(application: Application) : AndroidViewModel(appl
     }
 
     fun getAllByExpenseCategory(typeRecord: String) {
-        _financeRecord.value = financeRepository.getAllByExpenseCategory(typeRecord)
+        _financeRecordList.value = financeRepository.getAllByExpenseCategory(typeRecord)
     }
 
     fun insertCard(cardEntity: CardEntity){
@@ -69,6 +76,10 @@ class FinanceActivityViewModel(application: Application) : AndroidViewModel(appl
 
     fun deleteCard(id:Long) {
         cardRepository.deleteCard(id)
+    }
+
+    fun getRecordById(id: Long) {
+        _financeRecord.value = financeRepository.findById(id)
     }
 
 }

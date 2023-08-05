@@ -32,6 +32,10 @@ class FinanceRecordViewHolder(
                 .show()
 
         }
+
+        bind.buttonEditView.setOnClickListener {
+            listener.onClick(financeRecordEntity.recordId)
+        }
     }
 
 }

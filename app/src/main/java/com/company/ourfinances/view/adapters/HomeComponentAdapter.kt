@@ -3,11 +3,8 @@ package com.company.ourfinances.view.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.company.ourfinances.R
-import com.company.ourfinances.databinding.FinaceRecordViewItemBinding
 import com.company.ourfinances.databinding.HomeListItemBinding
-import com.company.ourfinances.model.entity.FinanceRecordEntity
-import com.company.ourfinances.view.HomeComponent
+import com.company.ourfinances.view.assets.HomeComponent
 import com.company.ourfinances.view.listener.OnComponentHomeListener
 import com.company.ourfinances.view.viewholder.HomeViewHolder
 

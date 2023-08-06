@@ -30,7 +30,7 @@ class TransferListFragment : Fragment() {
         binding = FragmentTransferListBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
 
-        adapter = TransferRecordAdapter()
+        adapter = TransferRecordAdapter(viewModel)
 
         binding.recyclerTransfer.layoutManager = LinearLayoutManager(context)
         binding.recyclerTransfer.adapter = adapter

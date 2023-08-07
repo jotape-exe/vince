@@ -1,9 +1,12 @@
 package com.company.ourfinances.view
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -12,6 +15,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityMainBinding
+import com.company.ourfinances.databinding.NavHeaderBinding
+import com.company.ourfinances.model.constants.DatabaseConstants
+import com.company.ourfinances.model.preferences.UserPreferences
 import com.company.ourfinances.view.fragments.CardFragment
 import com.company.ourfinances.view.fragments.GoalFragment
 import com.company.ourfinances.view.fragments.HelpFragment
@@ -37,7 +43,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setContentView(binding.root)
 
-        fab = findViewById(R.id.floating_btn)
+        fab = binding.floatingBtn
 
         listeners()
 
@@ -94,8 +100,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         replaceFragment(HomeFragment())
         binding.bottomNavigationView.background = null
 
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            when (it.itemId) {
+        binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
                 R.id.item_home -> replaceFragment(HomeFragment())
                 R.id.item_card -> replaceFragment(CardFragment())
                 R.id.item_goal -> replaceFragment(GoalFragment())
@@ -108,11 +114,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_settings -> replaceFragment(SettingsFragment())
-            R.id.item_help -> replaceFragment(HelpFragment())
-            R.id.item_info -> replaceFragment(InfoFragment())
+            R.id.item_help -> {
+                sendEmail()
+                return false
+            }
+            R.id.item_info -> {
+                AlertDialog.Builder(this)
+                    .setTitle("Informação")
+                    .setMessage("Vince®\nDesenvolvedor: João Pedro")
+                    .setPositiveButton("Ok", null)
+                    .create()
+                    .show()
+                return false
+            }
             R.id.item_logout -> firebaseLogout()
         }
         drawerLayout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+    private fun sendEmail(): Boolean {
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:")
+            putExtra(Intent.EXTRA_EMAIL, arrayOf("vincesupport@help.com"))
+        }
+            startActivity(intent)
         return true
     }
 

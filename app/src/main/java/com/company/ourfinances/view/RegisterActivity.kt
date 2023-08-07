@@ -12,6 +12,8 @@ import android.view.View
 import android.widget.TextView
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityRegisterBinding
+import com.company.ourfinances.model.constants.DatabaseConstants
+import com.company.ourfinances.model.preferences.UserPreferences
 import com.company.ourfinances.view.assets.LoadingDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -85,16 +87,9 @@ class RegisterActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
 
-                    val bundle = Bundle()
-
-                    bundle.putString("nome", binding.editNameRegister.text.toString())
-
-                    val intent = Intent(this, MainActivity::class.java)
-
-                    intent.putExtras(bundle)
 
                     loadingDialog.dismissDialog()
-                    openMainActivity(intent)
+                    openMainActivity(Intent(this, MainActivity::class.java))
                 } else {
                     task.exception?.let { exception ->
                         when (exception) {

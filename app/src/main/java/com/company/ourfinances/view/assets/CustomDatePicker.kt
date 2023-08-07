@@ -20,7 +20,7 @@ class CustomDatePicker(button: MaterialButton, fragment: Fragment) {
                 val calendar = Calendar.getInstance()
                 calendar.timeInMillis = selection
 
-                val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH) + 1
+                val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
                 val month = calendar.get(Calendar.MONTH) + 1
                 val year = calendar.get(Calendar.YEAR)
 
@@ -31,6 +31,7 @@ class CustomDatePicker(button: MaterialButton, fragment: Fragment) {
                 )
                 button.text = date
             }
+
 
             fragment.activity?.supportFragmentManager?.let { manager ->
                 materialDatePicker.show( manager, "tag")

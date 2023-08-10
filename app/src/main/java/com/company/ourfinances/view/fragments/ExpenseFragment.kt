@@ -63,25 +63,24 @@ class ExpenseFragment : Fragment(), FabClickListener {
             binding.editValueExpense.error = getString(R.string.value_cannot_be_empty)
 
         } else {
-            val financeRecordEntity = FinanceRecordEntity(
-                recordId,
-                binding.editTitleExpense.text.toString(),
-                binding.editValueExpense.text.toString().toDouble(),
-                binding.buttonDatePickerExpense.text.toString(),
-                null,
-                null,
-                RegisterTypeEnum.EXPENSE.value,
-                getIdCategoryExpenseFromName(
+            val financeRecord = FinanceRecordEntity.Builder()
+                .setRecordId(recordId)
+                .setTitle( binding.editTitleExpense.text.toString())
+                .setValue(binding.editValueExpense.text.toString().toDouble())
+                .setDateRecord(binding.buttonDatePickerExpense.text.toString())
+                .setTypeRecord(RegisterTypeEnum.EXPENSE.value)
+                .setCategoryExpenseId(getIdCategoryExpenseFromName(
                     binding.spinnerCategoryExpense.selectedItem.toString(),
                     categoryExpenseList
-                ),
-                getIdPaymentTypeFromName(
+                ))
+                .setPaymentTypeId(getIdPaymentTypeFromName(
                     binding.spinnerTypePayExpense.selectedItem.toString(),
                     paymentTypesList
-                )
-            )
+                ))
+                .build()
 
-            viewModel.save(financeRecordEntity)
+            viewModel.save(financeRecord)
+            recordId = 0
 
             val bundle = Bundle()
 

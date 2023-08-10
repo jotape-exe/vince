@@ -65,8 +65,6 @@ class LoginActivity : AppCompatActivity() {
             this.text = coloredText
         }
 
-        observer()
-
     }
 
     override fun onDestroy() {
@@ -112,27 +110,26 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    private var startActivityWithGoogle = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+
+        if (result.resultCode == RESULT_OK) {
+            val intent = result.data
+            val task = GoogleSignIn.getSignedInAccountFromIntent(intent)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                loginWithGoogle(account.idToken!!)
+            } catch (e: ApiException) {
+                Log.e("error: ", e.toString())
+            }
+        }
+    }
+
+
     //Create service for login features
     private fun signIn() {
         val intent = googleSignInClient.signInIntent
         startActivityWithGoogle.launch(intent)
     }
-
-    private var startActivityWithGoogle =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-
-            if (result.resultCode == RESULT_OK) {
-                val intent = result.data
-                val task = GoogleSignIn.getSignedInAccountFromIntent(intent)
-
-                try {
-                    val account = task.getResult(ApiException::class.java)
-                    loginWithGoogle(account.idToken!!)
-                } catch (e: ApiException) {
-                    Log.e("error: ", e.toString())
-                }
-            }
-        }
 
     private fun loginWithGoogle(token: String) {
         loadingDialog.startLoadingDialog()
@@ -168,10 +165,6 @@ class LoginActivity : AppCompatActivity() {
     private fun openMainActivity() {
         startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
-    }
-
-    private fun observer() {
-
     }
 
 }

@@ -30,20 +30,15 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var drawerLayout: DrawerLayout
-    private lateinit var fab: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
-
-        fab = binding.floatingBtn
 
         listeners()
 
@@ -61,8 +56,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun listeners() {
-        fab.setOnClickListener {
+
+        binding.floatingBtn.setOnClickListener {
             startActivity(Intent(this, FinanceActivity::class.java))
+        }
+
+        binding.navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.item_settings -> replaceFragment(SettingsFragment())
+                R.id.item_help -> {
+                    sendEmail()
+                    false
+                }
+                R.id.item_info -> {
+                    AlertDialog.Builder(this)
+                        .setTitle("Informação")
+                        .setMessage("Vince®\nDesenvolvedor: João Pedro")
+                        .setPositiveButton("OK", null)
+                        .create()
+                        .show()
+                    false
+                }
+                R.id.item_logout -> firebaseLogout()
+            }
+            drawerLayout.closeDrawer(GravityCompat.START)
+            true
         }
     }
 
@@ -71,9 +89,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(toolbar)
 
         drawerLayout = binding.drawerLayoutMain
-        val navView: NavigationView = binding.navView
-
-        navView.setNavigationItemSelectedListener(this)
 
         val toggle = ActionBarDrawerToggle(
             this,
@@ -109,28 +124,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 else -> true
             }
         }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.item_settings -> replaceFragment(SettingsFragment())
-            R.id.item_help -> {
-                sendEmail()
-                return false
-            }
-            R.id.item_info -> {
-                AlertDialog.Builder(this)
-                    .setTitle("Informação")
-                    .setMessage("Vince®\nDesenvolvedor: João Pedro")
-                    .setPositiveButton("Ok", null)
-                    .create()
-                    .show()
-                return false
-            }
-            R.id.item_logout -> firebaseLogout()
-        }
-        drawerLayout.closeDrawer(GravityCompat.START)
-        return true
     }
 
     private fun sendEmail(): Boolean {

@@ -91,22 +91,17 @@ class TransferFragment : Fragment(), FabClickListener {
             binding.editValueTransfer.error = getString(R.string.value_cannot_be_empty)
 
         } else {
-            val financeRecordEntity = FinanceRecordEntity(
-                recordId,
-                binding.editTitleTransfer.text.toString(),
-                binding.editValueTransfer.text.toString().toDouble(),
-                binding.buttonDatePickerTransfer.text.toString(),
-                null,
-                binding.editReceiverTransfer.text.toString(),
-                RegisterTypeEnum.TRANSFER.value,
-                null,
-                getIdPaymentTypeFromName(
-                    binding.spinnerTypePayTransfer.selectedItem.toString(),
-                    paymentTypesList
-                )
-            )
+            val financeRecord = FinanceRecordEntity.Builder()
+                .setTitle(binding.editTitleTransfer.text.toString())
+                .setValue(binding.editValueTransfer.text.toString().toDouble())
+                .setDateRecord(binding.buttonDatePickerTransfer.text.toString())
+                .setDestinationAccount(binding.editReceiverTransfer.text.toString())
+                .setTypeRecord(RegisterTypeEnum.TRANSFER.value)
+                .setPaymentTypeId(getIdPaymentTypeFromName(binding.spinnerTypePayTransfer.selectedItem.toString(), paymentTypesList))
+                .build()
 
-            viewModel.save(financeRecordEntity)
+            viewModel.save(financeRecord)
+            recordId = 0
 
             val bundle = Bundle()
 

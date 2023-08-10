@@ -42,13 +42,6 @@ class CardCreateActivity : AppCompatActivity() {
 
         listener()
 
-        observe()
-
-
-    }
-
-    private fun observe() {
-
     }
 
     private fun getAdapter(itemsList: List<String>): ArrayAdapter<String>? {

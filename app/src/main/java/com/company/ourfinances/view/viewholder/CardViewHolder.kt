@@ -29,7 +29,6 @@ class CardViewHolder(
                 .setPositiveButton("Sim") { dialog, which ->
                     listener.onLongClick(card.cardId)
                 }
-                .setNegativeButton("Não", null)
                 .setNeutralButton("Cancelar", null)
                 .create()
                 .show()

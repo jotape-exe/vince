@@ -28,7 +28,6 @@ class FinanceRecordViewHolder(
                 .setPositiveButton("Sim") { dialog, which ->
                     listener.onDelete(financeRecordEntity.recordId)
                 }
-                .setNegativeButton("Não", null)
                 .setNeutralButton("Cancelar", null)
                 .create()
                 .show()

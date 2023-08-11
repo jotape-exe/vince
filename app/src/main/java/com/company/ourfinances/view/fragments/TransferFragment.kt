@@ -18,7 +18,6 @@ import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.model.enums.TitleEnum
-import com.company.ourfinances.model.preferences.FinancePreferences
 import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.assets.CustomDatePicker
 import com.company.ourfinances.view.listener.FabClickListener
@@ -97,25 +96,25 @@ class TransferFragment : Fragment(), FabClickListener {
 
         } else {
 
-            val paymentId = getIdPaymentTypeFromName(
+            val paymentTypeId = getIdPaymentTypeFromName(
                 binding.spinnerTypePayTransfer.selectedItem.toString(),
                 paymentTypesList
             )
-
             val financeRecord = FinanceRecordEntity.Builder()
+                .setRecordId(recordId)
                 .setTitle(binding.editTitleTransfer.text.toString())
                 .setValue(binding.editValueTransfer.text.toString().toDouble())
                 .setDateRecord(binding.buttonDatePickerTransfer.text.toString())
                 .setDestinationAccount(binding.editReceiverTransfer.text.toString())
                 .setTypeRecord(RegisterTypeEnum.TRANSFER.value)
-                .setPaymentTypeId(paymentId)
+                .setPaymentTypeId(paymentTypeId)
                 .build()
 
             viewModel.save(financeRecord)
-            resetRecord()
+            resetRecordId()
 
-            //DoRefactor
-            FinancePreferences(requireContext()).storeIdentifier(DatabaseConstants.PreferencesConstants.KEY_TITLE_RECORD,TitleEnum.TRANSFERENCIA.value)
+            val bundle = Bundle()
+            bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.TRANSFERENCIA.value)
 
             clearAll()
 
@@ -126,16 +125,12 @@ class TransferFragment : Fragment(), FabClickListener {
                             Intent(
                                 context,
                                 ShowRecordListActivity::class.java
-                            )
+                            ).putExtras(bundle)
                         )
                         activity?.finish()
                     }.show()
             }
         }
-    }
-
-    private fun resetRecord() {
-        recordId = 0
     }
 
     override fun clearAll() {
@@ -169,6 +164,11 @@ class TransferFragment : Fragment(), FabClickListener {
         }
         return adapter
     }
+
+    private fun resetRecordId() {
+        recordId = 0
+    }
+
 
     private fun listeners() {
         binding.spinnerTypePayTransfer.onItemSelectedListener = object :

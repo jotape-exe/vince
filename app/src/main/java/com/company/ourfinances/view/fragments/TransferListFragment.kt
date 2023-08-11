@@ -44,6 +44,7 @@ class TransferListFragment : Fragment() {
             override fun onClick(id: Long) {
                 val bundle = Bundle()
 
+                //DoRefactor(FinancePreferences)
                 bundle.putLong(DatabaseConstants.FinanceRecord.recordId, id)
                 bundle.putString(activity?.getString(R.string.fragmentIdentifier), TitleEnum.TRANSFERENCIA.value)
 

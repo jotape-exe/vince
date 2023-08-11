@@ -18,7 +18,6 @@ import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.model.enums.TitleEnum
-import com.company.ourfinances.model.preferences.FinancePreferences
 import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.assets.CustomDatePicker
 import com.company.ourfinances.view.listener.FabClickListener
@@ -57,41 +56,38 @@ class ExpenseFragment : Fragment(), FabClickListener {
         if (TextUtils.isEmpty(binding.editTitleExpense.text)) {
 
             binding.editTitleExpense.error = getString(R.string.title_cannot_be_empty)
-        } else if (TextUtils.equals(
-                binding.buttonDatePickerExpense.text,
-                requireContext().getString(R.string.select_date)
-            )
-        ) {
+        } else if  (TextUtils.equals(binding.buttonDatePickerExpense.text, requireContext().getString(R.string.select_date))) {
             binding.buttonDatePickerExpense.error = getString(R.string.date_cannot_be_empty)
 
         } else if (TextUtils.isEmpty(binding.editValueExpense.text)) {
             binding.editValueExpense.error = getString(R.string.value_cannot_be_empty)
 
         } else {
-            val categoryId = getIdCategoryExpenseFromName(
+
+            val categoryExpenseId = getIdCategoryExpenseFromName(
                 binding.spinnerCategoryExpense.selectedItem.toString(),
                 categoryExpenseList
             )
-            val paymentId = getIdPaymentTypeFromName(
+
+            val paymentTypeId = getIdPaymentTypeFromName(
                 binding.spinnerTypePayExpense.selectedItem.toString(),
                 paymentTypesList
             )
-
             val financeRecord = FinanceRecordEntity.Builder()
                 .setRecordId(recordId)
-                .setTitle(binding.editTitleExpense.text.toString())
+                .setTitle( binding.editTitleExpense.text.toString())
                 .setValue(binding.editValueExpense.text.toString().toDouble())
                 .setDateRecord(binding.buttonDatePickerExpense.text.toString())
                 .setTypeRecord(RegisterTypeEnum.EXPENSE.value)
-                .setCategoryExpenseId(categoryId)
-                .setPaymentTypeId(paymentId)
+                .setCategoryExpenseId(categoryExpenseId)
+                .setPaymentTypeId(paymentTypeId)
                 .build()
 
             viewModel.save(financeRecord)
-            resetRecord()
+            resetRecordId()
 
-            //DoRefactor
-            FinancePreferences(requireContext()).storeIdentifier(DatabaseConstants.PreferencesConstants.KEY_TITLE_RECORD,TitleEnum.DESPESA.value)
+            val bundle = Bundle()
+            bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.DESPESA.value)
 
             clearAll()
 
@@ -102,16 +98,12 @@ class ExpenseFragment : Fragment(), FabClickListener {
                             Intent(
                                 context,
                                 ShowRecordListActivity::class.java
-                            )
+                            ).putExtras(bundle)
                         )
                         activity?.finish()
                     }.show()
             }
         }
-    }
-
-    private fun resetRecord() {
-        recordId = 0
     }
 
     override fun clearAll() {
@@ -125,9 +117,7 @@ class ExpenseFragment : Fragment(), FabClickListener {
         spinnerItemName: String,
         list: List<CategoryExpenseEntity>
     ): Long? {
-        val item = list.find { categoryExpenseEntity ->
-            categoryExpenseEntity.name == spinnerItemName
-        }
+        val item = list.find { it.name == spinnerItemName }
         return item?.id
     }
 
@@ -135,10 +125,12 @@ class ExpenseFragment : Fragment(), FabClickListener {
         spinnerItemName: String,
         list: List<PaymentTypeEntity>
     ): Long? {
-        val item = list.find { paymentTypeEntity ->
-            paymentTypeEntity.name == spinnerItemName
-        }
+        val item = list.find { it.name == spinnerItemName }
         return item?.paymentId
+    }
+
+    private fun resetRecordId() {
+        recordId = 0
     }
 
     private fun observe() {
@@ -168,19 +160,9 @@ class ExpenseFragment : Fragment(), FabClickListener {
                 viewModel.getTypePaymentById(id).name
             }
 
-            binding.spinnerCategoryExpense.setSelection(
-                getPositionByName(
-                    categoryName,
-                    expenseList = categoryExpenseList
-                )
-            )
+            binding.spinnerCategoryExpense.setSelection(getPositionByName(categoryName, expenseList = categoryExpenseList))
 
-            binding.spinnerTypePayExpense.setSelection(
-                getPositionByName(
-                    paymentName,
-                    paymentList = paymentTypesList
-                )
-            )
+            binding.spinnerTypePayExpense.setSelection(getPositionByName(paymentName, paymentList = paymentTypesList))
 
         }
     }
@@ -226,9 +208,9 @@ class ExpenseFragment : Fragment(), FabClickListener {
     }
 
     private fun getAdapter(itemsList: List<String>): ArrayAdapter<String>? {
-        val adapter = activity?.let { fragment ->
+        val adapter = activity?.let {
             ArrayAdapter(
-                fragment.applicationContext,
+                it.applicationContext,
                 R.layout.style_spinner, itemsList
             )
         }
@@ -238,7 +220,7 @@ class ExpenseFragment : Fragment(), FabClickListener {
     private fun loadRecord() {
         val bundle = activity?.intent?.extras
         bundle?.let { bundleObj ->
-            if (bundleObj.getString(activity?.getString(R.string.fragmentIdentifier)) == TitleEnum.DESPESA.value) {
+            if (bundleObj.getString(activity?.getString(R.string.fragmentIdentifier)) == TitleEnum.DESPESA.value){
                 recordId = bundleObj.getLong(DatabaseConstants.FinanceRecord.recordId)
                 viewModel.getRecordById(recordId)
             }

@@ -9,7 +9,7 @@ import com.company.ourfinances.view.listener.OnFinanceRecordListener
 class TransferRecordViewHolder(
     private val bind: TransferRecordViewItemBinding,
     private val listener: OnFinanceRecordListener
-): RecyclerView.ViewHolder(bind.root) {
+) : RecyclerView.ViewHolder(bind.root) {
     fun bind(financeRecordEntity: FinanceRecordEntity, paymentName: String) {
 
         bind.textTitleViewTransfer.text = financeRecordEntity.title
@@ -27,7 +27,6 @@ class TransferRecordViewHolder(
                 .setPositiveButton("Sim") { dialog, which ->
                     listener.onDelete(financeRecordEntity.recordId)
                 }
-                .setNegativeButton("Não", null)
                 .setNeutralButton("Cancelar", null)
                 .create()
                 .show()

@@ -22,16 +22,16 @@ class ShowRecordListActivity : AppCompatActivity() {
         binding = ActivityShowRecordListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val financePrefs = FinancePreferences(this)
-        val selectedTitle = financePrefs.getStoredIdentifier(DatabaseConstants.PreferencesConstants.KEY_TITLE_RECORD)
+        binding = ActivityShowRecordListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        when (selectedTitle) {
+        when (intent.getStringExtra(getString(R.string.fragmentIdentifier))) {
             TitleEnum.DESPESA.value -> replaceFragment(ExpenseListFragment())
             TitleEnum.RECEITA.value -> replaceFragment(RevenueListFragment())
             TitleEnum.TRANSFERENCIA.value -> replaceFragment(TransferListFragment())
         }
 
-        binding.textTitle.text = selectedTitle
+        binding.textTitle.text = intent.getStringExtra(getString(R.string.fragmentIdentifier))
 
         listener()
     }
@@ -41,7 +41,7 @@ class ShowRecordListActivity : AppCompatActivity() {
             .replace(R.id.fragment_container_list, fragment).commit()
     }
 
-    private fun listener(){
+    private fun listener() {
         binding.imageBack.setOnClickListener {
             finish()
         }

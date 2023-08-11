@@ -20,7 +20,6 @@ import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.model.enums.TitleEnum
-import com.company.ourfinances.model.preferences.FinancePreferences
 import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.assets.CustomDatePicker
 import com.company.ourfinances.view.listener.FabClickListener
@@ -65,7 +64,11 @@ class RevenueFragment : Fragment(), FabClickListener {
         if (TextUtils.isEmpty(binding.editTitle.text)) {
             binding.editTitle.error = getString(R.string.title_cannot_be_empty)
 
-        } else if (TextUtils.equals(binding.buttonDatePicker.text, requireContext().getString(R.string.select_date))) {
+        } else if (TextUtils.equals(
+                binding.buttonDatePicker.text,
+                requireContext().getString(R.string.select_date)
+            )
+        ) {
             binding.buttonDatePicker.error = getString(R.string.date_cannot_be_empty)
 
         } else if (TextUtils.isEmpty(binding.editValue.text)) {
@@ -73,34 +76,34 @@ class RevenueFragment : Fragment(), FabClickListener {
 
         } else {
 
-            val categoryId = getIdCategoryExpenseFromName(
+            val categoryExpenseId = getIdCategoryExpenseFromName(
                 binding.spinnerCategory.selectedItem.toString(),
                 categoryExpenseList
             )
 
-            val paymentId = getIdPaymentTypeFromName(
+            val paymentTypeId = getIdPaymentTypeFromName(
                 binding.spinnerTypePay.selectedItem.toString(),
                 paymentTypesList
             )
 
             val financeRecord = FinanceRecordEntity.Builder()
                 .setRecordId(recordId)
-                .setTitle( binding.editTitle.text.toString())
+                .setTitle(binding.editTitle.text.toString())
                 .setValue(binding.editValue.text.toString().toDouble())
                 .setDateRecord(binding.buttonDatePicker.text.toString())
                 .setTypeRecord(RegisterTypeEnum.REVENUE.value)
-                .setCategoryExpenseId(categoryId)
-                .setPaymentTypeId(paymentId)
+                .setCategoryExpenseId(categoryExpenseId)
+                .setPaymentTypeId(paymentTypeId)
                 .build()
 
 
             viewModel.save(financeRecord)
-            resetRecord()
+            resetRecordId()
 
             clearAll()
 
-            //DoRefactor
-            FinancePreferences(requireContext()).storeIdentifier(DatabaseConstants.PreferencesConstants.KEY_TITLE_RECORD,TitleEnum.RECEITA.value)
+            val bundle = Bundle()
+            bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.RECEITA.value)
 
             activity?.findViewById<View>(R.id.finance_main)?.let { view ->
                 Snackbar.make(view, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
@@ -109,7 +112,7 @@ class RevenueFragment : Fragment(), FabClickListener {
                             Intent(
                                 context,
                                 ShowRecordListActivity::class.java
-                            )
+                            ).putExtras(bundle)
                         )
                         activity?.finish()
                     }.show()
@@ -118,11 +121,16 @@ class RevenueFragment : Fragment(), FabClickListener {
         }
     }
 
+    private fun resetRecordId() {
+        recordId = 0
+    }
+
     override fun getIdCategoryExpenseFromName(
         spinnerItemName: String,
         list: List<CategoryExpenseEntity>
     ): Long? {
-        val item = list.find { it.name == spinnerItemName }
+        val item =
+            list.find { categoryExpenseEntity -> categoryExpenseEntity.name == spinnerItemName }
         return item?.id
     }
 
@@ -130,7 +138,7 @@ class RevenueFragment : Fragment(), FabClickListener {
         spinnerItemName: String,
         list: List<PaymentTypeEntity>
     ): Long? {
-        val item = list.find { it.name == spinnerItemName }
+        val item = list.find { paymentTypeEntity -> paymentTypeEntity.name == spinnerItemName }
         return item?.paymentId
     }
 
@@ -241,10 +249,6 @@ class RevenueFragment : Fragment(), FabClickListener {
                 viewModel.getRecordById(recordId)
             }
         }
-    }
-
-    private fun resetRecord(){
-        recordId = 0
     }
 
     private fun getPositionByName(

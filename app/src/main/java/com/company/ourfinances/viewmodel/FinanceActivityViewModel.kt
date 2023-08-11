@@ -70,6 +70,14 @@ class FinanceActivityViewModel(application: Application) : AndroidViewModel(appl
         _financeRecordList.value = financeRepository.getAllByExpenseCategory(typeRecord)
     }
 
+    fun getListByCategory(typeRecord: String): List<FinanceRecordEntity> {
+        return financeRepository.getAllByExpenseCategory(typeRecord)
+    }
+
+    fun getListAll(){
+       _financeRecordList.value = financeRepository.findAll()
+    }
+
     fun insertCard(cardEntity: CardEntity){
         cardRepository.insert(cardEntity)
     }
@@ -84,6 +92,10 @@ class FinanceActivityViewModel(application: Application) : AndroidViewModel(appl
 
     fun getRecordById(id: Long) {
         _financeRecord.value = financeRepository.findById(id)
+    }
+
+    fun getAllFinanceRecords(): List<FinanceRecordEntity> {
+        return financeRepository.findAll()
     }
 
 }

@@ -16,7 +16,6 @@ class ColorSpinnerAdapter(context: Context, list: List<ColorObject>) :
     private val layoutInflater = LayoutInflater.from(context)
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-
         val view = layoutInflater.inflate(R.layout.color_spinner_bg, null, true)
         return view(view, position)
     }

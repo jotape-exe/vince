@@ -14,7 +14,6 @@ class CardItemAdapter(): RecyclerView.Adapter<CardViewHolder>() {
     private var _componentsList: List<CardEntity> = arrayListOf()
     private lateinit var listener: OnCardListener
 
-
     fun updateList(componentList: List<CardEntity>) {
         _componentsList = componentList
         notifyDataSetChanged()

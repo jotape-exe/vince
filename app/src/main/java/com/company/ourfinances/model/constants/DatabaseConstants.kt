@@ -9,4 +9,8 @@ class DatabaseConstants private constructor(){
     object FinanceRecord{
         const val recordId = "recordId"
     }
+
+    object PreferencesConstants{
+        const val KEY_TITLE_RECORD = "TITLE_RECORD"
+    }
 }

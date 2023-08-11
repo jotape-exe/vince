@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityCardCreateBinding
 import com.company.ourfinances.model.entity.CardEntity
-import com.company.ourfinances.model.entity.PaymentTypeEntity
+import com.company.ourfinances.model.enums.CardTypeEnum
 import com.company.ourfinances.view.adapters.ColorSpinnerAdapter
 import com.company.ourfinances.view.assets.ColorList
 import com.company.ourfinances.view.assets.ColorObject
@@ -34,7 +34,7 @@ class CardCreateActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
 
-        val typeCards = listOf("Crédito", "Débito")
+        val typeCards = listOf(CardTypeEnum.CREDIT.value, CardTypeEnum.DEBIT.value)
 
         binding.spinnerCardType.adapter = getAdapter(typeCards)
 
@@ -69,7 +69,6 @@ class CardCreateActivity : AppCompatActivity() {
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                 }
-
             }
         }
     }
@@ -104,9 +103,5 @@ class CardCreateActivity : AppCompatActivity() {
             }
         }
     }
-
-
-
-
 
 }

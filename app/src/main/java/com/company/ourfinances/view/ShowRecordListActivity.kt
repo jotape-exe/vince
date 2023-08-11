@@ -5,7 +5,9 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityShowRecordListBinding
+import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.enums.TitleEnum
+import com.company.ourfinances.model.preferences.FinancePreferences
 import com.company.ourfinances.view.fragments.ExpenseListFragment
 import com.company.ourfinances.view.fragments.RevenueListFragment
 import com.company.ourfinances.view.fragments.TransferListFragment
@@ -20,13 +22,16 @@ class ShowRecordListActivity : AppCompatActivity() {
         binding = ActivityShowRecordListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        when (intent.getStringExtra(getString(R.string.fragmentIdentifier))) {
+        val financePrefs = FinancePreferences(this)
+        val selectedTitle = financePrefs.getStoredIdentifier(DatabaseConstants.PreferencesConstants.KEY_TITLE_RECORD)
+
+        when (selectedTitle) {
             TitleEnum.DESPESA.value -> replaceFragment(ExpenseListFragment())
             TitleEnum.RECEITA.value -> replaceFragment(RevenueListFragment())
             TitleEnum.TRANSFERENCIA.value -> replaceFragment(TransferListFragment())
         }
 
-        binding.textTitle.text = intent.getStringExtra(getString(R.string.fragmentIdentifier))
+        binding.textTitle.text = selectedTitle
 
         listener()
     }

@@ -20,6 +20,7 @@ import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.model.enums.TitleEnum
+import com.company.ourfinances.model.preferences.FinancePreferences
 import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.assets.CustomDatePicker
 import com.company.ourfinances.view.listener.FabClickListener
@@ -71,31 +72,35 @@ class RevenueFragment : Fragment(), FabClickListener {
             binding.editValue.error = getString(R.string.value_cannot_be_empty)
 
         } else {
+
+            val categoryId = getIdCategoryExpenseFromName(
+                binding.spinnerCategory.selectedItem.toString(),
+                categoryExpenseList
+            )
+
+            val paymentId = getIdPaymentTypeFromName(
+                binding.spinnerTypePay.selectedItem.toString(),
+                paymentTypesList
+            )
+
             val financeRecord = FinanceRecordEntity.Builder()
                 .setRecordId(recordId)
                 .setTitle( binding.editTitle.text.toString())
                 .setValue(binding.editValue.text.toString().toDouble())
                 .setDateRecord(binding.buttonDatePicker.text.toString())
                 .setTypeRecord(RegisterTypeEnum.REVENUE.value)
-                .setCategoryExpenseId(getIdCategoryExpenseFromName(
-                    binding.spinnerCategory.selectedItem.toString(),
-                    categoryExpenseList
-                ))
-                .setPaymentTypeId(getIdPaymentTypeFromName(
-                    binding.spinnerTypePay.selectedItem.toString(),
-                    paymentTypesList
-                ))
+                .setCategoryExpenseId(categoryId)
+                .setPaymentTypeId(paymentId)
                 .build()
 
 
             viewModel.save(financeRecord)
-            recordId = 0
+            resetRecord()
 
             clearAll()
 
-            val bundle = Bundle()
-
-            bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.RECEITA.value)
+            //DoRefactor
+            FinancePreferences(requireContext()).storeIdentifier(DatabaseConstants.PreferencesConstants.KEY_TITLE_RECORD,TitleEnum.RECEITA.value)
 
             activity?.findViewById<View>(R.id.finance_main)?.let { view ->
                 Snackbar.make(view, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
@@ -104,7 +109,7 @@ class RevenueFragment : Fragment(), FabClickListener {
                             Intent(
                                 context,
                                 ShowRecordListActivity::class.java
-                            ).putExtras(bundle)
+                            )
                         )
                         activity?.finish()
                     }.show()
@@ -236,6 +241,10 @@ class RevenueFragment : Fragment(), FabClickListener {
                 viewModel.getRecordById(recordId)
             }
         }
+    }
+
+    private fun resetRecord(){
+        recordId = 0
     }
 
     private fun getPositionByName(

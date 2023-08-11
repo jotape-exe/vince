@@ -12,8 +12,6 @@ import android.view.View
 import android.widget.TextView
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityRegisterBinding
-import com.company.ourfinances.model.constants.DatabaseConstants
-import com.company.ourfinances.model.preferences.UserPreferences
 import com.company.ourfinances.view.assets.LoadingDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -86,8 +84,6 @@ class RegisterActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-
-
                     loadingDialog.dismissDialog()
                     openMainActivity(Intent(this, MainActivity::class.java))
                 } else {

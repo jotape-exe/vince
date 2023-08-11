@@ -36,7 +36,6 @@ class CardFragment : Fragment() {
                 viewModel.deleteCard(id)
                 viewModel.getAllCards()
             }
-
         }
 
         adapter.attachToListener(listener)

@@ -18,6 +18,7 @@ import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.model.enums.TitleEnum
+import com.company.ourfinances.model.preferences.FinancePreferences
 import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.assets.CustomDatePicker
 import com.company.ourfinances.view.listener.FabClickListener
@@ -84,28 +85,37 @@ class TransferFragment : Fragment(), FabClickListener {
         } else if (TextUtils.isEmpty(binding.editReceiverTransfer.text)) {
             binding.editReceiverTransfer.error = getString(R.string.receiver_not_empty)
 
-        } else if  (TextUtils.equals(binding.buttonDatePickerTransfer.text, requireContext().getString(R.string.select_date))) {
+        } else if (TextUtils.equals(
+                binding.buttonDatePickerTransfer.text,
+                requireContext().getString(R.string.select_date)
+            )
+        ) {
             binding.buttonDatePickerTransfer.error = getString(R.string.date_cannot_be_empty)
 
         } else if (TextUtils.isEmpty(binding.editValueTransfer.text)) {
             binding.editValueTransfer.error = getString(R.string.value_cannot_be_empty)
 
         } else {
+
+            val paymentId = getIdPaymentTypeFromName(
+                binding.spinnerTypePayTransfer.selectedItem.toString(),
+                paymentTypesList
+            )
+
             val financeRecord = FinanceRecordEntity.Builder()
                 .setTitle(binding.editTitleTransfer.text.toString())
                 .setValue(binding.editValueTransfer.text.toString().toDouble())
                 .setDateRecord(binding.buttonDatePickerTransfer.text.toString())
                 .setDestinationAccount(binding.editReceiverTransfer.text.toString())
                 .setTypeRecord(RegisterTypeEnum.TRANSFER.value)
-                .setPaymentTypeId(getIdPaymentTypeFromName(binding.spinnerTypePayTransfer.selectedItem.toString(), paymentTypesList))
+                .setPaymentTypeId(paymentId)
                 .build()
 
             viewModel.save(financeRecord)
-            recordId = 0
+            resetRecord()
 
-            val bundle = Bundle()
-
-            bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.TRANSFERENCIA.value)
+            //DoRefactor
+            FinancePreferences(requireContext()).storeIdentifier(DatabaseConstants.PreferencesConstants.KEY_TITLE_RECORD,TitleEnum.TRANSFERENCIA.value)
 
             clearAll()
 
@@ -116,12 +126,16 @@ class TransferFragment : Fragment(), FabClickListener {
                             Intent(
                                 context,
                                 ShowRecordListActivity::class.java
-                            ).putExtras(bundle)
+                            )
                         )
                         activity?.finish()
                     }.show()
             }
         }
+    }
+
+    private fun resetRecord() {
+        recordId = 0
     }
 
     override fun clearAll() {
@@ -190,7 +204,10 @@ class TransferFragment : Fragment(), FabClickListener {
         }
     }
 
-    private fun getPositionByName(name: String?, paymentList: List<PaymentTypeEntity> = listOf()): Int {
+    private fun getPositionByName(
+        name: String?,
+        paymentList: List<PaymentTypeEntity> = listOf()
+    ): Int {
         var position = 0
 
         name.apply {

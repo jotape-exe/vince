@@ -23,6 +23,10 @@ class FinanceActivity : AppCompatActivity() {
     private lateinit var financeTabAdapter: FinanceTabAdapter
     private lateinit var viewModel: FinanceActivityViewModel
 
+    //Posição de cada fragment no TabLayout
+    private val REVENUE_POSITION = 0;
+    private val  EXPENSE_POSITION = 1;
+    private val TRANSFER_POSITION = 2;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,13 +42,13 @@ class FinanceActivity : AppCompatActivity() {
 
         when(intent.extras?.getString(getString(R.string.fragmentIdentifier))){
             TitleEnum.RECEITA.value -> {
-                viewPager2.currentItem = 0
+                viewPager2.currentItem = REVENUE_POSITION
             }
             TitleEnum.DESPESA.value -> {
-                viewPager2.currentItem = 1
+                viewPager2.currentItem = EXPENSE_POSITION
             }
             TitleEnum.TRANSFERENCIA.value -> {
-                viewPager2.currentItem = 2
+                viewPager2.currentItem = TRANSFER_POSITION
             }
         }
 
@@ -96,17 +100,17 @@ class FinanceActivity : AppCompatActivity() {
         val currentFragment: Fragment? = supportFragmentManager.findFragmentByTag(currentFragmentTag)
 
         when (currentPosition) {
-            0 -> {
+            REVENUE_POSITION -> {
                 val revenueFragment = currentFragment as? RevenueFragment
                 revenueFragment!!.doSave()
             }
 
-            1 -> {
+            EXPENSE_POSITION -> {
                 val expenseFragment = currentFragment as? ExpenseFragment
                 expenseFragment!!.doSave()
             }
 
-            2 -> {
+            TRANSFER_POSITION -> {
                 val transferFragment = currentFragment as? TransferFragment
                 transferFragment!!.doSave()
             }

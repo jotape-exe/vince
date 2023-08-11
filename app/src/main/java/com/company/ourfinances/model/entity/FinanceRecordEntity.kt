@@ -52,12 +52,10 @@ data class FinanceRecordEntity(
         fun setValue(value: Double) = apply { this.value = value }
         fun setDateRecord(dateRecord: String) = apply { this.dateRecord = dateRecord }
         fun setOriginAccount(originAccount: String?) = apply { this.originAccount = originAccount }
-        fun setDestinationAccount(destinationAccount: String?) =
-            apply { this.destinationAccount = destinationAccount }
+        fun setDestinationAccount(destinationAccount: String?) = apply { this.destinationAccount = destinationAccount }
 
         fun setTypeRecord(typeRecord: String) = apply { this.typeRecord = typeRecord }
-        fun setCategoryExpenseId(categoryExpenseId: Long?) =
-            apply { this.categoryExpenseId = categoryExpenseId }
+        fun setCategoryExpenseId(categoryExpenseId: Long?) = apply { this.categoryExpenseId = categoryExpenseId }
 
         fun setPaymentTypeId(paymentTypeId: Long?) = apply { this.paymentTypeId = paymentTypeId }
 

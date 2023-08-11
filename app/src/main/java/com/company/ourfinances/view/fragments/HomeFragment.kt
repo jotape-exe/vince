@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentHomeBinding
+import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.enums.TitleEnum
+import com.company.ourfinances.model.preferences.FinancePreferences
 import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.adapters.HomeComponentAdapter
 import com.company.ourfinances.view.assets.HomeComponent
@@ -34,7 +36,6 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
 
-
         return binding.root
     }
 
@@ -55,19 +56,27 @@ class HomeFragment : Fragment() {
         val listener = object : OnComponentHomeListener {
             override fun onClick(fragmentIdentifier: String) {
 
-                val bundle = Bundle()
 
                 when (fragmentIdentifier) {
                     TitleEnum.DESPESA.value -> {
-                        bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.DESPESA.value)
+                        FinancePreferences(requireContext()).storeIdentifier(
+                            DatabaseConstants.PreferencesConstants.KEY_TITLE_RECORD,
+                            TitleEnum.DESPESA.value
+                        )
                     }
 
                     TitleEnum.RECEITA.value -> {
-                        bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.RECEITA.value)
+                        FinancePreferences(requireContext()).storeIdentifier(
+                            DatabaseConstants.PreferencesConstants.KEY_TITLE_RECORD,
+                            TitleEnum.RECEITA.value
+                        )
                     }
 
                     TitleEnum.TRANSFERENCIA.value -> {
-                        bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.TRANSFERENCIA.value)
+                        FinancePreferences(requireContext()).storeIdentifier(
+                            DatabaseConstants.PreferencesConstants.KEY_TITLE_RECORD,
+                            TitleEnum.TRANSFERENCIA.value
+                        )
                     }
                 }
 
@@ -75,7 +84,7 @@ class HomeFragment : Fragment() {
                     Intent(
                         activity!!.applicationContext,
                         ShowRecordListActivity::class.java
-                    ).putExtras(bundle)
+                    )
                 )
             }
         }

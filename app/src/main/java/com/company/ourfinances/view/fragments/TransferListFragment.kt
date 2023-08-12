@@ -30,7 +30,7 @@ class TransferListFragment : Fragment() {
         binding = FragmentTransferListBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
 
-        adapter = TransferRecordAdapter(viewModel)
+        adapter = TransferRecordAdapter()
 
         binding.recyclerTransfer.layoutManager = LinearLayoutManager(context)
         binding.recyclerTransfer.adapter = adapter
@@ -44,12 +44,19 @@ class TransferListFragment : Fragment() {
             override fun onClick(id: Long) {
                 val bundle = Bundle()
 
-                //DoRefactor(FinancePreferences)
                 bundle.putLong(DatabaseConstants.FinanceRecord.recordId, id)
                 bundle.putString(activity?.getString(R.string.fragmentIdentifier), TitleEnum.TRANSFERENCIA.value)
 
                 startActivity(Intent(context, FinanceActivity::class.java).putExtras(bundle))
                 activity?.finish()
+            }
+
+            override fun getPaymentNameById(id: Long?): String {
+                return viewModel.getTypePaymentById(id!!).name
+            }
+
+            override fun getCategoryNameById(id: Long?): String {
+                return ""
             }
         }
 

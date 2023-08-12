@@ -10,7 +10,7 @@
     android:layout_marginEnd="18dp">
 
     <TextView
-        android:id="@+id/text_type_pay_car_transfer"
+        android:id="@+id/text_type_pay_card_transfer"
         android:layout_width="160dp"
         android:layout_height="0dp"
         android:background="@drawable/shape_title_view"

@@ -12,13 +12,13 @@ class FinanceRecordViewHolder(
     private val bind: FinaceRecordViewItemBinding,
     private val listener: OnFinanceRecordListener
 ) : RecyclerView.ViewHolder(bind.root) {
-    fun bind(financeRecordEntity: FinanceRecordEntity, tag: String, paymentName: String) {
+    fun bind(financeRecordEntity: FinanceRecordEntity) {
 
         bind.textTitleView.text = financeRecordEntity.title
         bind.textDateView.text = financeRecordEntity.dateRecord
         bind.textValueView.text = "R$ ${financeRecordEntity.value}"
-        bind.textTagRecord.text = tag
-        bind.textTypePayCard.text = paymentName
+        bind.textTagRecord.text = listener.getCategoryNameById(financeRecordEntity.categoryExpenseId)
+        bind.textTypePayCard.text = listener.getPaymentNameById(financeRecordEntity.paymentTypeId)
 
         bind.buttonDeleteView.setOnClickListener {
 
@@ -31,7 +31,6 @@ class FinanceRecordViewHolder(
                 .setNeutralButton("Cancelar", null)
                 .create()
                 .show()
-
         }
 
         bind.buttonEditView.setOnClickListener {

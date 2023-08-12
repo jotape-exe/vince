@@ -31,7 +31,7 @@ class RevenueListFragment : Fragment() {
         binding = FragmentRevenueListBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
 
-        adapter = FinanceRecordAdapter(viewModel)
+        adapter = FinanceRecordAdapter()
 
         binding.recyclerRevenue.layoutManager = LinearLayoutManager(context)
         binding.recyclerRevenue.adapter = adapter
@@ -50,6 +50,14 @@ class RevenueListFragment : Fragment() {
 
                 startActivity(Intent(context, FinanceActivity::class.java).putExtras(bundle))
                 activity?.finish()
+            }
+
+            override fun getPaymentNameById(id: Long?): String {
+                return viewModel.getTypePaymentById(id!!).name
+            }
+
+            override fun getCategoryNameById(id: Long?): String {
+                return viewModel.getCategoryById(id!!).name
             }
 
         }

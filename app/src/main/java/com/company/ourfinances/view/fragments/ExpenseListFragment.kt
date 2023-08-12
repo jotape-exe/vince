@@ -33,7 +33,7 @@ class ExpenseListFragment : Fragment() {
 
         viewModel.getAllByExpenseCategory(RegisterTypeEnum.EXPENSE.value)
 
-        adapter = FinanceRecordAdapter(viewModel)
+        adapter = FinanceRecordAdapter()
 
         binding.recyclerExpense.layoutManager = LinearLayoutManager(context)
         binding.recyclerExpense.adapter = adapter
@@ -47,13 +47,21 @@ class ExpenseListFragment : Fragment() {
             override fun onClick(id: Long) {
                 val bundle = Bundle()
 
-                //DoRefactor(FinancePreferences)
                 bundle.putLong(DatabaseConstants.FinanceRecord.recordId, id)
                 bundle.putString(activity?.getString(R.string.fragmentIdentifier), TitleEnum.DESPESA.value)
 
                 startActivity(Intent(context, FinanceActivity::class.java).putExtras(bundle))
                 activity?.finish()
             }
+
+            override fun getPaymentNameById(id: Long?): String {
+                return viewModel.getTypePaymentById(id!!).name
+            }
+
+            override fun getCategoryNameById(id: Long?): String {
+                return viewModel.getCategoryById(id!!).name
+            }
+
         }
 
         adapter.attachToListener(listener)

@@ -11,7 +11,7 @@ import com.company.ourfinances.view.viewholder.FinanceRecordViewHolder
 import com.company.ourfinances.view.viewholder.TransferRecordViewHolder
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 
-class TransferRecordAdapter(private val viewModel: FinanceActivityViewModel): RecyclerView.Adapter<TransferRecordViewHolder>() {
+class TransferRecordAdapter: RecyclerView.Adapter<TransferRecordViewHolder>() {
 
     private var _list: List<FinanceRecordEntity> = listOf()
     private lateinit var listener: OnFinanceRecordListener
@@ -29,10 +29,7 @@ class TransferRecordAdapter(private val viewModel: FinanceActivityViewModel): Re
     }
 
     override fun onBindViewHolder(holder: TransferRecordViewHolder, position: Int) {
-        val paymentName =
-            _list[position].paymentTypeId?.let { id -> viewModel.getTypePaymentById(id).name }
-
-        holder.bind(_list[position], paymentName as String)
+        holder.bind(_list[position])
     }
 
     fun updateList(list: List<FinanceRecordEntity>) {

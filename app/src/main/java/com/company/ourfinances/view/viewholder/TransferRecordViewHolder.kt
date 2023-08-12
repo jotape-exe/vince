@@ -10,14 +10,14 @@ class TransferRecordViewHolder(
     private val bind: TransferRecordViewItemBinding,
     private val listener: OnFinanceRecordListener
 ) : RecyclerView.ViewHolder(bind.root) {
-    fun bind(financeRecordEntity: FinanceRecordEntity, paymentName: String) {
+    fun bind(financeRecordEntity: FinanceRecordEntity) {
 
         bind.textTitleViewTransfer.text = financeRecordEntity.title
         bind.textDateViewTransfer.text = financeRecordEntity.dateRecord
         bind.textValueViewTransfer.text = "R$ ${financeRecordEntity.value}"
         bind.textReceiverViewTransfer.text = financeRecordEntity.destinationAccount
 
-        bind.textTypePayCarTransfer.text = paymentName
+        bind.textTypePayCardTransfer.text = listener.getPaymentNameById(financeRecordEntity.paymentTypeId)
 
         bind.buttonDeleteViewTransfer.setOnClickListener {
 

@@ -9,9 +9,7 @@ import com.company.ourfinances.view.listener.OnFinanceRecordListener
 import com.company.ourfinances.view.viewholder.FinanceRecordViewHolder
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 
-class FinanceRecordAdapter(
-    private val viewModel: FinanceActivityViewModel
-) : RecyclerView.Adapter<FinanceRecordViewHolder>() {
+class FinanceRecordAdapter : RecyclerView.Adapter<FinanceRecordViewHolder>() {
 
     private var _list: List<FinanceRecordEntity> = listOf()
     private lateinit var listener: OnFinanceRecordListener
@@ -25,13 +23,7 @@ class FinanceRecordAdapter(
     }
 
     override fun onBindViewHolder(holder: FinanceRecordViewHolder, position: Int) {
-        val tag =
-            _list[position].categoryExpenseId?.let { id -> viewModel.getCategoryById(id).name }
-
-        val paymentName =
-            _list[position].paymentTypeId?.let { id -> viewModel.getTypePaymentById(id).name }
-
-        holder.bind(_list[position], tag as String, paymentName as String)
+        holder.bind(_list[position])
     }
 
     override fun getItemCount(): Int {

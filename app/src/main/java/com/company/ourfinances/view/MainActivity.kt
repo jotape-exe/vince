@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.item_settings -> replaceFragment(SettingsFragment())
+                //R.id.item_settings -> replaceFragment(SettingsFragment())
                 R.id.item_help -> {
                     sendEmail()
                     false

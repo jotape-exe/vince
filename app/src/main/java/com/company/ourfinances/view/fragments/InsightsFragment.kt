@@ -41,17 +41,23 @@ class InsightsFragment : Fragment() {
 
                 val entries = ArrayList<PieEntry>()
 
-                entries.add(PieEntry(result.filter { financeRecord->
+                entries.add(PieEntry(result.filter { financeRecord ->
                     financeRecord.typeRecord == RegisterTypeEnum.REVENUE.value
-                }.sumOf { it.value }.toFloat(), "Receitas"))
+                }.sumOf { revenueObject ->
+                    revenueObject.value
+                }.toFloat(), "Receitas"))
 
-                entries.add(PieEntry(result.filter { financeRecord->
+                entries.add(PieEntry(result.filter { financeRecord ->
                     financeRecord.typeRecord == RegisterTypeEnum.TRANSFER.value
-                }.sumOf { it.value }.toFloat(), "Transferencias"))
+                }.sumOf { transferObject ->
+                    transferObject.value
+                }.toFloat(), "Transferencias"))
 
-                entries.add(PieEntry(result.filter { financeRecord->
+                entries.add(PieEntry(result.filter { financeRecord ->
                     financeRecord.typeRecord == RegisterTypeEnum.EXPENSE.value
-                }.sumOf { it.value }.toFloat(), "Despesas"))
+                }.sumOf { expenseObject ->
+                    expenseObject.value
+                }.toFloat(), "Despesas"))
 
                 val pieDataSet = PieDataSet(entries, "")
 

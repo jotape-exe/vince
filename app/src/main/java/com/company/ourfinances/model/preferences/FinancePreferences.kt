@@ -4,8 +4,6 @@ import android.content.Context
 
 import android.content.SharedPreferences
 
-
-
 class FinancePreferences(context: Context) {
 
     private val PREFERENCE_NAME = "Finance"

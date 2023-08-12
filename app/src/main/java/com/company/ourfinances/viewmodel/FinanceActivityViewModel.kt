@@ -71,6 +71,10 @@ class FinanceActivityViewModel(application: Application) : AndroidViewModel(appl
        _financeRecordList.value = financeRepository.findAll()
     }
 
+    fun getAllRecords(): List<FinanceRecordEntity> {
+        return financeRepository.findAll()
+    }
+
     fun insertCard(cardEntity: CardEntity){
         cardRepository.insert(cardEntity)
     }

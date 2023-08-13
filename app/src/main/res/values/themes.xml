@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/variant_green</item>
         <item name="colorSecondary">@color/variant_green_3</item>
         <item name="colorTertiary">@color/variant_green_2</item>
+        <item name="fontFamily">@font/inter</item>
     </style>
 
     <style name="Theme.OurFinances" parent="Base.Theme.OurFinances" />

@@ -53,7 +53,7 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (::loadingDialog.isInitialized){
+        if (::loadingDialog.isInitialized) {
             loadingDialog.dismissDialog()
         }
     }
@@ -62,10 +62,8 @@ class RegisterActivity : AppCompatActivity() {
         binding.buttonRegister.setOnClickListener {
             val email = binding.editEmailRegister.text
             val password = binding.editPasswordRegister.text
-            val name = binding.editNameRegister.text
-            if (TextUtils.isEmpty(name)) {
-                binding.editNameRegister.error = getString(R.string.name_not_empty)
-            } else if (TextUtils.isEmpty(email)) {
+
+            if (TextUtils.isEmpty(email)) {
                 binding.editEmailRegister.error = getString(R.string.user_not_empty)
             } else if (TextUtils.isEmpty(password)) {
                 binding.editPasswordRegister.error = getString(R.string.password_not_empty)
@@ -76,7 +74,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         binding.textToLogin.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
         }
     }
 

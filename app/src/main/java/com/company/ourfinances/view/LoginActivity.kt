@@ -124,8 +124,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-
-    //Create service for login features
     private fun signIn() {
         val intent = googleSignInClient.signInIntent
         startActivityWithGoogle.launch(intent)

@@ -50,7 +50,7 @@ class TransferFragment : Fragment(), FabClickListener {
     }
 
     private fun observe() {
-        viewModel.typePay.observe(viewLifecycleOwner) { tiposDePagamento ->
+        viewModel.typePaymentList.observe(viewLifecycleOwner) { tiposDePagamento ->
             paymentTypesList = tiposDePagamento
             val namePaymentList: List<String> = paymentTypesList.map { item -> item.name }
             binding.spinnerTypePayTransfer.adapter = getAdapter(namePaymentList)

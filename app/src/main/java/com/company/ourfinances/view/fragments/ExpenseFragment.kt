@@ -140,7 +140,7 @@ class ExpenseFragment : Fragment(), FabClickListener {
             binding.spinnerCategoryExpense.adapter = getAdapter(nameCategoriesList)
         }
 
-        viewModel.typePay.observe(viewLifecycleOwner) { tiposDePagamento ->
+        viewModel.typePaymentList.observe(viewLifecycleOwner) { tiposDePagamento ->
             paymentTypesList = tiposDePagamento
             val namePaymentList: List<String> = paymentTypesList.map { item -> item.name }
             binding.spinnerTypePayExpense.adapter = getAdapter(namePaymentList)

@@ -5,9 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityShowRecordListBinding
-import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.enums.TitleEnum
-import com.company.ourfinances.model.preferences.FinancePreferences
 import com.company.ourfinances.view.fragments.ExpenseListFragment
 import com.company.ourfinances.view.fragments.RevenueListFragment
 import com.company.ourfinances.view.fragments.TransferListFragment

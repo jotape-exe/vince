@@ -23,8 +23,8 @@ class FinanceActivityViewModel(application: Application) : AndroidViewModel(appl
     private val _categoryExpenseList = MutableLiveData<List<CategoryExpenseEntity>>()
     val categoryExpenseList:LiveData<List<CategoryExpenseEntity>> = _categoryExpenseList
 
-    private val _typePayment = MutableLiveData<List<PaymentTypeEntity>>()
-    val typePay: LiveData<List<PaymentTypeEntity>> = _typePayment
+    private val _typePaymentList = MutableLiveData<List<PaymentTypeEntity>>()
+    val typePaymentList: LiveData<List<PaymentTypeEntity>> = _typePaymentList
 
     private val _financeRecordList = MutableLiveData<List<FinanceRecordEntity>>()
     val financeRecordList: LiveData<List<FinanceRecordEntity>> = _financeRecordList
@@ -52,7 +52,7 @@ class FinanceActivityViewModel(application: Application) : AndroidViewModel(appl
     }
 
     fun getAllTypePayments(){
-        _typePayment.value = paymentTypeRepository.getAll()
+        _typePaymentList.value = paymentTypeRepository.getAll()
     }
 
     fun getCategoryById(id: Long): CategoryExpenseEntity {

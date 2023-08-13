@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.company.ourfinances.R
@@ -193,7 +192,7 @@ class RevenueFragment : Fragment(), FabClickListener {
             binding.spinnerCategory.adapter = getAdapter(nameCategoriesList)
         }
 
-        viewModel.typePay.observe(viewLifecycleOwner) {
+        viewModel.typePaymentList.observe(viewLifecycleOwner) {
             paymentTypesList = it
             val namePaymentList: List<String> = paymentTypesList.map { item -> item.name }
             binding.spinnerTypePay.adapter = getAdapter(namePaymentList)

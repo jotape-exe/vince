@@ -7,9 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityFinanceBinding
-import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.enums.TitleEnum
-import com.company.ourfinances.model.preferences.FinancePreferences
 import com.company.ourfinances.view.adapters.FinanceTabAdapter
 import com.company.ourfinances.view.fragments.ExpenseFragment
 import com.company.ourfinances.view.fragments.RevenueFragment

@@ -6,15 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.company.ourfinances.R
+import com.company.ourfinances.databinding.FragmentGoalBinding
 
 
 class GoalFragment : Fragment() {
 
+    private lateinit var binding: FragmentGoalBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_goal, container, false)
+    ): View {
+        binding = FragmentGoalBinding.inflate(inflater, container, false)
+
+
+
+        return binding.root
     }
 
 }

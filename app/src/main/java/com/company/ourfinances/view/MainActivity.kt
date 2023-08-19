@@ -17,7 +17,6 @@ import com.company.ourfinances.view.fragments.CardFragment
 import com.company.ourfinances.view.fragments.GoalFragment
 import com.company.ourfinances.view.fragments.HomeFragment
 import com.company.ourfinances.view.fragments.InsightsFragment
-import com.company.ourfinances.view.fragments.SettingsFragment
 import com.google.firebase.auth.FirebaseAuth
 
 

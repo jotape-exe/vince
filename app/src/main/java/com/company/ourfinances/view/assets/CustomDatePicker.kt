@@ -1,7 +1,7 @@
 package com.company.ourfinances.view.assets
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.company.ourfinances.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.util.Calendar
@@ -12,7 +12,7 @@ class CustomDatePicker(button: MaterialButton, fragment: Fragment) {
     init {
             val materialDatePicker: MaterialDatePicker<Long> =
                 MaterialDatePicker.Builder.datePicker()
-                    .setTitleText("Selecionar Data")
+                    .setTitleText(R.string.select_date)
                     .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                     .build()
 

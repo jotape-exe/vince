@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentInsightsBinding
+import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
@@ -19,6 +20,8 @@ class InsightsFragment : Fragment() {
 
     private lateinit var binding: FragmentInsightsBinding
     private lateinit var viewModel: FinanceActivityViewModel
+    private lateinit var entries: ArrayList<PieEntry>
+    private lateinit var pieDataSet: PieDataSet
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,16 +30,23 @@ class InsightsFragment : Fragment() {
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
         binding = FragmentInsightsBinding.inflate(inflater, container, false)
 
-        val entries = ArrayList<PieEntry>()
+        entries = ArrayList()
+
+        pieDataSet = PieDataSet(entries, "")
+
+        return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllFinanceRecords()
 
         viewModel.financeRecordList.observe(viewLifecycleOwner) { list ->
             entries.clear()
-            entries.add(PieEntry(list.filter { it.typeRecord == RegisterTypeEnum.REVENUE.value }.sumOf { it.value }.toFloat(), TitleEnum.RECEITA.value))
-            entries.add(PieEntry(list.filter { it.typeRecord == RegisterTypeEnum.TRANSFER.value }.sumOf { it.value }.toFloat(), TitleEnum.TRANSFERENCIA.value))
-            entries.add(PieEntry(list.filter { it.typeRecord == RegisterTypeEnum.EXPENSE.value }.sumOf { it.value }.toFloat(), TitleEnum.DESPESA.value))
+            addPieEntryForType(list, RegisterTypeEnum.REVENUE, TitleEnum.RECEITA)
+            addPieEntryForType(list, RegisterTypeEnum.TRANSFER, TitleEnum.TRANSFERENCIA)
+            addPieEntryForType(list, RegisterTypeEnum.EXPENSE, TitleEnum.DESPESA)
         }
-
-        val pieDataSet = PieDataSet(entries, "")
 
         val colors: ArrayList<Int> = ArrayList()
         colors.add(requireContext().getColor(R.color.green))
@@ -55,13 +65,24 @@ class InsightsFragment : Fragment() {
 
         binding.piechart.setEntryLabelColor(requireContext().getColor(R.color.black))
         binding.piechart.setEntryLabelTextSize(14f)
-
-        return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getAllFinanceRecords()
+    private fun addPieEntryForType(
+        list: List<FinanceRecordEntity>,
+        type: RegisterTypeEnum,
+        title: TitleEnum
+    ) {
+        val value = list
+            .filter { record ->
+                record.typeRecord == type.value
+            }
+            .sumOf { record ->
+                record.value
+            }
+            .toFloat()
+
+        entries.add(PieEntry(value, title.value))
     }
+
 
 }

@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +25,7 @@ class TransferListFragment : Fragment() {
     private lateinit var binding: FragmentTransferListBinding
     private lateinit var viewModel: FinanceActivityViewModel
     private lateinit var adapter: TransferRecordAdapter
+    private lateinit var textNotEmpty: TextView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,7 +65,7 @@ class TransferListFragment : Fragment() {
 
         adapter.attachToListener(listener)
 
-        observe()
+        textNotEmpty = binding.root.findViewById<TextView>(R.id.text_not_data)
 
         return binding.root
     }
@@ -70,10 +73,14 @@ class TransferListFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.getAllByExpenseCategory(RegisterTypeEnum.TRANSFER.value)
+
+        observe()
+
     }
 
     private fun observe() {
         viewModel.financeRecordList.observe(viewLifecycleOwner) {
+            textNotEmpty.isVisible = it.isEmpty()
             adapter.updateList(it)
         }
     }

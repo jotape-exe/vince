@@ -49,6 +49,7 @@
     <string name="show_trasnfer">Ver Transferencias</string>
     <string name="number_not_empty">Numero não pode ser vazio!</string>
     <string name="receiver_not_empty">Destinatário não pode ser vazio!</string>
+    <string name="value">Valor</string>
     <string-array name="categories">
         <item>Item 1</item>
         <item>Item 2</item>

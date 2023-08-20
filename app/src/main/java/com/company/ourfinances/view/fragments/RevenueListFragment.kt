@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -64,18 +66,19 @@ class RevenueListFragment : Fragment() {
 
         adapter.attachToListener(listener)
 
-        observe()
-
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
         viewModel.getAllByExpenseCategory(RegisterTypeEnum.REVENUE.value)
+
+        observe()
     }
 
     private fun observe() {
         viewModel.financeRecordList.observe(viewLifecycleOwner) {
+            binding.root.findViewById<TextView>(R.id.text_not_data).isVisible = it.isEmpty()
             adapter.updateList(it)
         }
 

@@ -4,20 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context=".view.fragments.GoalFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="120dp"
-        android:drawablePadding="10dp"
-        android:text="Em breve..."
-        android:textColor="#7E7E7E"
-        android:textSize="40sp"
-        app:drawableStartCompat="@drawable/baseline_access_time_24"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <Button
+        android:id="@+id/button_add_goal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/radius_shape"
+        android:backgroundTint="@color/variant_green_2"
+        android:drawableEnd="@drawable/ic_add_task"
+        android:drawableTint="@color/white"
+        android:text="Adicionar Meta"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_goal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_add_goal" />
 </androidx.constraintlayout.widget.ConstraintLayout>

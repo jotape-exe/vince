@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="240dp"
+    android:layout_marginTop="10dp"
+    android:backgroundTint="#FAFAFA"
+    android:background="@drawable/radius_shape"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/text_goal_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome da meta"
+        android:textSize="28sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progress_goal"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:indeterminateOnly="false"
+        android:progressDrawable="@drawable/circle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:progress="60" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="60%"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@+id/progress_goal"
+        app:layout_constraintEnd_toEndOf="@+id/progress_goal"
+        app:layout_constraintStart_toStartOf="@+id/progress_goal"
+        app:layout_constraintTop_toTopOf="@+id/progress_goal" />
+
+    <TextView
+        android:id="@+id/text_goal_current"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="R$ 1800"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/text_goal_finish"
+        app:layout_constraintStart_toStartOf="@+id/text_goal_name"
+        app:layout_constraintTop_toBottomOf="@id/text_goal_name"
+        app:layout_constraintVertical_chainStyle="spread" />
+
+    <TextView
+        android:id="@+id/text_goal_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12/01/2024"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_goal_finish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="R$ 3200"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/button_edit_goal"
+        app:layout_constraintStart_toStartOf="@+id/text_goal_current"
+        app:layout_constraintTop_toBottomOf="@id/text_goal_current" />
+
+    <ImageButton
+        android:id="@+id/button_edit_goal"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:backgroundTint="@color/variant_green_4"
+        android:contentDescription="@string/edit_item"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_goal_finish"
+        app:tint="@color/variant_green_3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

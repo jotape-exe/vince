@@ -54,8 +54,8 @@ class ExpenseFragment : Fragment(), FabClickListener {
 
     override fun doSave() {
         if (TextUtils.isEmpty(binding.editTitleExpense.text)) {
-
             binding.editTitleExpense.error = getString(R.string.title_cannot_be_empty)
+
         } else if  (TextUtils.equals(binding.buttonDatePickerExpense.text, requireContext().getString(R.string.select_date))) {
             binding.buttonDatePickerExpense.error = getString(R.string.date_cannot_be_empty)
 

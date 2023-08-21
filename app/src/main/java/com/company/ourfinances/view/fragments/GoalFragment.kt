@@ -21,12 +21,12 @@ class GoalFragment : Fragment() {
     ): View {
         binding = FragmentGoalBinding.inflate(inflater, container, false)
 
-        linsteners()
+        listeners()
 
         return binding.root
     }
 
-    private fun linsteners() {
+    private fun listeners() {
         binding.buttonAddGoal.setOnClickListener {
             startActivity(Intent(requireContext(), GoalManagerActivity::class.java))
         }

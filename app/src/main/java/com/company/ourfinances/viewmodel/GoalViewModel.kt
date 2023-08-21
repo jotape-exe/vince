@@ -11,10 +11,10 @@ class GoalViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = GoalRepository(application.applicationContext)
 
     private var _goalList = MutableLiveData<List<GoalEntity>>()
-    private val goalList: LiveData<List<GoalEntity>> = _goalList
+    val goalList: LiveData<List<GoalEntity>> = _goalList
 
     private var _goal = MutableLiveData<GoalEntity>()
-    private val goal: LiveData<GoalEntity> = _goal
+    val goal: LiveData<GoalEntity> = _goal
 
     fun save(goal: GoalEntity){
         if (goal.goalId == 0L){

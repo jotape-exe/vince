@@ -1,5 +1,6 @@
 package com.company.ourfinances.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -7,7 +8,11 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityGoalManagerBinding
+import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.entity.GoalEntity
+import com.company.ourfinances.model.enums.TitleEnum
+import com.company.ourfinances.view.assets.CustomDatePicker
+import com.company.ourfinances.view.listener.OnGoalListener
 import com.company.ourfinances.viewmodel.GoalViewModel
 
 class GoalManagerActivity : AppCompatActivity() {
@@ -25,11 +30,28 @@ class GoalManagerActivity : AppCompatActivity() {
         loadGoal()
 
         listeners()
+
+        observers()
+
+    }
+
+    private fun observers() {
+        viewModel.goal.observe(this) {goal->
+            binding.editGoalName.setText(goal.name)
+            binding.numberCurrentRevenue.setText(goal.currentValue.toString())
+            binding.numberGoalRevenue.setText(goal.finalValue.toString())
+            binding.buttonDatePickerGoal.setText(goal.limitDate.toString())
+        }
     }
 
     private fun loadGoal() {
+        val bundle = intent.extras
+        bundle?.let { bundleObj ->
+                goalId = bundleObj.getLong(DatabaseConstants.FinanceRecord.recordId)
+                viewModel.finGoalById(goalId)
+            }
+        }
 
-    }
 
     private fun resetGoalId(){
         goalId = 0L
@@ -75,6 +97,10 @@ class GoalManagerActivity : AppCompatActivity() {
 
                 }
             }
+        }
+
+        binding.buttonDatePickerGoal.setOnClickListener {
+            CustomDatePicker(binding.buttonDatePickerGoal, supportFragmentManager)
         }
 
     }

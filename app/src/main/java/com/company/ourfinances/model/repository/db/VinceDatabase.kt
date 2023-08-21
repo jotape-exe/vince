@@ -10,6 +10,7 @@ import com.company.ourfinances.model.entity.CardEntity
 import com.company.ourfinances.model.entity.CategoryExpenseEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
+import com.company.ourfinances.model.entity.GoalEntity
 import com.company.ourfinances.model.repository.dao.CardDAO
 import com.company.ourfinances.model.repository.dao.CategoryExpenseDAO
 import com.company.ourfinances.model.repository.dao.FinanceRecordDAO
@@ -22,6 +23,7 @@ import com.company.ourfinances.model.repository.dao.PaymentTypeDAO
         PaymentTypeEntity::class,
         CategoryExpenseEntity::class,
         FinanceRecordEntity::class,
+        GoalEntity::class
     ],
     version = VinceDatabase.VERSION
 )

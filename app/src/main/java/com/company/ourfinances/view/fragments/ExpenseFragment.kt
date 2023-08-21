@@ -203,7 +203,7 @@ class ExpenseFragment : Fragment(), FabClickListener {
         }
 
         binding.buttonDatePickerExpense.setOnClickListener {
-            CustomDatePicker(binding.buttonDatePickerExpense, this)
+            CustomDatePicker(binding.buttonDatePickerExpense, parentFragmentManager)
         }
     }
 

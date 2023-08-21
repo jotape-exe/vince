@@ -189,8 +189,8 @@ class TransferFragment : Fragment(), FabClickListener {
         }
 
 
-        binding.buttonDatePickerTransfer.setOnClickListener {
-            CustomDatePicker(binding.buttonDatePickerTransfer, this)
+        binding.buttonDatePickerTransfer.setOnClickListener {view->
+            CustomDatePicker(binding.buttonDatePickerTransfer, parentFragmentManager)
         }
     }
 

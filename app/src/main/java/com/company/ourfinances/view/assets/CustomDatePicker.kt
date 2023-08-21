@@ -1,13 +1,14 @@
 package com.company.ourfinances.view.assets
 
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.company.ourfinances.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.util.Calendar
 import java.util.Locale
 
-class CustomDatePicker(button: MaterialButton, fragment: Fragment) {
+class CustomDatePicker(button: MaterialButton, fragmentManager: FragmentManager) {
 
     init {
             val materialDatePicker: MaterialDatePicker<Long> =
@@ -33,7 +34,7 @@ class CustomDatePicker(button: MaterialButton, fragment: Fragment) {
             }
 
 
-            fragment.activity?.supportFragmentManager?.let { manager ->
+            fragmentManager?.let { manager ->
                 materialDatePicker.show( manager, "tag")
             }
     }

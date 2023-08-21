@@ -181,7 +181,7 @@ class RevenueFragment : Fragment(), FabClickListener {
         }
 
         binding.buttonDatePicker.setOnClickListener {
-            CustomDatePicker(binding.buttonDatePicker, this)
+            CustomDatePicker(binding.buttonDatePicker, parentFragmentManager)
         }
     }
 

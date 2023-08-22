@@ -20,7 +20,6 @@
         android:text="Pix"
         android:textColor="@color/white"
         android:textSize="18sp"
-
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

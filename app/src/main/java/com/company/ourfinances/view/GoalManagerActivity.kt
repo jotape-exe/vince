@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import com.company.ourfinances.R
@@ -76,10 +77,7 @@ class GoalManagerActivity : AppCompatActivity() {
                     binding.numberGoalRevenue.error = "Valor vazio!"
                 }
 
-                TextUtils.equals(
-                    binding.buttonDatePickerGoal.text,
-                    getString(R.string.select_date)
-                ) -> {
+                TextUtils.equals(binding.buttonDatePickerGoal.text, getString(R.string.select_date)) -> {
                     binding.buttonDatePickerGoal.error = getString(R.string.date_cannot_be_empty)
                 }
 
@@ -94,6 +92,10 @@ class GoalManagerActivity : AppCompatActivity() {
 
                     viewModel.save(goal)
                     resetGoalId()
+
+                    Toast.makeText(this, "Salvo com sucesso!", Toast.LENGTH_SHORT).show()
+
+                    finish()
 
                 }
             }

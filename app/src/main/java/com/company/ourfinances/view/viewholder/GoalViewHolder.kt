@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.company.ourfinances.databinding.GoalItemBinding
 import com.company.ourfinances.model.entity.GoalEntity
 import com.company.ourfinances.view.listener.OnGoalListener
+import kotlin.math.roundToInt
 
 class GoalViewHolder(
     private val bind: GoalItemBinding,
@@ -31,7 +32,7 @@ class GoalViewHolder(
                     .show()
             }
             bind.progressGoal.progress = getProgress(goal.currentValue, goal.finalValue).toInt()
-            bind.textPercentage.text = "${getProgress(goal.currentValue, goal.finalValue).toInt().toString()}%"
+            bind.textPercentage.text = "${getProgress(goal.currentValue, goal.finalValue).roundToInt()}%"
         }
 
     private fun getProgress(currentValue: Double, finalValue:Double): Double{

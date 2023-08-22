@@ -12,9 +12,9 @@
     <TextView
         android:id="@+id/text_goal_name"
         android:layout_width="wrap_content"
-        android:textColor="@color/white"
         android:layout_height="wrap_content"
         android:text="Nome da meta"
+        android:textColor="@color/white"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,13 +25,12 @@
         android:layout_height="180dp"
         android:indeterminateOnly="false"
         android:progressDrawable="@drawable/circle"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:progress="60" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/text_percentage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="60%"
@@ -48,8 +47,8 @@
         android:layout_height="wrap_content"
         android:text="R$ 1800"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/text_goal_finish"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/text_goal_finish"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_goal_date" />
 
@@ -58,9 +57,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="12/01/2024"
-        app:layout_constraintBottom_toTopOf="@id/text_goal_current"
-        android:textSize="14sp"
         android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/text_goal_current"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,10 +67,10 @@
         android:id="@+id/text_goal_finish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:text="R$ 3200"
         android:textColor="@color/white"
         android:textSize="16sp"
-        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/button_delete_goal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_goal_current" />
@@ -80,10 +79,10 @@
         android:id="@+id/button_edit_goal"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginEnd="10dp"
         android:backgroundTint="@color/white"
         android:contentDescription="@string/delete_item"
         android:src="@drawable/ic_edit"
-        android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/button_delete_goal"
         app:tint="@color/variant_green" />

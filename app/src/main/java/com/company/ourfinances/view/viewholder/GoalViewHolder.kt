@@ -30,6 +30,12 @@ class GoalViewHolder(
                     .create()
                     .show()
             }
+            bind.progressGoal.progress = getProgress(goal.currentValue, goal.finalValue).toInt()
+            bind.textPercentage.text = "${getProgress(goal.currentValue, goal.finalValue).toInt().toString()}%"
         }
+
+    private fun getProgress(currentValue: Double, finalValue:Double): Double{
+        return (currentValue / finalValue) * 100
+    }
 
 }

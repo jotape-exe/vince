@@ -15,6 +15,7 @@ import com.company.ourfinances.model.enums.CardTypeEnum
 import com.company.ourfinances.view.adapters.ColorSpinnerAdapter
 import com.company.ourfinances.view.assets.ColorList
 import com.company.ourfinances.view.assets.ColorObject
+import com.company.ourfinances.viewmodel.CardViewModel
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 
 
@@ -23,7 +24,7 @@ class CardCreateActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCardCreateBinding
     lateinit var selectedColor: ColorObject
 
-    private lateinit var viewModel: FinanceActivityViewModel
+    private lateinit var viewModel: CardViewModel
     private lateinit var colorHex: String
     private lateinit var textColorHex: String
 
@@ -32,7 +33,7 @@ class CardCreateActivity : AppCompatActivity() {
         binding = ActivityCardCreateBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
+        viewModel = ViewModelProvider(this)[CardViewModel::class.java]
 
         val typeCards = listOf(CardTypeEnum.CREDIT.value, CardTypeEnum.DEBIT.value)
 

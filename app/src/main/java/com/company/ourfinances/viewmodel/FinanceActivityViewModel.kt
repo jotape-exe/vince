@@ -15,7 +15,6 @@ import com.company.ourfinances.model.repository.PaymentTypeRepository
 
 class FinanceActivityViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val cardRepository = CardRepository(application.applicationContext)
     private val financeRepository = FinanceRecordRepository(application.applicationContext)
     private val categoryRepository = CategoryExpenseRepository(application.applicationContext)
     private val paymentTypeRepository = PaymentTypeRepository(application.applicationContext)
@@ -31,9 +30,6 @@ class FinanceActivityViewModel(application: Application) : AndroidViewModel(appl
 
     private val _financeRecord = MutableLiveData<FinanceRecordEntity>()
     val financeRecord: LiveData<FinanceRecordEntity> = _financeRecord
-
-    private val _cardRecord = MutableLiveData<List<CardEntity>>()
-    val cardRecord: LiveData<List<CardEntity>> = _cardRecord
 
     fun save(recordEntity: FinanceRecordEntity) {
         if (recordEntity.recordId == 0L){
@@ -73,18 +69,6 @@ class FinanceActivityViewModel(application: Application) : AndroidViewModel(appl
 
     fun getAllRecords(): List<FinanceRecordEntity> {
         return financeRepository.findAll()
-    }
-
-    fun insertCard(cardEntity: CardEntity){
-        cardRepository.insert(cardEntity)
-    }
-
-    fun getAllCards(){
-        _cardRecord.value = cardRepository.getAll()
-    }
-
-    fun deleteCard(id:Long) {
-        cardRepository.deleteCard(id)
     }
 
     fun getRecordById(id: Long) {

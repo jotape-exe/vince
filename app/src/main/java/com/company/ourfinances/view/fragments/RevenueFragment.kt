@@ -36,9 +36,8 @@ class RevenueFragment : Fragment(), FabClickListener {
 
     private lateinit var paymentTypesList: List<PaymentTypeEntity>
     private lateinit var categoryExpenseList: List<CategoryExpenseEntity>
-    private lateinit var cards: List<CardEntity>
+    private var cards: List<CardEntity> = listOf()
 
-    private var selectedName: String? = null
     private var recordId: Long = 0
     private var cardId: Long? = null
 
@@ -62,9 +61,10 @@ class RevenueFragment : Fragment(), FabClickListener {
 
         loadRecord()
 
+        observe()
+
         listeners()
 
-        observe()
 
     }
 
@@ -182,7 +182,7 @@ class RevenueFragment : Fragment(), FabClickListener {
                 position: Int,
                 id: Long
             ) {
-                selectedName = parent?.getItemAtPosition(position) as? String
+                val selectedName = parent?.getItemAtPosition(position) as? String
 
                 if (selectedName == "Cartão" && cards.isNotEmpty()) {
                     binding.textCard.isVisible = true

@@ -23,6 +23,7 @@ import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.assets.CustomDatePicker
 import com.company.ourfinances.view.listener.FabClickListener
+import com.company.ourfinances.view.listener.OnSpinnerListener
 import com.company.ourfinances.viewmodel.CardViewModel
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -37,7 +38,7 @@ class TransferFragment : Fragment(), FabClickListener {
     private var cards: List<CardEntity> = listOf()
 
     private var recordId: Long = 0
-    private var cardId: Long? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -130,10 +131,11 @@ class TransferFragment : Fragment(), FabClickListener {
 
         } else {
 
-            val paymentTypeId = getIdPaymentTypeFromName(
-                binding.spinnerTypePayTransfer.selectedItem.toString(),
-                paymentTypesList
-            )
+            val paymentTypeId = findIdByName(object : OnSpinnerListener<PaymentTypeEntity>{
+                override val id: Long
+                    get() = paymentTypesList.find { it.name == binding.spinnerTypePayTransfer.selectedItem.toString() }!!.paymentId
+
+            })
             val financeRecord = FinanceRecordEntity.Builder()
                 .setRecordId(recordId)
                 .setTitle(binding.editTitleTransfer.text.toString())
@@ -144,7 +146,10 @@ class TransferFragment : Fragment(), FabClickListener {
                 .setPaymentTypeId(paymentTypeId)
 
             if (binding.spinnerCardTransfer.isVisible) {
-                cardId = findCardIdByName(binding.spinnerCardTransfer.selectedItem.toString())
+                val cardId = findIdByName(object : OnSpinnerListener<CardEntity> {
+                    override val id: Long
+                        get() = cards.find { it.name == binding.spinnerCardTransfer.selectedItem.toString() }!!.cardId
+                })
                 financeRecord.setCardId(cardId)
             }
 
@@ -178,19 +183,8 @@ class TransferFragment : Fragment(), FabClickListener {
         binding.editReceiverTransfer.text.clear()
     }
 
-    override fun getIdCategoryExpenseFromName(
-        spinnerItemName: String,
-        list: List<CategoryExpenseEntity>
-    ): Long? {
-        return 0
-    }
-
-    override fun getIdPaymentTypeFromName(
-        spinnerItemName: String,
-        list: List<PaymentTypeEntity>
-    ): Long? {
-        val item = list.find { it.name == spinnerItemName }
-        return item?.paymentId
+    private fun <T> findIdByName(onSpinnerListener: OnSpinnerListener<T>): Long {
+        return onSpinnerListener.id
     }
 
     private fun getAdapter(itemsList: List<String>): ArrayAdapter<String>? {
@@ -206,12 +200,6 @@ class TransferFragment : Fragment(), FabClickListener {
     private fun resetRecordId() {
         recordId = 0
     }
-
-    private fun findCardIdByName(name: String): Long {
-        val card: CardEntity? = cards.find { it.name == name }
-        return card!!.cardId
-    }
-
 
     private fun listeners() {
         binding.buttonDatePickerTransfer.setOnClickListener {view->
@@ -230,11 +218,9 @@ class TransferFragment : Fragment(), FabClickListener {
                 val selectedName = parent?.getItemAtPosition(position) as? String
 
                 if (selectedName == "Cartão" && cards.isNotEmpty()) {
-                    binding.textCardTransfer.isVisible = true
-                    binding.spinnerCardTransfer.isVisible = true
+                    setCardSpinnerVisibility(true)
                 } else {
-                    binding.textCardTransfer.isVisible = false
-                    binding.spinnerCardTransfer.isVisible = false
+                    setCardSpinnerVisibility(false)
                 }
             }
 
@@ -266,4 +252,11 @@ class TransferFragment : Fragment(), FabClickListener {
             else -> -1
         }
     }
+
+    private fun setCardSpinnerVisibility(visibility: Boolean){
+        binding.textCardTransfer.isVisible = visibility
+        binding.spinnerCardTransfer.isVisible = visibility
+    }
+
+
 }

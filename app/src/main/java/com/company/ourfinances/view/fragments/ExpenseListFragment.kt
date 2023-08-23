@@ -13,16 +13,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentExpenseListBinding
 import com.company.ourfinances.model.constants.DatabaseConstants
+import com.company.ourfinances.model.entity.CardEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.view.FinanceActivity
 import com.company.ourfinances.view.adapters.FinanceRecordAdapter
 import com.company.ourfinances.view.listener.OnFinanceRecordListener
+import com.company.ourfinances.viewmodel.CardViewModel
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 
 class ExpenseListFragment : Fragment() {
 
     private lateinit var viewModel: FinanceActivityViewModel
+    private lateinit var cardViewModel: CardViewModel
+
     private lateinit var adapter: FinanceRecordAdapter
     private lateinit var binding: FragmentExpenseListBinding
 
@@ -32,6 +36,7 @@ class ExpenseListFragment : Fragment() {
     ): View? {
         binding = FragmentExpenseListBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
+        cardViewModel = ViewModelProvider(this)[CardViewModel::class.java]
 
         viewModel.getAllByExpenseCategory(RegisterTypeEnum.EXPENSE.value)
 
@@ -62,6 +67,10 @@ class ExpenseListFragment : Fragment() {
 
             override fun getCategoryNameById(id: Long?): String {
                 return viewModel.getCategoryById(id!!).name
+            }
+
+            override fun getCardById(id: Long?): CardEntity? {
+                return id?.let { cardViewModel.getCardById(it) }
             }
 
         }

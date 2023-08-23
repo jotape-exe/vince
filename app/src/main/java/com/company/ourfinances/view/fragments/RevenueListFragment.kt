@@ -13,17 +13,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentRevenueListBinding
 import com.company.ourfinances.model.constants.DatabaseConstants
+import com.company.ourfinances.model.entity.CardEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.view.FinanceActivity
 import com.company.ourfinances.view.adapters.FinanceRecordAdapter
 import com.company.ourfinances.view.listener.OnFinanceRecordListener
+import com.company.ourfinances.viewmodel.CardViewModel
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 
 class RevenueListFragment : Fragment() {
 
     private lateinit var binding: FragmentRevenueListBinding
     private lateinit var viewModel: FinanceActivityViewModel
+    private lateinit var cardViewModel: CardViewModel
     private lateinit var adapter: FinanceRecordAdapter
 
     override fun onCreateView(
@@ -32,6 +35,8 @@ class RevenueListFragment : Fragment() {
     ): View {
         binding = FragmentRevenueListBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
+        cardViewModel = ViewModelProvider(this)[CardViewModel::class.java]
+
 
         adapter = FinanceRecordAdapter()
 
@@ -60,6 +65,10 @@ class RevenueListFragment : Fragment() {
 
             override fun getCategoryNameById(id: Long?): String {
                 return viewModel.getCategoryById(id!!).name
+            }
+
+            override fun getCardById(id: Long?): CardEntity? {
+                return id?.let { cardViewModel.getCardById(it) }
             }
 
         }

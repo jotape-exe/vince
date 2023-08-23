@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentRevenueBinding
 import com.company.ourfinances.model.constants.DatabaseConstants
+import com.company.ourfinances.model.entity.CardEntity
 import com.company.ourfinances.model.entity.CategoryExpenseEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
@@ -22,6 +24,7 @@ import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.assets.CustomDatePicker
 import com.company.ourfinances.view.listener.FabClickListener
+import com.company.ourfinances.viewmodel.CardViewModel
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -29,11 +32,15 @@ class RevenueFragment : Fragment(), FabClickListener {
 
     private lateinit var binding: FragmentRevenueBinding
     private lateinit var viewModel: FinanceActivityViewModel
+    private lateinit var cardViewModel: CardViewModel
 
     private lateinit var paymentTypesList: List<PaymentTypeEntity>
     private lateinit var categoryExpenseList: List<CategoryExpenseEntity>
+    private lateinit var cards: List<CardEntity>
 
+    private var selectedName: String? = null
     private var recordId: Long = 0
+    private var cardId: Long? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,9 +48,11 @@ class RevenueFragment : Fragment(), FabClickListener {
     ): View {
         binding = FragmentRevenueBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
+        cardViewModel = ViewModelProvider(this)[CardViewModel::class.java]
 
         viewModel.getAllCategories()
         viewModel.getAllTypePayments()
+        cardViewModel.getAllCards()
 
         return binding.root
     }
@@ -53,9 +62,9 @@ class RevenueFragment : Fragment(), FabClickListener {
 
         loadRecord()
 
-        observe()
-
         listeners()
+
+        observe()
 
     }
 
@@ -93,10 +102,13 @@ class RevenueFragment : Fragment(), FabClickListener {
                 .setTypeRecord(RegisterTypeEnum.REVENUE.value)
                 .setCategoryExpenseId(categoryExpenseId)
                 .setPaymentTypeId(paymentTypeId)
-                .build()
 
+            if (binding.spinnerCard.isVisible) {
+                cardId = findCardIdByName(binding.spinnerCard.selectedItem.toString())
+                financeRecord.setCardId(cardId)
+            }
 
-            viewModel.save(financeRecord)
+            viewModel.save(financeRecord.build())
             resetRecordId()
 
             clearAll()
@@ -118,6 +130,11 @@ class RevenueFragment : Fragment(), FabClickListener {
             }
 
         }
+    }
+
+    private fun findCardIdByName(name: String): Long {
+        val card: CardEntity? = cards.find { it.name == name }
+        return card!!.cardId
     }
 
     private fun resetRecordId() {
@@ -180,12 +197,48 @@ class RevenueFragment : Fragment(), FabClickListener {
 
         }
 
+        binding.spinnerTypePay.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectedName = parent?.getItemAtPosition(position) as? String
+
+                if (selectedName == "Cartão" && cards.isNotEmpty()) {
+                    binding.textCard.isVisible = true
+                    binding.spinnerCard.isVisible = true
+                } else {
+                    binding.textCard.isVisible = false
+                    binding.spinnerCard.isVisible = false
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+        }
+
         binding.buttonDatePicker.setOnClickListener {
             CustomDatePicker(binding.buttonDatePicker, parentFragmentManager)
         }
     }
 
     private fun observe() {
+        cardViewModel.cardRecordList.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                cards = it
+                val cardNames: List<String> = cards.map { cardEntity -> cardEntity.name }
+
+                binding.spinnerCard.adapter = ArrayAdapter(
+                    requireContext().applicationContext,
+                    R.layout.style_spinner, cardNames
+                )
+            }
+        }
+
         viewModel.categoryExpenseList.observe(viewLifecycleOwner) {
             categoryExpenseList = it
             val nameCategoriesList: List<String> = categoryExpenseList.map { item -> item.name }
@@ -212,6 +265,10 @@ class RevenueFragment : Fragment(), FabClickListener {
                 viewModel.getTypePaymentById(id).name
             }
 
+            val cardName = financeRecord.cardId?.let {id->
+                cardViewModel.getCardNameById(id)
+            }
+
             binding.spinnerCategory.setSelection(
                 getPositionByName(
                     categoryName,
@@ -226,6 +283,14 @@ class RevenueFragment : Fragment(), FabClickListener {
                 )
             )
 
+            if (financeRecord.cardId != null){
+                binding.spinnerCard.setSelection(
+                    getPositionByName(
+                        cardName,
+                        cardList = cards
+                    )
+                )
+            }
 
         }
     }
@@ -250,36 +315,19 @@ class RevenueFragment : Fragment(), FabClickListener {
         }
     }
 
+    //REFACTOR
     private fun getPositionByName(
         name: String?,
         expenseList: List<CategoryExpenseEntity> = listOf(),
-        paymentList: List<PaymentTypeEntity> = listOf()
+        paymentList: List<PaymentTypeEntity> = listOf(),
+        cardList: List<CardEntity> = listOf()
     ): Int {
-        var position = 0
-
-        if (expenseList.isNotEmpty()) {
-            name.apply {
-                val categoryPosition = expenseList.map { categoryExpense ->
-                    categoryExpense.name
-                }.indexOf(this)
-
-                if (categoryPosition != -1) {
-                    position = categoryPosition
-                }
-            }
-        } else if (paymentList.isNotEmpty()) {
-            name.apply {
-                val paymentPosition = paymentList.map { typePayment ->
-                    typePayment.name
-                }.indexOf(this)
-
-                if (paymentPosition != -1) {
-                    position = paymentPosition
-                }
-            }
+        return when {
+            expenseList.isNotEmpty() -> expenseList.indexOfFirst { it.name == name }
+            paymentList.isNotEmpty() -> paymentList.indexOfFirst { it.name == name }
+            cardList.isNotEmpty() -> cardList.indexOfFirst { it.name == name }
+            else -> -1
         }
-
-        return position
     }
 
 

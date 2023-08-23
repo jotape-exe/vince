@@ -14,8 +14,19 @@ class CardViewModel(application: Application) : AndroidViewModel(application) {
     private val _cardRecordList = MutableLiveData<List<CardEntity>>()
     val cardRecordList: LiveData<List<CardEntity>> = _cardRecordList
 
+    private val _card = MutableLiveData<CardEntity>()
+    val card: LiveData<CardEntity> = _card
+
     fun insertCard(cardEntity: CardEntity){
         cardRepository.insert(cardEntity)
+    }
+
+    fun getCardById(id: Long): CardEntity?{
+        return cardRepository.getCardById(id)
+    }
+
+    fun getCardNameById(id: Long): String{
+        return cardRepository.getNameById(id)
     }
 
     fun getAllCards(){

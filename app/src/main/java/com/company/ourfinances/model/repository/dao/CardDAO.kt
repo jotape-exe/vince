@@ -23,4 +23,7 @@ interface CardDAO {
 
     @Query("SELECT * FROM cards WHERE cardId = :id")
     fun getCardById(id: Long): CardEntity
+
+    @Query("SELECT name FROM cards WHERE cardId = :id")
+    fun getNameById(id: Long): String
 }

@@ -1,8 +1,8 @@
 package com.company.ourfinances.view.viewholder
 
 import android.app.AlertDialog
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import android.graphics.Color
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.company.ourfinances.databinding.FinaceRecordViewItemBinding
 import com.company.ourfinances.model.entity.FinanceRecordEntity
@@ -37,6 +37,17 @@ class FinanceRecordViewHolder(
             listener.onClick(financeRecordEntity.recordId)
         }
 
-    }
+        financeRecordEntity.cardId?.let { cardId ->
+            listener.getCardById(cardId)?.let { card ->
+                with(bind.textCardName) {
+                    isVisible = true
+                    text = card.name
+                    background.setTint(Color.parseColor(card.cardColor))
+                    setTextColor(Color.parseColor(card.cardTextColor))
+                }
+            }
+        }
 
+    }
 }
+

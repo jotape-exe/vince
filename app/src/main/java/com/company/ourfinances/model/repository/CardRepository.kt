@@ -23,4 +23,8 @@ class CardRepository(context: Context) {
         val card = getCardById(id)
         database.delete(card)
     }
+
+    fun getNameById(id: Long): String {
+        return database.getNameById(id)
+    }
 }

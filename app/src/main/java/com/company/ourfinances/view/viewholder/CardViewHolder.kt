@@ -13,6 +13,7 @@ class CardViewHolder(
 ) : RecyclerView.ViewHolder(bind.root) {
 
     fun bind(card: CardEntity) {
+
         bind.textCardNameItem.text = card.name
         bind.textCardNumberItem.text = card.cardNumber
         bind.textCardTypeItem.text = card.cardType
@@ -20,8 +21,8 @@ class CardViewHolder(
         bind.textCardNameItem.setTextColor(Color.parseColor(card.cardTextColor))
         bind.textCardNumberItem.setTextColor(Color.parseColor(card.cardTextColor))
         bind.textCardTypeItem.setTextColor(Color.parseColor(card.cardTextColor))
-        bind.cardContent.background.setTint(Color.parseColor(card.cardColor))
 
+        bind.cardContent.background.setTint(Color.parseColor(card.cardColor))
         bind.cardContent.setOnLongClickListener {
             AlertDialog.Builder(itemView.context)
                 .setTitle("Remoção de Registro")
@@ -33,7 +34,6 @@ class CardViewHolder(
                 .create()
                 .show()
             true
-
         }
 
     }

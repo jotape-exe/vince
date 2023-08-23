@@ -9,10 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentExpenseBinding
 import com.company.ourfinances.model.constants.DatabaseConstants
+import com.company.ourfinances.model.entity.CardEntity
 import com.company.ourfinances.model.entity.CategoryExpenseEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
@@ -21,17 +23,24 @@ import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.assets.CustomDatePicker
 import com.company.ourfinances.view.listener.FabClickListener
+import com.company.ourfinances.viewmodel.CardViewModel
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class ExpenseFragment : Fragment(), FabClickListener {
 
     private lateinit var binding: FragmentExpenseBinding
+
     private lateinit var paymentTypesList: List<PaymentTypeEntity>
     private lateinit var categoryExpenseList: List<CategoryExpenseEntity>
-    private lateinit var viewModel: FinanceActivityViewModel
+    private lateinit var cards: List<CardEntity>
 
+    private lateinit var viewModel: FinanceActivityViewModel
+    private lateinit var cardViewModel: CardViewModel
+
+    private var selectedName: String? = null
     private var recordId: Long = 0
+    private var cardId: Long? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,15 +48,17 @@ class ExpenseFragment : Fragment(), FabClickListener {
     ): View {
         binding = FragmentExpenseBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
+        cardViewModel = ViewModelProvider(this)[CardViewModel::class.java]
 
         viewModel.getAllCategories()
         viewModel.getAllTypePayments()
-
-        observe()
+        cardViewModel.getAllCards()
 
         loadRecord()
 
         listeners()
+
+        observe()
 
         return binding.root
     }
@@ -81,9 +92,14 @@ class ExpenseFragment : Fragment(), FabClickListener {
                 .setTypeRecord(RegisterTypeEnum.EXPENSE.value)
                 .setCategoryExpenseId(categoryExpenseId)
                 .setPaymentTypeId(paymentTypeId)
-                .build()
 
-            viewModel.save(financeRecord)
+            if (binding.spinnerCardExpense.isVisible) {
+                cardId = findCardIdByName(binding.spinnerCardExpense.selectedItem.toString())
+                financeRecord.setCardId(cardId)
+            }
+
+
+            viewModel.save(financeRecord.build())
             resetRecordId()
 
             val bundle = Bundle()
@@ -113,18 +129,12 @@ class ExpenseFragment : Fragment(), FabClickListener {
 
     }
 
-    override fun getIdCategoryExpenseFromName(
-        spinnerItemName: String,
-        list: List<CategoryExpenseEntity>
-    ): Long? {
+    override fun getIdCategoryExpenseFromName(spinnerItemName: String, list: List<CategoryExpenseEntity>): Long? {
         val item = list.find { it.name == spinnerItemName }
         return item?.id
     }
 
-    override fun getIdPaymentTypeFromName(
-        spinnerItemName: String,
-        list: List<PaymentTypeEntity>
-    ): Long? {
+    override fun getIdPaymentTypeFromName(spinnerItemName: String, list: List<PaymentTypeEntity>): Long? {
         val item = list.find { it.name == spinnerItemName }
         return item?.paymentId
     }
@@ -134,6 +144,18 @@ class ExpenseFragment : Fragment(), FabClickListener {
     }
 
     private fun observe() {
+        cardViewModel.cardRecordList.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                cards = it
+                val cardNames: List<String> = cards.map { cardEntity -> cardEntity.name }
+
+                binding.spinnerCardExpense.adapter = ArrayAdapter(
+                    requireContext().applicationContext,
+                    R.layout.style_spinner, cardNames
+                )
+            }
+        }
+
         viewModel.categoryExpenseList.observe(viewLifecycleOwner) { categorias ->
             categoryExpenseList = categorias
             val nameCategoriesList: List<String> = categoryExpenseList.map { item -> item.name }
@@ -160,9 +182,23 @@ class ExpenseFragment : Fragment(), FabClickListener {
                 viewModel.getTypePaymentById(id).name
             }
 
+            val cardName = financeRecord.cardId?.let {id->
+                cardViewModel.getCardNameById(id)
+            }
+
             binding.spinnerCategoryExpense.setSelection(getPositionByName(categoryName, expenseList = categoryExpenseList))
 
             binding.spinnerTypePayExpense.setSelection(getPositionByName(paymentName, paymentList = paymentTypesList))
+
+
+            financeRecord.cardId.let{
+                binding.spinnerCardExpense.setSelection(
+                    getPositionByName(
+                        cardName,
+                        cardList = cards
+                    )
+                )
+            }
 
         }
     }
@@ -205,6 +241,31 @@ class ExpenseFragment : Fragment(), FabClickListener {
         binding.buttonDatePickerExpense.setOnClickListener {
             CustomDatePicker(binding.buttonDatePickerExpense, parentFragmentManager)
         }
+
+        binding.spinnerTypePayExpense.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectedName = parent?.getItemAtPosition(position) as? String
+
+                if (selectedName == "Cartão" && cards.isNotEmpty()) {
+                    binding.textCardExpense.isVisible = true
+                    binding.spinnerCardExpense.isVisible = true
+                } else {
+                    binding.textCardExpense.isVisible = false
+                    binding.spinnerCardExpense.isVisible = false
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+        }
     }
 
     private fun getAdapter(itemsList: List<String>): ArrayAdapter<String>? {
@@ -227,35 +288,22 @@ class ExpenseFragment : Fragment(), FabClickListener {
         }
     }
 
+    private fun findCardIdByName(name: String): Long {
+        val card: CardEntity? = cards.find { it.name == name }
+        return card!!.cardId
+    }
+
     private fun getPositionByName(
         name: String?,
         expenseList: List<CategoryExpenseEntity> = listOf(),
-        paymentList: List<PaymentTypeEntity> = listOf()
+        paymentList: List<PaymentTypeEntity> = listOf(),
+        cardList: List<CardEntity> = listOf()
     ): Int {
-        var position = 0
-
-        if (expenseList.isNotEmpty()) {
-            name.apply {
-                val categoryPosition = expenseList.map { categoryExpense ->
-                    categoryExpense.name
-                }.indexOf(this)
-
-                if (categoryPosition != -1) {
-                    position = categoryPosition
-                }
-            }
-        } else if (paymentList.isNotEmpty()) {
-            name.apply {
-                val paymentPosition = paymentList.map { typePayment ->
-                    typePayment.name
-                }.indexOf(this)
-
-                if (paymentPosition != -1) {
-                    position = paymentPosition
-                }
-            }
+        return when {
+            expenseList.isNotEmpty() -> expenseList.indexOfFirst { it.name == name }
+            paymentList.isNotEmpty() -> paymentList.indexOfFirst { it.name == name }
+            cardList.isNotEmpty() -> cardList.indexOfFirst { it.name == name }
+            else -> -1
         }
-
-        return position
     }
 }

@@ -141,19 +141,12 @@ class RevenueFragment : Fragment(), FabClickListener {
         recordId = 0
     }
 
-    override fun getIdCategoryExpenseFromName(
-        spinnerItemName: String,
-        list: List<CategoryExpenseEntity>
-    ): Long? {
-        val item =
-            list.find { categoryExpenseEntity -> categoryExpenseEntity.name == spinnerItemName }
+    override fun getIdCategoryExpenseFromName(spinnerItemName: String, list: List<CategoryExpenseEntity>): Long? {
+        val item = list.find { categoryExpenseEntity -> categoryExpenseEntity.name == spinnerItemName }
         return item?.id
     }
 
-    override fun getIdPaymentTypeFromName(
-        spinnerItemName: String,
-        list: List<PaymentTypeEntity>
-    ): Long? {
+    override fun getIdPaymentTypeFromName(spinnerItemName: String, list: List<PaymentTypeEntity>): Long? {
         val item = list.find { paymentTypeEntity -> paymentTypeEntity.name == spinnerItemName }
         return item?.paymentId
     }
@@ -181,21 +174,6 @@ class RevenueFragment : Fragment(), FabClickListener {
 
         }
 
-        binding.spinnerTypePay.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-
-        }
 
         binding.spinnerTypePay.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(

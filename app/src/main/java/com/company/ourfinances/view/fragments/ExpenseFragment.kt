@@ -79,14 +79,14 @@ class ExpenseFragment : Fragment(), FabClickListener {
         } else {
 
             val categoryListener = object : OnSpinnerListener<CategoryExpenseEntity>{
-                override fun getIdByName(): Long {
-                    return categoryExpenseList.find { it.name == binding.spinnerCategoryExpense.selectedItem.toString() }!!.id
+                override fun getIdByName(name: String): Long {
+                    return categoryExpenseList.find { it.name == name }!!.id
                 }
             }
 
             val paymentListener = object : OnSpinnerListener<PaymentTypeEntity>{
-                override fun getIdByName(): Long {
-                    return paymentTypesList.find { it.name == binding.spinnerTypePayExpense.selectedItem.toString() }!!.paymentId
+                override fun getIdByName(name: String): Long {
+                    return paymentTypesList.find { it.name == name }!!.paymentId
                 }
             }
 
@@ -96,16 +96,16 @@ class ExpenseFragment : Fragment(), FabClickListener {
                 .setValue(binding.editValueExpense.text.toString().toDouble())
                 .setDateRecord(binding.buttonDatePickerExpense.text.toString())
                 .setTypeRecord(RegisterTypeEnum.EXPENSE.value)
-                .setCategoryExpenseId(categoryListener.getIdByName())
-                .setPaymentTypeId(paymentListener.getIdByName())
+                .setCategoryExpenseId(categoryListener.getIdByName(binding.spinnerCategoryExpense.selectedItem.toString()))
+                .setPaymentTypeId(paymentListener.getIdByName(binding.spinnerTypePayExpense.selectedItem.toString()))
 
             if (binding.spinnerCardExpense.isVisible) {
                 val cardListener = object : OnSpinnerListener<CardEntity> {
-                        override fun getIdByName(): Long {
-                            return cards.find { it.name == binding.spinnerCardExpense.selectedItem.toString() }!!.cardId
+                        override fun getIdByName(name: String): Long {
+                            return cards.find { it.name == name }!!.cardId
                         }
                     }
-                financeRecord.setCardId(cardListener.getIdByName())
+                financeRecord.setCardId(cardListener.getIdByName(binding.spinnerCardExpense.selectedItem.toString()))
 
             }
 
@@ -229,11 +229,9 @@ class ExpenseFragment : Fragment(), FabClickListener {
             ) {
                 val selectedName = parent?.getItemAtPosition(position) as? String
 
-                if (selectedName == "Cartão" && cards.isNotEmpty()) {
-                    setCardSpinnerVisibility(true)
-                } else {
-                    setCardSpinnerVisibility(false)
-                }
+                val visibilityBySpinnerSelected = selectedName == "Cartão" && cards.isNotEmpty()
+
+                setCardSpinnerVisibility(visibilityBySpinnerSelected)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

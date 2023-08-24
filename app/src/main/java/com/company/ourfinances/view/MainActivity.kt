@@ -19,7 +19,6 @@ import com.company.ourfinances.view.fragments.HomeFragment
 import com.company.ourfinances.view.fragments.InsightsFragment
 import com.google.firebase.auth.FirebaseAuth
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

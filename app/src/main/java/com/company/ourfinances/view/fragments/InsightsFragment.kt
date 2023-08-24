@@ -69,17 +69,14 @@ class InsightsFragment : Fragment() {
 
     private fun addPieEntryForType(
         list: List<FinanceRecordEntity>,
-        type: RegisterTypeEnum,
+        typeEnum: RegisterTypeEnum,
         title: TitleEnum
     ) {
-        val value = list
-            .filter { record ->
-                record.typeRecord == type.value
-            }
-            .sumOf { record ->
+        val value = list.filter { record ->
+                record.typeRecord == typeEnum.value
+            }.sumOf { record ->
                 record.value
-            }
-            .toFloat()
+            }.toFloat()
 
         entries.add(PieEntry(value, title.value))
     }

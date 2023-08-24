@@ -56,7 +56,6 @@ class TransferListFragment : Fragment() {
                 bundle.putString(activity?.getString(R.string.fragmentIdentifier), TitleEnum.TRANSFERENCIA.value)
 
                 startActivity(Intent(context, FinanceActivity::class.java).putExtras(bundle))
-                activity?.finish()
             }
 
             override fun getPaymentNameById(id: Long?): String {

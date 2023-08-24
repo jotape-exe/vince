@@ -1,5 +1,5 @@
 package com.company.ourfinances.view.listener
 
 interface OnSpinnerListener<T> {
-    fun getIdByName(): Long
+    fun getIdByName(name: String): Long
 }

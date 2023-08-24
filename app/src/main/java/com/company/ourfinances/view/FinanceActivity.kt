@@ -25,7 +25,7 @@ class FinanceActivity : AppCompatActivity() {
 
     //Posição de cada fragment no TabLayout
     private val REVENUE_POSITION = 0;
-    private val  EXPENSE_POSITION = 1;
+    private val EXPENSE_POSITION = 1;
     private val TRANSFER_POSITION = 2;
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,18 +101,18 @@ class FinanceActivity : AppCompatActivity() {
 
         when (currentPosition) {
             REVENUE_POSITION -> {
-                val revenueFragment = currentFragment as? RevenueFragment
-                revenueFragment!!.doSave()
+                val revenueFragment = currentFragment as RevenueFragment
+                revenueFragment.doSave()
             }
 
             EXPENSE_POSITION -> {
-                val expenseFragment = currentFragment as? ExpenseFragment
-                expenseFragment!!.doSave()
+                val expenseFragment = currentFragment as ExpenseFragment
+                expenseFragment.doSave()
             }
 
             TRANSFER_POSITION -> {
-                val transferFragment = currentFragment as? TransferFragment
-                transferFragment!!.doSave()
+                val transferFragment = currentFragment as TransferFragment
+                transferFragment.doSave()
             }
         }
     }

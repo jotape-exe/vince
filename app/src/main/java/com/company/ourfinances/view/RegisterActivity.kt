@@ -1,7 +1,6 @@
 package com.company.ourfinances.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -10,6 +9,7 @@ import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityRegisterBinding
 import com.company.ourfinances.view.assets.LoadingDialog

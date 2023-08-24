@@ -89,7 +89,7 @@ class TransferFragment : Fragment(), FabClickListener {
                 viewModel.getTypePaymentById(id).name
             }
 
-            val cardName = financeRecord.cardId?.let {id->
+            val cardName = financeRecord.cardId?.let { id ->
                 cardViewModel.getCardNameById(id)
             }
 
@@ -100,7 +100,7 @@ class TransferFragment : Fragment(), FabClickListener {
                 )
             )
 
-            if (financeRecord.cardId != null){
+            if (financeRecord.cardId != null) {
                 binding.spinnerCardTransfer.setSelection(
                     getPositionByName(
                         cardName,
@@ -131,11 +131,11 @@ class TransferFragment : Fragment(), FabClickListener {
 
         } else {
 
-            val paymentTypeId = findIdByName(object : OnSpinnerListener<PaymentTypeEntity>{
-                override val id: Long
-                    get() = paymentTypesList.find { it.name == binding.spinnerTypePayTransfer.selectedItem.toString() }!!.paymentId
-
-            })
+            val paymentListener = object : OnSpinnerListener<PaymentTypeEntity> {
+                override fun getIdByName(): Long {
+                    return paymentTypesList.find { it.name == binding.spinnerTypePayTransfer.selectedItem.toString() }!!.paymentId
+                }
+            }
             val financeRecord = FinanceRecordEntity.Builder()
                 .setRecordId(recordId)
                 .setTitle(binding.editTitleTransfer.text.toString())
@@ -143,14 +143,15 @@ class TransferFragment : Fragment(), FabClickListener {
                 .setDateRecord(binding.buttonDatePickerTransfer.text.toString())
                 .setDestinationAccount(binding.editReceiverTransfer.text.toString())
                 .setTypeRecord(RegisterTypeEnum.TRANSFER.value)
-                .setPaymentTypeId(paymentTypeId)
+                .setPaymentTypeId(paymentListener.getIdByName())
 
             if (binding.spinnerCardTransfer.isVisible) {
-                val cardId = findIdByName(object : OnSpinnerListener<CardEntity> {
-                    override val id: Long
-                        get() = cards.find { it.name == binding.spinnerCardTransfer.selectedItem.toString() }!!.cardId
-                })
-                financeRecord.setCardId(cardId)
+                val cardListener = object : OnSpinnerListener<CardEntity> {
+                    override fun getIdByName(): Long {
+                        return cards.find { it.name == binding.spinnerCardTransfer.selectedItem.toString() }!!.cardId
+                    }
+                }
+                financeRecord.setCardId(cardListener.getIdByName())
             }
 
             viewModel.save(financeRecord.build())
@@ -183,10 +184,6 @@ class TransferFragment : Fragment(), FabClickListener {
         binding.editReceiverTransfer.text.clear()
     }
 
-    private fun <T> findIdByName(onSpinnerListener: OnSpinnerListener<T>): Long {
-        return onSpinnerListener.id
-    }
-
     private fun getAdapter(itemsList: List<String>): ArrayAdapter<String>? {
         val adapter = activity?.let {
             ArrayAdapter(
@@ -202,7 +199,7 @@ class TransferFragment : Fragment(), FabClickListener {
     }
 
     private fun listeners() {
-        binding.buttonDatePickerTransfer.setOnClickListener {view->
+        binding.buttonDatePickerTransfer.setOnClickListener { view ->
             CustomDatePicker(binding.buttonDatePickerTransfer, parentFragmentManager)
 
         }
@@ -253,7 +250,7 @@ class TransferFragment : Fragment(), FabClickListener {
         }
     }
 
-    private fun setCardSpinnerVisibility(visibility: Boolean){
+    private fun setCardSpinnerVisibility(visibility: Boolean) {
         binding.textCardTransfer.isVisible = visibility
         binding.spinnerCardTransfer.isVisible = visibility
     }

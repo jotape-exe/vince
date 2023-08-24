@@ -53,10 +53,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                //R.id.item_settings -> replaceFragment(SettingsFragment())
                 R.id.item_help -> {
                     sendEmail()
-                    false
                 }
                 R.id.item_info -> {
                     AlertDialog.Builder(this)
@@ -65,7 +63,6 @@ class MainActivity : AppCompatActivity() {
                         .setPositiveButton("OK", null)
                         .create()
                         .show()
-                    false
                 }
                 R.id.item_logout -> firebaseLogout()
             }
@@ -119,7 +116,7 @@ class MainActivity : AppCompatActivity() {
     private fun sendEmail(): Boolean {
         val intent = Intent(Intent.ACTION_SENDTO).apply {
             data = Uri.parse("mailto:")
-            putExtra(Intent.EXTRA_EMAIL, arrayOf("vincesupport@help.com"))
+            putExtra(Intent.EXTRA_EMAIL, arrayOf("joaoxstone@gmail.com"))
         }
             startActivity(intent)
         return true

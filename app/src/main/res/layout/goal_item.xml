@@ -6,7 +6,7 @@
     android:layout_height="240dp"
     android:layout_marginTop="20dp"
     android:background="@drawable/radius_shape"
-    android:backgroundTint="@color/variant_green_3"
+    android:backgroundTint="@color/variant_green_7"
     android:padding="14dp">
 
     <TextView
@@ -96,7 +96,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
-        android:backgroundTint="@color/variant_green"
+        android:backgroundTint="@color/variant_green_3"
         android:contentDescription="@string/delete_item"
         android:src="@drawable/ic_delete"
         app:layout_constraintBottom_toBottomOf="parent"

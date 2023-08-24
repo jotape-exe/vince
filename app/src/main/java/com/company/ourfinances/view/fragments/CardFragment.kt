@@ -41,8 +41,6 @@ class CardFragment : Fragment() {
 
         adapter.attachToListener(listener)
 
-        viewModel.getAllCards()
-
         observe()
 
         listener()

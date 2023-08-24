@@ -25,8 +25,9 @@ class CardViewHolder(
         bind.cardContent.background.setTint(Color.parseColor(card.cardColor))
         bind.cardContent.setOnLongClickListener {
             AlertDialog.Builder(itemView.context)
-                .setTitle("Remoção de Registro")
-                .setMessage("Tem certeza que deseja excluir o cartão? Isso não pode ser revertido.")
+                .setTitle("Remoção de Cartão")
+                .setMessage("Tem certeza que deseja excluir o cartão? Todos os registros com este cartão" +
+                        " serão apagados!")
                 .setPositiveButton("Sim") { dialog, which ->
                     listener.onLongClick(card.cardId)
                 }

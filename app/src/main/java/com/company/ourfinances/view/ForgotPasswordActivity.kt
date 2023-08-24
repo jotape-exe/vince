@@ -29,10 +29,10 @@ class ForgotPasswordActivity : AppCompatActivity() {
         loadingDialog = LoadingDialog(this)
 
         val bundle = intent.extras
-        val values = bundle?.getString("email")
+        val email = bundle?.getString("email")
 
-        if (values != null){
-            binding.editExistingEmail.text = Editable.Factory.getInstance().newEditable(values.toString())
+        if (email != null){
+            binding.editExistingEmail.setText(email)
         }
 
         listeners()

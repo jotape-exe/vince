@@ -81,6 +81,10 @@ class GoalManagerActivity : AppCompatActivity() {
                     binding.buttonDatePickerGoal.error = getString(R.string.date_cannot_be_empty)
                 }
 
+                binding.numberGoalRevenue.text.toString().toInt() <= 0 -> {
+                    binding.numberGoalRevenue.error = "Meta deve ser maior que zero!"
+                }
+
                 binding.numberCurrentRevenue.text.toString().toDouble() > binding.numberGoalRevenue.text.toString().toDouble() ->{
                     binding.numberCurrentRevenue.error = "Valor maior que a meta!"
                 }

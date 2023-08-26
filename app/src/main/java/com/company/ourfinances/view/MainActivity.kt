@@ -13,16 +13,24 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityMainBinding
+import com.company.ourfinances.model.remote.RetrofitClient
+import com.company.ourfinances.model.repository.CurrencyRepository
 import com.company.ourfinances.view.fragments.CardFragment
 import com.company.ourfinances.view.fragments.GoalFragment
 import com.company.ourfinances.view.fragments.HomeFragment
 import com.company.ourfinances.view.fragments.InsightsFragment
+import com.company.ourfinances.viewmodel.CurrencyViewModel
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var drawerLayout: DrawerLayout
+    //DEBUG
+    private val viewModel: CurrencyViewModel = CurrencyViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +56,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.floatingBtn.setOnClickListener {
             startActivity(Intent(this, FinanceActivity::class.java))
+            viewModel.getLastCurrencyData()
+            viewModel.currencyData.observe(this){
+                it.forEach {
+                    println(it)
+                }
+            }
         }
 
         binding.navView.setNavigationItemSelectedListener { menuItem ->

@@ -1,10 +1,10 @@
-package com.company.ourfinances.view.assets
+package com.company.ourfinances.view.utils
 
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.company.ourfinances.R
 
-class LoadingDialog(private val activity: AppCompatActivity) {
+class LoadingDialog(activity: AppCompatActivity) {
     private var dialog: AlertDialog
     init {
         val builderDialog = AlertDialog.Builder(activity)

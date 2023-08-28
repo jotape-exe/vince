@@ -1,11 +1,16 @@
 package com.company.ourfinances.view
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -13,16 +18,17 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityMainBinding
-import com.company.ourfinances.model.remote.RetrofitClient
-import com.company.ourfinances.model.repository.CurrencyRepository
 import com.company.ourfinances.view.fragments.CardFragment
 import com.company.ourfinances.view.fragments.GoalFragment
 import com.company.ourfinances.view.fragments.HomeFragment
 import com.company.ourfinances.view.fragments.InsightsFragment
 import com.company.ourfinances.viewmodel.CurrencyViewModel
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +37,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     //DEBUG
     private val viewModel: CurrencyViewModel = CurrencyViewModel()
+
+    //Notification?
+    private val updateInterval: Long = 600000 //10 minutos
+    private var job: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +53,60 @@ class MainActivity : AppCompatActivity() {
 
         setBottomMenu()
 
+        //Notification?
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelId = "running_channel"
+            val channelName = "Seu Canal de Notificação"
+            val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+        }
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        //Notification?
+        val currencyList: ArrayList<String> = arrayListOf("", "", "")
+
+        job = CoroutineScope(Dispatchers.Main).launch {
+            while (isActive) {
+                viewModel.getLastCurrencyData()
+                viewModel.currencyData.observe(this@MainActivity){
+
+                    it.forEach {
+                        currencyList.add(0, calculateCurrency(it.usdBRL.highValue, it.usdBRL.lowValue))
+                        currencyList.add(1,calculateCurrency(it.btcBRL.highValue, it.btcBRL.lowValue))
+                        currencyList.add(2, calculateCurrency(it.eurBRL.highValue, it.eurBRL.lowValue))
+                    }
+
+                    startNotification(currencyList)
+                }
+                delay(updateInterval)
+            }
+        }
+
+    }
+
+    private fun startNotification(currencyList: ArrayList<String>) {
+        val notification: NotificationCompat.Builder = NotificationCompat.Builder(this, "running_channel")
+            .setPriority(NotificationManager.IMPORTANCE_MAX)
+            .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentTitle("Cotação diária")
+
+
+        val bigTextStyle = NotificationCompat.BigTextStyle()
+            .bigText("DOLAR: R$ ${currencyList[0]}\nBITCOIN: R$ ${currencyList[1]}\nEURO: R$ ${currencyList[2]}")
+            .setSummaryText("Cotação diária")
+
+        notification.setStyle(bigTextStyle)
+
+
+        val notificationManager: NotificationManager = getSystemService(NotificationManager::class.java)
+        notificationManager.notify(1, notification.build())
     }
 
     private fun firebaseLogout(): Boolean {
@@ -56,12 +120,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.floatingBtn.setOnClickListener {
             startActivity(Intent(this, FinanceActivity::class.java))
-            viewModel.getLastCurrencyData()
-            viewModel.currencyData.observe(this){
-                it.forEach {
-                    println(it)
-                }
-            }
         }
 
         binding.navView.setNavigationItemSelectedListener { menuItem ->
@@ -82,6 +140,10 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
+    }
+
+    private fun calculateCurrency(highValue: String, lowValue: String): String{
+       return String.format("%.2f", (highValue.toDouble() + lowValue.toDouble()) / 2)
     }
 
     private fun setDrawerMenu() {

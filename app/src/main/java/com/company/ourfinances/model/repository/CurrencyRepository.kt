@@ -6,7 +6,6 @@ import com.company.ourfinances.model.remote.RetrofitClient
 import com.company.ourfinances.model.remote.service.CurrencyService
 import com.company.ourfinances.view.listener.CurrencyAPIListener
 import com.google.gson.Gson
-import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

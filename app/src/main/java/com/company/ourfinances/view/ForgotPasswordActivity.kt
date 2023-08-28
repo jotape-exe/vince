@@ -1,15 +1,12 @@
 package com.company.ourfinances.view
 
-import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.text.TextUtils
 import android.util.Log
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityForgotPasswordBinding
-import com.company.ourfinances.view.assets.LoadingDialog
+import com.company.ourfinances.view.utils.LoadingDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -39,7 +36,8 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
     }
 
-    private fun listeners() {
+    private fun listeners()
+    {
         binding.buttonSendLink.setOnClickListener {
             if (TextUtils.isEmpty(binding.editExistingEmail.text.toString())){
                 binding.editExistingEmail.error = getString(R.string.user_not_empty)

@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityLoginBinding
 import com.company.ourfinances.model.constants.RemoteConstants
-import com.company.ourfinances.view.assets.LoadingDialog
+import com.company.ourfinances.view.utils.LoadingDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions

@@ -21,7 +21,7 @@ import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.view.ShowRecordListActivity
-import com.company.ourfinances.view.assets.CustomDatePicker
+import com.company.ourfinances.view.utils.CustomDatePicker
 import com.company.ourfinances.view.listener.FabClickListener
 import com.company.ourfinances.view.listener.OnSpinnerListener
 import com.company.ourfinances.viewmodel.CardViewModel

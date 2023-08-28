@@ -13,10 +13,9 @@ import com.company.ourfinances.databinding.ActivityCardCreateBinding
 import com.company.ourfinances.model.entity.CardEntity
 import com.company.ourfinances.model.enums.CardTypeEnum
 import com.company.ourfinances.view.adapters.ColorSpinnerAdapter
-import com.company.ourfinances.view.assets.ColorList
-import com.company.ourfinances.view.assets.ColorObject
+import com.company.ourfinances.view.utils.ColorList
+import com.company.ourfinances.view.utils.ColorObject
 import com.company.ourfinances.viewmodel.CardViewModel
-import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 
 
 class CardCreateActivity : AppCompatActivity() {

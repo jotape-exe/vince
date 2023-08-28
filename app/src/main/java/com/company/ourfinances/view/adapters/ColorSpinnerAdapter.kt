@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.company.ourfinances.R
-import com.company.ourfinances.view.assets.ColorObject
+import com.company.ourfinances.view.utils.ColorObject
 
 class ColorSpinnerAdapter(context: Context, list: List<ColorObject>) :
     ArrayAdapter<ColorObject>(context, 0, list) {

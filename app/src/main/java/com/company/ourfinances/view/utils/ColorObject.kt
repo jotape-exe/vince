@@ -1,4 +1,4 @@
-package com.company.ourfinances.view.assets
+package com.company.ourfinances.view.utils
 
 class ColorObject(
     var name: String,

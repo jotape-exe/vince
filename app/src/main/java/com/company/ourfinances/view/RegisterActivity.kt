@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityRegisterBinding
-import com.company.ourfinances.view.assets.LoadingDialog
+import com.company.ourfinances.view.utils.LoadingDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -39,7 +39,7 @@ class RegisterActivity : AppCompatActivity() {
 
         loadingDialog = LoadingDialog(this)
 
-        binding.textToLogin.apply {
+        binding.textToLogin.run {
             val coloredText = SpannableString(binding.textToLogin.text.toString())
             coloredText.setSpan(
                 ForegroundColorSpan(getColor(R.color.variant_green_3)),
@@ -47,7 +47,7 @@ class RegisterActivity : AppCompatActivity() {
                 34,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             )
-            this.text = coloredText
+            text = coloredText
         }
     }
 
@@ -87,25 +87,22 @@ class RegisterActivity : AppCompatActivity() {
                 } else {
                     task.exception?.let { exception ->
                         when (exception) {
-                            is FirebaseAuthUserCollisionException -> showErrorMessage(
-                                binding.editEmailRegister,
-                                getString(R.string.email_has_been_registered)
-                            )
+                            is FirebaseAuthUserCollisionException -> {
+                                setErrorMessage(binding.editEmailRegister, getString(R.string.email_has_been_registered))
+                            }
 
-                            is FirebaseAuthWeakPasswordException -> showErrorMessage(
-                                binding.editPasswordRegister,
-                                getString(R.string.Password_had_more_than_6_characters)
-                            )
+                            is FirebaseAuthWeakPasswordException -> {
+                                setErrorMessage(binding.editPasswordRegister, getString(R.string.Password_had_more_than_6_characters))
+                            }
 
                             else -> {
                                 Log.e("error: ", exception.toString())
-                                showSnackbarMessage(
-                                    binding.registerMain,
-                                    getString(R.string.error_when_registering)
-                                )
+                                showSnackbarMessage(binding.registerMain, getString(R.string.error_when_registering))
                             }
+
                         }
                     }
+
                 }
             }
     }
@@ -115,7 +112,7 @@ class RegisterActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun showErrorMessage(textView: TextView, message: String) {
+    private fun setErrorMessage(textView: TextView, message: String) {
         textView.error = message
         loadingDialog.dismissDialog()
     }

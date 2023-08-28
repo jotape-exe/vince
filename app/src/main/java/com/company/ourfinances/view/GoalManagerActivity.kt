@@ -1,19 +1,15 @@
 package com.company.ourfinances.view
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityGoalManagerBinding
 import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.entity.GoalEntity
-import com.company.ourfinances.model.enums.TitleEnum
-import com.company.ourfinances.view.assets.CustomDatePicker
-import com.company.ourfinances.view.listener.OnGoalListener
+import com.company.ourfinances.view.utils.CustomDatePicker
 import com.company.ourfinances.viewmodel.GoalViewModel
 
 class GoalManagerActivity : AppCompatActivity() {
@@ -81,7 +77,7 @@ class GoalManagerActivity : AppCompatActivity() {
                     binding.buttonDatePickerGoal.error = getString(R.string.date_cannot_be_empty)
                 }
 
-                binding.numberGoalRevenue.text.toString().toInt() <= 0 -> {
+                binding.numberGoalRevenue.text.toString().toDouble() <= 0.0 -> {
                     binding.numberGoalRevenue.error = "Meta deve ser maior que zero!"
                 }
 

@@ -13,7 +13,7 @@ import com.company.ourfinances.databinding.FragmentHomeBinding
 import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.adapters.HomeComponentAdapter
-import com.company.ourfinances.view.assets.HomeComponent
+import com.company.ourfinances.view.utils.HomeComponent
 import com.company.ourfinances.view.listener.OnComponentHomeListener
 
 class HomeFragment : Fragment() {

@@ -1,6 +1,5 @@
-package com.company.ourfinances.view.assets
+package com.company.ourfinances.view.utils
 
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.company.ourfinances.R
 import com.google.android.material.button.MaterialButton

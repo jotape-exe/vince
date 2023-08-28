@@ -4,7 +4,7 @@ class RemoteConstants private constructor(){
 
     object HTTP{
         const val OK = 200
-        const val NOT_FOUND = 400
+        const val NOT_FOUND = 404
         const val SERVER_ERROR = 500
     }
 

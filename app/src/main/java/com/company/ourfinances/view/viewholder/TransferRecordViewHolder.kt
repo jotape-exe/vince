@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.company.ourfinances.databinding.TransferRecordViewItemBinding
 import com.company.ourfinances.model.entity.FinanceRecordEntity
+import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.view.listener.OnFinanceRecordListener
 
 class TransferRecordViewHolder(
@@ -19,7 +20,10 @@ class TransferRecordViewHolder(
         bind.textValueViewTransfer.text = "R$ ${financeRecordEntity.value}"
         bind.textReceiverViewTransfer.text = financeRecordEntity.destinationAccount
 
-        bind.textTypePayCardTransfer.text = listener.getPaymentNameById(financeRecordEntity.paymentTypeId)
+        bind.textTypePayCardTransfer.text = listener.getEntityNameById(
+            financeRecordEntity.paymentTypeId,
+            PaymentTypeEntity::class.java
+        )
 
         bind.buttonDeleteViewTransfer.setOnClickListener {
 

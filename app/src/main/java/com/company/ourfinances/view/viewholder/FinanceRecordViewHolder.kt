@@ -5,7 +5,10 @@ import android.graphics.Color
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.company.ourfinances.databinding.FinaceRecordViewItemBinding
+import com.company.ourfinances.model.entity.CategoryExpenseEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
+import com.company.ourfinances.model.entity.PaymentTypeEntity
+import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.view.listener.OnFinanceRecordListener
 
 class FinanceRecordViewHolder(
@@ -17,8 +20,12 @@ class FinanceRecordViewHolder(
         bind.textTitleView.text = financeRecordEntity.title
         bind.textDateView.text = financeRecordEntity.dateRecord
         bind.textValueView.text = "R$ ${financeRecordEntity.value}"
-        bind.textTagRecord.text = listener.getCategoryNameById(financeRecordEntity.categoryExpenseId)
-        bind.textTypePayCard.text = listener.getPaymentNameById(financeRecordEntity.paymentTypeId)
+        bind.textTagRecord.text = listener.getEntityNameById(
+            financeRecordEntity.categoryExpenseId, CategoryExpenseEntity::class.java
+        )
+        bind.textTypePayCard.text = listener.getEntityNameById(
+            financeRecordEntity.paymentTypeId, PaymentTypeEntity::class.java
+        )
 
         bind.buttonDeleteView.setOnClickListener {
 

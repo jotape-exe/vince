@@ -62,12 +62,6 @@ class MainActivity : AppCompatActivity() {
             notificationManager.createNotificationChannel(channel)
         }
 
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-
         //Notification?
         val currencyList: ArrayList<String> = arrayListOf("", "", "")
 
@@ -88,6 +82,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     private fun startNotification(currencyList: ArrayList<String>) {

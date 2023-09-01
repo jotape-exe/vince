@@ -14,6 +14,8 @@ import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentExpenseListBinding
 import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.entity.CardEntity
+import com.company.ourfinances.model.entity.CategoryExpenseEntity
+import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.view.FinanceActivity
@@ -60,12 +62,18 @@ class ExpenseListFragment : Fragment() {
                 startActivity(Intent(context, FinanceActivity::class.java).putExtras(bundle))
             }
 
-            override fun getPaymentNameById(id: Long?): String {
-                return viewModel.getTypePaymentById(id!!).name
-            }
+            override fun <T> getEntityNameById(id: Long?, entityType: Class<T>): String {
+                return when (entityType) {
+                    PaymentTypeEntity::class.java -> {
+                        viewModel.getTypePaymentById(id!!).name
+                    }
 
-            override fun getCategoryNameById(id: Long?): String {
-                return viewModel.getCategoryById(id!!).name
+                    CategoryExpenseEntity::class.java -> {
+                        viewModel.getCategoryById(id!!).name
+                    }
+
+                    else -> throw IllegalArgumentException("Tipo de entidade não suportado")
+                }
             }
 
             override fun getCardById(id: Long?): CardEntity? {

@@ -7,9 +7,7 @@ interface OnFinanceRecordListener {
 
     fun onClick(id: Long)
 
-    fun getPaymentNameById(id: Long?):String
-
-    fun getCategoryNameById(id: Long?):String
+    fun <T> getEntityNameById(id: Long?, entityType: Class<T>): String
 
     fun getCardById(id: Long?): CardEntity?
 }

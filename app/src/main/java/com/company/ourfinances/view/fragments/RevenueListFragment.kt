@@ -14,7 +14,7 @@ import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentRevenueListBinding
 import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.entity.CardEntity
-import com.company.ourfinances.model.entity.CategoryExpenseEntity
+import com.company.ourfinances.model.entity.CategoryRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.model.enums.TitleEnum
@@ -66,7 +66,7 @@ class RevenueListFragment : Fragment() {
                         viewModel.getTypePaymentById(id!!).name
                     }
 
-                    CategoryExpenseEntity::class.java -> {
+                    CategoryRecordEntity::class.java -> {
                         viewModel.getCategoryById(id!!).name
                     }
 

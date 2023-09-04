@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "expense_records")
-data class CategoryExpenseEntity(
+data class CategoryRecordEntity(
 
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0,

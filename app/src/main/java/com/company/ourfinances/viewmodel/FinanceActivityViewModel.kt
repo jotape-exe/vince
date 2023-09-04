@@ -4,23 +4,21 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.company.ourfinances.model.entity.CardEntity
-import com.company.ourfinances.model.entity.CategoryExpenseEntity
+import com.company.ourfinances.model.entity.CategoryRecordEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
-import com.company.ourfinances.model.repository.CardRepository
-import com.company.ourfinances.model.repository.CategoryExpenseRepository
+import com.company.ourfinances.model.repository.CategoryRecordRepository
 import com.company.ourfinances.model.repository.FinanceRecordRepository
 import com.company.ourfinances.model.repository.PaymentTypeRepository
 
 class FinanceActivityViewModel(application: Application) : AndroidViewModel(application) {
 
     private val financeRepository = FinanceRecordRepository(application.applicationContext)
-    private val categoryRepository = CategoryExpenseRepository(application.applicationContext)
+    private val categoryRepository = CategoryRecordRepository(application.applicationContext)
     private val paymentTypeRepository = PaymentTypeRepository(application.applicationContext)
 
-    private val _categoryExpenseList = MutableLiveData<List<CategoryExpenseEntity>>()
-    val categoryExpenseList:LiveData<List<CategoryExpenseEntity>> = _categoryExpenseList
+    private val _categoryRecordList = MutableLiveData<List<CategoryRecordEntity>>()
+    val categoryRecordList:LiveData<List<CategoryRecordEntity>> = _categoryRecordList
 
     private val _typePaymentList = MutableLiveData<List<PaymentTypeEntity>>()
     val typePaymentList: LiveData<List<PaymentTypeEntity>> = _typePaymentList
@@ -44,14 +42,14 @@ class FinanceActivityViewModel(application: Application) : AndroidViewModel(appl
     }
 
     fun getAllCategories(){
-        _categoryExpenseList.value = categoryRepository.getAll()
+        _categoryRecordList.value = categoryRepository.getAll()
     }
 
     fun getAllTypePayments(){
         _typePaymentList.value = paymentTypeRepository.getAll()
     }
 
-    fun getCategoryById(id: Long): CategoryExpenseEntity {
+    fun getCategoryById(id: Long): CategoryRecordEntity {
         return categoryRepository.findById(id)
     }
 

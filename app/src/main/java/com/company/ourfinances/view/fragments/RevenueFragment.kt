@@ -16,7 +16,7 @@ import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentRevenueBinding
 import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.entity.CardEntity
-import com.company.ourfinances.model.entity.CategoryExpenseEntity
+import com.company.ourfinances.model.entity.CategoryRecordEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
@@ -36,7 +36,7 @@ class RevenueFragment : Fragment(), FabClickListener {
     private lateinit var cardViewModel: CardViewModel
 
     private lateinit var paymentTypesList: List<PaymentTypeEntity>
-    private lateinit var categoryExpenseList: List<CategoryExpenseEntity>
+    private lateinit var categoryRecordList: List<CategoryRecordEntity>
     private var cards: List<CardEntity> = listOf()
 
     private var recordId: Long = 0
@@ -84,9 +84,9 @@ class RevenueFragment : Fragment(), FabClickListener {
 
         } else {
 
-            val categoryListener = object : OnSpinnerListener<CategoryExpenseEntity> {
+            val categoryListener = object : OnSpinnerListener<CategoryRecordEntity> {
                 override fun getIdByName(name: String): Long {
-                    return categoryExpenseList.find { it.name == name }!!.id
+                    return categoryRecordList.find { it.name == name }!!.id
                 }
 
             }
@@ -104,7 +104,7 @@ class RevenueFragment : Fragment(), FabClickListener {
                 .setValue(binding.editValue.text.toString().toDouble())
                 .setDateRecord(binding.buttonDatePicker.text.toString())
                 .setTypeRecord(RegisterTypeEnum.REVENUE.value)
-                .setCategoryExpenseId(categoryListener.getIdByName(binding.spinnerCategory.selectedItem.toString()))
+                .setCategoryRecordId(categoryListener.getIdByName(binding.spinnerCategory.selectedItem.toString()))
                 .setPaymentTypeId(paymentListener.getIdByName(binding.spinnerTypePay.selectedItem.toString()))
 
             if (binding.spinnerCard.isVisible) {
@@ -206,9 +206,9 @@ class RevenueFragment : Fragment(), FabClickListener {
             }
         }
 
-        viewModel.categoryExpenseList.observe(viewLifecycleOwner) {
-            categoryExpenseList = it
-            val nameCategoriesList: List<String> = categoryExpenseList.map { item -> item.name }
+        viewModel.categoryRecordList.observe(viewLifecycleOwner) {
+            categoryRecordList = it
+            val nameCategoriesList: List<String> = categoryRecordList.map { item -> item.name }
             binding.spinnerCategory.adapter = getAdapter(nameCategoriesList)
         }
 
@@ -224,7 +224,7 @@ class RevenueFragment : Fragment(), FabClickListener {
             binding.editValue.setText(financeRecord.value.toString())
             binding.buttonDatePicker.text = financeRecord.dateRecord
 
-            val categoryName = financeRecord.categoryExpenseId?.let { id ->
+            val categoryName = financeRecord.categoryRecordId?.let { id ->
                 viewModel.getCategoryById(id).name
             }
 
@@ -239,7 +239,7 @@ class RevenueFragment : Fragment(), FabClickListener {
             binding.spinnerCategory.setSelection(
                 getPositionByName(
                     categoryName,
-                    expenseList = categoryExpenseList
+                    expenseList = categoryRecordList
                 )
             )
 
@@ -285,7 +285,7 @@ class RevenueFragment : Fragment(), FabClickListener {
     //REFACTOR
     private fun getPositionByName(
         name: String?,
-        expenseList: List<CategoryExpenseEntity> = listOf(),
+        expenseList: List<CategoryRecordEntity> = listOf(),
         paymentList: List<PaymentTypeEntity> = listOf(),
         cardList: List<CardEntity> = listOf()
     ): Int {

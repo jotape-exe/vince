@@ -9,9 +9,9 @@ import androidx.room.PrimaryKey
     tableName = "finance_records",
     foreignKeys = [
         ForeignKey(
-            entity = CategoryExpenseEntity::class,
+            entity = CategoryRecordEntity::class,
             parentColumns = arrayOf("id"),
-            childColumns = arrayOf("categoryExpenseId"),
+            childColumns = arrayOf("categoryRecordId"),
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
@@ -37,7 +37,7 @@ data class FinanceRecordEntity(
     val destinationAccount: String?,
     val typeRecord: String,
     @ColumnInfo(index = true)
-    val categoryExpenseId: Long?,
+    val categoryRecordId: Long?,
     @ColumnInfo(index = true)
     val paymentTypeId: Long?,
     @ColumnInfo(index = true)
@@ -50,7 +50,7 @@ data class FinanceRecordEntity(
         private lateinit var dateRecord: String
         private var destinationAccount: String? = null
         private lateinit var typeRecord: String
-        private var categoryExpenseId: Long? = null
+        private var categoryRecordId: Long? = null
         private var paymentTypeId: Long? = null
         private var cardId: Long? = null
 
@@ -66,7 +66,7 @@ data class FinanceRecordEntity(
 
         fun setTypeRecord(typeRecord: String) = apply { this.typeRecord = typeRecord }
 
-        fun setCategoryExpenseId(categoryExpenseId: Long?) = apply { this.categoryExpenseId = categoryExpenseId }
+        fun setCategoryRecordId(categoryRecordId: Long?) = apply { this.categoryRecordId = categoryRecordId }
 
         fun setPaymentTypeId(paymentTypeId: Long?) = apply { this.paymentTypeId = paymentTypeId }
 
@@ -79,7 +79,7 @@ data class FinanceRecordEntity(
             dateRecord,
             destinationAccount,
             typeRecord,
-            categoryExpenseId,
+            categoryRecordId,
             paymentTypeId,
             cardId
         )

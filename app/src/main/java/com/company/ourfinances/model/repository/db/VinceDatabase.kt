@@ -7,12 +7,12 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.company.ourfinances.model.entity.CardEntity
-import com.company.ourfinances.model.entity.CategoryExpenseEntity
+import com.company.ourfinances.model.entity.CategoryRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.GoalEntity
 import com.company.ourfinances.model.repository.dao.CardDAO
-import com.company.ourfinances.model.repository.dao.CategoryExpenseDAO
+import com.company.ourfinances.model.repository.dao.CategoryRecordDAO
 import com.company.ourfinances.model.repository.dao.FinanceRecordDAO
 import com.company.ourfinances.model.repository.dao.GoalDAO
 import com.company.ourfinances.model.repository.dao.PaymentTypeDAO
@@ -21,7 +21,7 @@ import com.company.ourfinances.model.repository.dao.PaymentTypeDAO
     entities = [
         CardEntity::class,
         PaymentTypeEntity::class,
-        CategoryExpenseEntity::class,
+        CategoryRecordEntity::class,
         FinanceRecordEntity::class,
         GoalEntity::class
     ],
@@ -30,7 +30,7 @@ import com.company.ourfinances.model.repository.dao.PaymentTypeDAO
 abstract class VinceDatabase : RoomDatabase() {
 
     abstract fun getFinanceRecordDAO(): FinanceRecordDAO
-    abstract fun getCategoryExpenseDAO(): CategoryExpenseDAO
+    abstract fun getCategoryRecordDAO(): CategoryRecordDAO
     abstract fun getPaymentTypeDAO(): PaymentTypeDAO
     abstract fun getCardDAO(): CardDAO
     abstract fun getGoalDAO(): GoalDAO

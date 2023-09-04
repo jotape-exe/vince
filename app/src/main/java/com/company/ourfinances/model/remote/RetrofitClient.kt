@@ -8,12 +8,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitClient private constructor() {
 
     companion object{
-        private lateinit var INTANCE: Retrofit
+        private lateinit var INSTANCE: Retrofit
         fun getRetrofitInstance(): Retrofit{
 
-            if (!::INTANCE.isInitialized){
+            if (!::INSTANCE.isInitialized){
                 synchronized(RetrofitClient::class){
-                    INTANCE = Retrofit.Builder()
+                    INSTANCE = Retrofit.Builder()
                         .baseUrl(RemoteConstants.API_URL)
                         .client(OkHttpClient.Builder().build())
                         .addConverterFactory(GsonConverterFactory.create())
@@ -21,7 +21,7 @@ class RetrofitClient private constructor() {
                 }
             }
 
-            return INTANCE
+            return INSTANCE
         }
 
         fun <T> getService(serviceClass: Class<T>): T {

@@ -15,7 +15,7 @@ import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentExpenseBinding
 import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.entity.CardEntity
-import com.company.ourfinances.model.entity.CategoryExpenseEntity
+import com.company.ourfinances.model.entity.CategoryRecordEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
@@ -33,7 +33,7 @@ class ExpenseFragment : Fragment(), FabClickListener {
     private lateinit var binding: FragmentExpenseBinding
 
     private lateinit var paymentTypesList: List<PaymentTypeEntity>
-    private lateinit var categoryExpenseList: List<CategoryExpenseEntity>
+    private lateinit var categoryRecordList: List<CategoryRecordEntity>
     private var cards: List<CardEntity> = listOf()
 
     private lateinit var viewModel: FinanceActivityViewModel
@@ -78,9 +78,9 @@ class ExpenseFragment : Fragment(), FabClickListener {
 
         } else {
 
-            val categoryListener = object : OnSpinnerListener<CategoryExpenseEntity>{
+            val categoryListener = object : OnSpinnerListener<CategoryRecordEntity>{
                 override fun getIdByName(name: String): Long {
-                    return categoryExpenseList.find { it.name == name }!!.id
+                    return categoryRecordList.find { it.name == name }!!.id
                 }
             }
 
@@ -96,7 +96,7 @@ class ExpenseFragment : Fragment(), FabClickListener {
                 .setValue(binding.editValueExpense.text.toString().toDouble())
                 .setDateRecord(binding.buttonDatePickerExpense.text.toString())
                 .setTypeRecord(RegisterTypeEnum.EXPENSE.value)
-                .setCategoryExpenseId(categoryListener.getIdByName(binding.spinnerCategoryExpense.selectedItem.toString()))
+                .setCategoryRecordId(categoryListener.getIdByName(binding.spinnerRecordCategory.selectedItem.toString()))
                 .setPaymentTypeId(paymentListener.getIdByName(binding.spinnerTypePayExpense.selectedItem.toString()))
 
             if (binding.spinnerCardExpense.isVisible) {
@@ -157,10 +157,10 @@ class ExpenseFragment : Fragment(), FabClickListener {
             }
         }
 
-        viewModel.categoryExpenseList.observe(viewLifecycleOwner) { categorias ->
-            categoryExpenseList = categorias
-            val nameCategoriesList: List<String> = categoryExpenseList.map { item -> item.name }
-            binding.spinnerCategoryExpense.adapter = getAdapter(nameCategoriesList)
+        viewModel.categoryRecordList.observe(viewLifecycleOwner) { categorias ->
+            categoryRecordList = categorias
+            val nameCategoriesList: List<String> = categoryRecordList.map { item -> item.name }
+            binding.spinnerRecordCategory.adapter = getAdapter(nameCategoriesList)
         }
 
         viewModel.typePaymentList.observe(viewLifecycleOwner) { tiposDePagamento ->
@@ -175,7 +175,7 @@ class ExpenseFragment : Fragment(), FabClickListener {
             binding.editValueExpense.setText(financeRecord.value.toString())
             binding.buttonDatePickerExpense.text = financeRecord.dateRecord
 
-            val categoryName = financeRecord.categoryExpenseId?.let { id ->
+            val categoryName = financeRecord.categoryRecordId?.let { id ->
                 viewModel.getCategoryById(id).name
             }
 
@@ -187,10 +187,10 @@ class ExpenseFragment : Fragment(), FabClickListener {
                 cardViewModel.getCardNameById(id)
             }
 
-            binding.spinnerCategoryExpense.setSelection(
+            binding.spinnerRecordCategory.setSelection(
                 getPositionByName(
                     categoryName,
-                    expenseList = categoryExpenseList
+                    expenseList = categoryRecordList
                 )
             )
 
@@ -263,7 +263,7 @@ class ExpenseFragment : Fragment(), FabClickListener {
 
     private fun getPositionByName(
         name: String?,
-        expenseList: List<CategoryExpenseEntity> = listOf(),
+        expenseList: List<CategoryRecordEntity> = listOf(),
         paymentList: List<PaymentTypeEntity> = listOf(),
         cardList: List<CardEntity> = listOf()
     ): Int {

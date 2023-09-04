@@ -49,9 +49,11 @@ class CardCreateActivity : AppCompatActivity() {
     }
 
     private fun spinnerColorInitializer() {
+
         selectedColor = ColorList().defaultColor
         colorHex = selectedColor.hexHash
         textColorHex = selectedColor.contrastHexHash
+
         binding.colorSpinner.apply {
             adapter = ColorSpinnerAdapter(applicationContext, ColorList().getColors())
             setSelection(ColorList().colorPosition(selectedColor), false)

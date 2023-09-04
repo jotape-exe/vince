@@ -1,7 +1,6 @@
 package com.company.ourfinances.model.repository
 
 import android.content.Context
-import com.company.ourfinances.model.entity.CategoryExpenseEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.repository.db.VinceDatabase
 

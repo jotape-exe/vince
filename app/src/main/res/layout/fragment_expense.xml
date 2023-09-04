@@ -35,14 +35,15 @@
         android:layout_marginTop="12dp"
         android:text="Categoria"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/spinner_category_expense"
+        app:layout_constraintBottom_toTopOf="@id/spinner_record_category"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_title_expense" />
 
     <Spinner
-        android:id="@+id/spinner_category_expense"
+        android:id="@+id/spinner_record_category"
         android:layout_width="180dp"
         android:layout_height="50dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/style_spinner"
         android:textAlignment="center"
@@ -60,7 +61,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/button_date_picker_expense"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner_category_expense" />
+        app:layout_constraintTop_toBottomOf="@id/spinner_record_category" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_date_picker_expense"

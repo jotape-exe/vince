@@ -14,7 +14,6 @@ import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentTransferListBinding
 import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.entity.CardEntity
-import com.company.ourfinances.model.entity.CategoryExpenseEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.model.enums.TitleEnum

@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var drawerLayout: DrawerLayout
+
     //DEBUG
     private val viewModel: CurrencyViewModel = CurrencyViewModel()
 
@@ -83,10 +84,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
     private fun startNotification(currencyList: ArrayList<String>) {

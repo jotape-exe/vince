@@ -111,7 +111,6 @@ class ExpenseFragment : Fragment(), FabClickListener {
 
 
             viewModel.save(financeRecord.build())
-            resetRecordId()
 
             val bundle = Bundle()
             bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.DESPESA.value)
@@ -121,15 +120,19 @@ class ExpenseFragment : Fragment(), FabClickListener {
             activity?.findViewById<View>(R.id.finance_main)?.let { view ->
                 Snackbar.make(view, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
                     .setAction("Ver") {
-                        activity?.startActivity(
-                            Intent(
-                                context,
-                                ShowRecordListActivity::class.java
-                            ).putExtras(bundle)
-                        )
+                        if (recordId.toInt() != 0){
+                            activity?.startActivity(
+                                Intent(
+                                    context,
+                                    ShowRecordListActivity::class.java
+                                ).putExtras(bundle)
+                            )
+                        }
                         activity?.finish()
                     }.show()
             }
+
+            resetRecordId()
         }
     }
 

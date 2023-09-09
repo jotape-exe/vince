@@ -21,7 +21,6 @@ class FinanceActivity : AppCompatActivity() {
     private lateinit var viewPager2: ViewPager2
     private lateinit var tabLayout: TabLayout
     private lateinit var financeTabAdapter: FinanceTabAdapter
-    private lateinit var viewModel: FinanceActivityViewModel
 
     //Posição de cada fragment no TabLayout
     private val REVENUE_POSITION = 0;
@@ -33,8 +32,6 @@ class FinanceActivity : AppCompatActivity() {
 
         binding = ActivityFinanceBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
 
         adapters()
 

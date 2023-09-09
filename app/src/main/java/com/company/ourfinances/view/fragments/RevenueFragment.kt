@@ -117,7 +117,7 @@ class RevenueFragment : Fragment(), FabClickListener {
             }
 
             viewModel.save(financeRecord.build())
-            resetRecordId()
+
 
             clearAll()
 
@@ -127,15 +127,25 @@ class RevenueFragment : Fragment(), FabClickListener {
             activity?.findViewById<View>(R.id.finance_main)?.let { view ->
                 Snackbar.make(view, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
                     .setAction("Ver") {
-                        activity?.startActivity(
-                            Intent(
-                                context,
-                                ShowRecordListActivity::class.java
-                            ).putExtras(bundle)
-                        )
+                        if (recordId.toInt() != 0) {
+                            activity?.findViewById<View>(R.id.finance_main)?.let { view ->
+                                Snackbar.make(view, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
+                                    .setAction("Ver") {
+                                        activity?.startActivity(
+                                            Intent(
+                                                context,
+                                                ShowRecordListActivity::class.java
+                                            ).putExtras(bundle))
+                                        activity?.finish()
+                                    }.show()
+                            }
+                        }
+
                         activity?.finish()
                     }.show()
             }
+
+            resetRecordId()
 
         }
     }

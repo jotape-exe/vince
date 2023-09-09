@@ -3,7 +3,7 @@ package com.company.ourfinances.model.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "expense_records")
+@Entity(tableName = "category_records")
 data class CategoryRecordEntity(
 
     @PrimaryKey(autoGenerate = true)

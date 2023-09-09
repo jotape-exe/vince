@@ -19,10 +19,10 @@ interface CategoryRecordDAO {
     @Delete
     fun delete(categoryRecordEntity: CategoryRecordEntity)
 
-    @Query("SELECT * FROM expense_records")
+    @Query("SELECT * FROM category_records")
     fun getAllCategories():List<CategoryRecordEntity>
 
-    @Query("SELECT * FROM expense_records WHERE id = :id")
+    @Query("SELECT * FROM category_records WHERE id = :id")
     fun findById(id: Long): CategoryRecordEntity
 
 }

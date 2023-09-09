@@ -124,21 +124,20 @@ class RevenueFragment : Fragment(), FabClickListener {
             val bundle = Bundle()
             bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.RECEITA.value)
 
+            val extras = activity?.intent?.extras?.let {
+                it.getString(activity?.getString(R.string.fragmentIdentifier)) ?: ""
+            }
+
             activity?.findViewById<View>(R.id.finance_main)?.let { view ->
                 Snackbar.make(view, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
                     .setAction("Ver") {
-                        if (recordId.toInt() != 0) {
-                            activity?.findViewById<View>(R.id.finance_main)?.let { view ->
-                                Snackbar.make(view, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
-                                    .setAction("Ver") {
-                                        activity?.startActivity(
-                                            Intent(
-                                                context,
-                                                ShowRecordListActivity::class.java
-                                            ).putExtras(bundle))
-                                        activity?.finish()
-                                    }.show()
-                            }
+                        if (extras.isNullOrBlank()) {
+                            activity?.startActivity(
+                                Intent(
+                                    context,
+                                    ShowRecordListActivity::class.java
+                                ).putExtras(bundle)
+                            )
                         }
 
                         activity?.finish()

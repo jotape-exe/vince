@@ -37,7 +37,13 @@ class FinanceActivity : AppCompatActivity() {
 
         listeners()
 
-        when(intent.extras?.getString(getString(R.string.fragmentIdentifier))){
+        setupCurrentFragment(intent.extras?.getString(getString(R.string.fragmentIdentifier)))
+
+
+    }
+
+    private fun setupCurrentFragment(fragment: String?) {
+        when(fragment){
             TitleEnum.RECEITA.value -> {
                 viewPager2.currentItem = REVENUE_POSITION
             }
@@ -48,8 +54,6 @@ class FinanceActivity : AppCompatActivity() {
                 viewPager2.currentItem = TRANSFER_POSITION
             }
         }
-
-
     }
 
 
@@ -88,6 +92,10 @@ class FinanceActivity : AppCompatActivity() {
 
         binding.fabSaveRegister.setOnClickListener {
             currentFragmentAtTab(viewPager2.currentItem)
+        }
+
+        binding.imageCloseFinance.setOnClickListener {
+            finish()
         }
     }
 

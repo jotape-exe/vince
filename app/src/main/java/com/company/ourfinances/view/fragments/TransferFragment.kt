@@ -3,6 +3,7 @@ package com.company.ourfinances.view.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -136,6 +137,8 @@ class TransferFragment : Fragment(), FabClickListener {
                 }
             }
 
+            Log.i("Record id antes do update ->", recordId.toString())
+
             val financeRecord = FinanceRecordEntity.Builder()
                 .setRecordId(recordId)
                 .setTitle(binding.editTitleTransfer.text.toString())
@@ -161,10 +164,14 @@ class TransferFragment : Fragment(), FabClickListener {
 
             clearAll()
 
+            val extras = activity?.intent?.extras?.let {
+                it.getString(activity?.getString(R.string.fragmentIdentifier)) ?: ""
+            }
+
             activity?.findViewById<View>(R.id.finance_main)?.let { view ->
                 Snackbar.make(view, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
                     .setAction("Ver") {
-                        if (recordId.toInt() != 0) {
+                        if (extras.isNullOrBlank()){
                             activity?.startActivity(
                                 Intent(
                                     context,

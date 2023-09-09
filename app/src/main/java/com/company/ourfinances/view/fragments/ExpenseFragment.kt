@@ -78,13 +78,13 @@ class ExpenseFragment : Fragment(), FabClickListener {
 
         } else {
 
-            val categoryListener = object : OnSpinnerListener<CategoryRecordEntity>{
+            val categoryListener = object : OnSpinnerListener<CategoryRecordEntity> {
                 override fun getIdByName(name: String): Long {
                     return categoryRecordList.find { it.name == name }!!.id
                 }
             }
 
-            val paymentListener = object : OnSpinnerListener<PaymentTypeEntity>{
+            val paymentListener = object : OnSpinnerListener<PaymentTypeEntity> {
                 override fun getIdByName(name: String): Long {
                     return paymentTypesList.find { it.name == name }!!.paymentId
                 }
@@ -101,10 +101,10 @@ class ExpenseFragment : Fragment(), FabClickListener {
 
             if (binding.spinnerCardExpense.isVisible) {
                 val cardListener = object : OnSpinnerListener<CardEntity> {
-                        override fun getIdByName(name: String): Long {
-                            return cards.find { it.name == name }!!.cardId
-                        }
+                    override fun getIdByName(name: String): Long {
+                        return cards.find { it.name == name }!!.cardId
                     }
+                }
                 financeRecord.setCardId(cardListener.getIdByName(binding.spinnerCardExpense.selectedItem.toString()))
 
             }
@@ -115,12 +115,16 @@ class ExpenseFragment : Fragment(), FabClickListener {
             val bundle = Bundle()
             bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.DESPESA.value)
 
+            val extras = activity?.intent?.extras?.let {
+                it.getString(activity?.getString(R.string.fragmentIdentifier)) ?: ""
+            }
+
             clearAll()
 
             activity?.findViewById<View>(R.id.finance_main)?.let { view ->
                 Snackbar.make(view, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
                     .setAction("Ver") {
-                        if (recordId.toInt() != 0){
+                        if (extras.isNullOrBlank()){
                             activity?.startActivity(
                                 Intent(
                                     context,
@@ -128,6 +132,7 @@ class ExpenseFragment : Fragment(), FabClickListener {
                                 ).putExtras(bundle)
                             )
                         }
+
                         activity?.finish()
                     }.show()
             }
@@ -278,7 +283,7 @@ class ExpenseFragment : Fragment(), FabClickListener {
         }
     }
 
-    private fun setCardSpinnerVisibility(visibility: Boolean){
+    private fun setCardSpinnerVisibility(visibility: Boolean) {
         binding.textCardExpense.isVisible = visibility
         binding.spinnerCardExpense.isVisible = visibility
     }

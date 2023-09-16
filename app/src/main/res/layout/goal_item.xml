@@ -20,6 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <ProgressBar
         android:id="@+id/progress_goal"
         android:layout_width="170dp"
@@ -54,6 +55,7 @@
         app:layout_constraintBottom_toTopOf="@id/text_goal_finish"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_goal_date" />
+
 
     <TextView
         android:id="@+id/text_goal_date"

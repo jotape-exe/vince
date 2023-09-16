@@ -2,11 +2,13 @@ package com.company.ourfinances.view
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.widget.SpinnerAdapter
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -18,10 +20,12 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityMainBinding
+import com.company.ourfinances.view.adapters.CurrencySpinnerAdapter
 import com.company.ourfinances.view.fragments.CardFragment
 import com.company.ourfinances.view.fragments.GoalFragment
 import com.company.ourfinances.view.fragments.HomeFragment
 import com.company.ourfinances.view.fragments.InsightsFragment
+import com.company.ourfinances.view.utils.CurrencyObject
 import com.company.ourfinances.viewmodel.CurrencyViewModel
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
@@ -36,12 +40,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var drawerLayout: DrawerLayout
 
-    //DEBUG
-    private val viewModel: CurrencyViewModel = CurrencyViewModel()
+    /*private val viewModel: CurrencyViewModel = CurrencyViewModel()
 
     //Notification?
     private val updateInterval: Long = 600000 //10 minutos
-    private var job: Job? = null
+    private var job: Job? = null*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,14 +60,14 @@ class MainActivity : AppCompatActivity() {
         //Notification?
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channelId = "running_channel"
-            val channelName = "Seu Canal de Notificação"
+            val channelName = "channel_1"
             val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
             val notificationManager = getSystemService(NotificationManager::class.java)
             notificationManager.createNotificationChannel(channel)
         }
 
         //Notification?
-        val currencyList: ArrayList<String> = arrayListOf("", "", "")
+        /*val currencyList: ArrayList<String> = arrayListOf("", "", "")
 
         job = CoroutineScope(Dispatchers.Main).launch {
             while (isActive) {
@@ -81,12 +84,17 @@ class MainActivity : AppCompatActivity() {
                 }
                 delay(updateInterval)
             }
-        }
+        }*/
+
+        val objects = arrayListOf(
+            CurrencyObject("R$ 1", R.drawable.brazil_flag),
+            CurrencyObject("€ 5", R.drawable.europe)
+        )
 
 
     }
 
-    private fun startNotification(currencyList: ArrayList<String>) {
+    /*private fun startNotification(currencyList: ArrayList<String>) {
         val notification: NotificationCompat.Builder = NotificationCompat.Builder(this, "running_channel")
             .setPriority(NotificationManager.IMPORTANCE_MAX)
             .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
@@ -103,7 +111,7 @@ class MainActivity : AppCompatActivity() {
 
         val notificationManager: NotificationManager = getSystemService(NotificationManager::class.java)
         notificationManager.notify(1, notification.build())
-    }
+    }*/
 
     private fun firebaseLogout(): Boolean {
         FirebaseAuth.getInstance().signOut()
@@ -136,11 +144,15 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
+
+        /*binding.imageCurrency.setOnClickListener {
+            //Visualização da cotação(Notification? Spinner? Popup?)
+        }*/
     }
 
-    private fun calculateCurrency(highValue: String, lowValue: String): String{
+    /*private fun calculateCurrency(highValue: String, lowValue: String): String{
        return String.format("%.2f", (highValue.toDouble() + lowValue.toDouble()) / 2)
-    }
+    }*/
 
     private fun setDrawerMenu() {
         val toolbar = binding.toolbar

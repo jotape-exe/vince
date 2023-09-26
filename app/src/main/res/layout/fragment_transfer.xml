@@ -19,6 +19,7 @@
 
     <EditText
         android:id="@+id/edit_title_transfer"
+        android:background="@drawable/edit_text_radius"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="Escreva o título"
@@ -42,6 +43,7 @@
         android:id="@+id/edit_receiver_transfer"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="@drawable/edit_text_radius"
         android:hint="Destinatário"
         app:layout_constraintBottom_toTopOf="@id/text_date_transfer"
         app:layout_constraintEnd_toEndOf="parent"
@@ -116,6 +118,7 @@
         android:layout_height="50dp"
         android:hint="R$ 00,00"
         android:inputType="numberDecimal"
+        android:background="@drawable/edit_text_radius"
         android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

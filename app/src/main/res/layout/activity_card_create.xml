@@ -73,6 +73,7 @@
         android:layout_height="50dp"
         android:layout_margin="20dp"
         android:hint="Digite o nome"
+        android:background="@drawable/edit_text_radius"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_name_card" />
 
@@ -92,6 +93,7 @@
         android:layout_height="50dp"
         android:layout_margin="20dp"
         android:hint="Digite o numero"
+        android:background="@drawable/edit_text_radius"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_card_number" />
 

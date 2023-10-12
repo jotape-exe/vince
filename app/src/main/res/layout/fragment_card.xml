@@ -14,7 +14,7 @@
         android:layout_centerInParent="true"
         android:background="@drawable/radius_shape"
         android:backgroundTint="@color/variant_green"
-        android:drawableEnd="@drawable/ic_add"
+        android:drawableEnd="@drawable/ic_add_card"
         android:drawableTint="@color/white"
         android:text="Adicionar Cartão"
         android:textAlignment="textStart"

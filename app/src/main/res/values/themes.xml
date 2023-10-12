@@ -5,7 +5,7 @@
         <item name="colorPrimary">@color/variant_green</item>
         <item name="colorSecondary">@color/variant_green_3</item>
         <item name="colorTertiary">@color/variant_green_2</item>
-        <item name="fontFamily">@font/inter</item>
+        <item name="fontFamily">@font/lexend</item>
     </style>
 
     <style name="Theme.OurFinances" parent="Base.Theme.OurFinances" />
@@ -15,7 +15,15 @@
         <item name="colorSecondary">@color/variant_green_3</item>
         <item name="colorTertiary">@color/variant_green_2</item>
     </style>
+
     <style name="ComponentsTheme" parent="Theme.Material3.DayNight">
         <item name="colorPrimary">@color/variant_green_4</item>
     </style>
+
+    <style name="my_menu_item_style">
+        <item name="android:background">@color/red</item>
+        <item name="android:iconTint">@color/white</item>
+    </style>
+
+
 </resources>

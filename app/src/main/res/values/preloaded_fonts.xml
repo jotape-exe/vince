@@ -3,6 +3,8 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/chivo</item>
         <item>@font/inter</item>
+        <item>@font/lexend</item>
+        <item>@font/lexend_thin</item>
         <item>@font/montserrat</item>
         <item>@font/montserrat_thin</item>
     </array>

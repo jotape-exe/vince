@@ -45,6 +45,10 @@ class InsightsFragment : Fragment() {
         viewModel.financeRecordList.observe(viewLifecycleOwner) { list ->
             entries.clear()
 
+           /*entries.add(PieEntry(0f, "Receita"))
+            entries.add(PieEntry(0f, "Transferencia"))
+            entries.add(PieEntry(0f, "Despesa"))*/
+
             addPieEntryForType(list, RegisterTypeEnum.REVENUE, TitleEnum.RECEITA)
             addPieEntryForType(list, RegisterTypeEnum.TRANSFER, TitleEnum.TRANSFERENCIA)
             addPieEntryForType(list, RegisterTypeEnum.EXPENSE, TitleEnum.DESPESA)

@@ -5,7 +5,7 @@
     android:id="@+id/finance_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="18dp"
+    android:padding="22dp"
     tools:context=".view.FinanceActivity">
 
     <TextView
@@ -13,19 +13,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Salvar"
-        android:textColor="@color/variant_green_3"
         android:textSize="26sp"
         app:layout_constraintBottom_toTopOf="@id/tab_finance"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/image_close_finance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        app:tint="@color/variant_green_3"
+        android:background="@drawable/elipse_shape"
         android:src="@drawable/ic_close"
         app:layout_constraintTop_toTopOf="@id/text_add_record"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="4dp"
-        android:theme="@style/Main.Theme.OurFinances"
+        android:theme="@style/AppTheme"
         app:layout_constraintBottom_toTopOf="@+id/view_pager_finance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,15 +72,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="14dp"
-        android:background="@drawable/button_shape"
-        android:backgroundTint="@color/variant_green"
         android:contentDescription="Save"
         android:elevation="4dp"
         android:src="@drawable/ic_save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:maxImageSize="30dp"
-        app:tint="@color/white" />
+        app:maxImageSize="30dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

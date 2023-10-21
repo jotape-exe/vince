@@ -4,38 +4,38 @@ import androidx.fragment.app.FragmentManager
 import com.company.ourfinances.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.datepicker.MaterialDatePicker
-import java.util.Calendar
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneId.systemDefault
+import java.time.ZonedDateTime
+import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 class CustomDatePicker(button: MaterialButton, fragmentManager: FragmentManager) {
-
     init {
-            val materialDatePicker: MaterialDatePicker<Long> =
-                MaterialDatePicker.Builder.datePicker()
-                    .setTitleText(R.string.select_date)
-                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                    .build()
+        val materialDatePicker: MaterialDatePicker<Long> =
+            MaterialDatePicker.Builder.datePicker()
+                .setTitleText(R.string.select_date)
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build()
 
-            materialDatePicker.addOnPositiveButtonClickListener { selection ->
-                val calendar = Calendar.getInstance()
-                calendar.timeInMillis = selection
+        materialDatePicker.addOnPositiveButtonClickListener { selection ->
+            val offset = systemDefault().rules.getOffset(Instant.ofEpochMilli(selection))
 
-                val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
-                val month = calendar.get(Calendar.MONTH) + 1
-                val year = calendar.get(Calendar.YEAR)
+            val zonedDateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(selection), systemDefault())
+            val localZonedDateTime = zonedDateTime.minusSeconds(offset.totalSeconds.toLong())
 
-                val date: String = String.format(
-                    Locale.getDefault(),
-                    "%02d/%02d/%04d",
-                    dayOfMonth, month, year
-                )
-                button.text = date
-            }
+            val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            dateFormat.timeZone = TimeZone.getTimeZone(systemDefault())
 
+            val date: String = dateFormat.format(Date.from(localZonedDateTime.toInstant()))
+            button.text = date
+        }
 
-            fragmentManager?.let { manager ->
-                materialDatePicker.show( manager, "tag")
-            }
+        fragmentManager?.let { manager ->
+            materialDatePicker.show(manager, "tag")
+        }
     }
 
 

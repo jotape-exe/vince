@@ -17,7 +17,7 @@
     </style>
 
     <style name="ComponentsTheme" parent="Theme.Material3.DayNight">
-        <item name="colorPrimary">@color/variant_green_4</item>
+        <item name="colorPrimary">@color/md_theme_light_inversePrimary</item>
     </style>
 
     <style name="my_menu_item_style">

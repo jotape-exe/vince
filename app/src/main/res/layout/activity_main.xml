@@ -24,10 +24,9 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:background="@color/white"
                 android:elevation="4dp"
                 android:popupTheme="@style/Main.Theme.OurFinances"
-                android:theme="@style/Main.Theme.OurFinances"
+                android:theme="@style/AppTheme"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -75,11 +74,10 @@
             android:id="@+id/floating_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/variant_green"
+            android:contentDescription="add task"
             android:src="@drawable/ic_add"
             app:layout_anchor="@id/bottom_app_bar"
-            app:maxImageSize="40dp"
-            app:tint="@color/white" />
+            app:maxImageSize="40dp" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

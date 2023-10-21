@@ -16,6 +16,7 @@
     <color name="variant_green_6">#07CC94</color>
     <color name="variant_green_7">#327C60</color>
     <color name="variant_green_8">#96FFD8</color>
+    <color name="vector">#2E312F</color>
 
     <!--MD3-->
     <color name="seed">#03835F</color>

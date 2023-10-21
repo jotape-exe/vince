@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="4dp"
+    android:theme="@style/AppTheme"
     tools:context=".view.fragments.RevenueFragment">
 
     <TextView
@@ -71,7 +72,8 @@
         android:background="@drawable/button_shape"
         android:drawableEnd="@drawable/ic_calendar_month"
         android:text="@string/select_date"
-        android:textColor="@color/black"
+        android:backgroundTint="@color/md_theme_light_inversePrimary"
+        android:textColor="@color/md_theme_light_onPrimaryContainer"
         android:textSize="16sp"
         android:theme="@style/ComponentsTheme"
         app:layout_constraintStart_toStartOf="parent"

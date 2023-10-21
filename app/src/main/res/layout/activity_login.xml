@@ -75,7 +75,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="80dp"
         android:text="@string/forgot_password"
-        android:textColor="@color/variant_green"
+        android:textColor="@color/seed"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/button_login"
         app:layout_constraintEnd_toEndOf="@+id/edit_password_login"

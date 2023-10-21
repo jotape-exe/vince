@@ -25,7 +25,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:elevation="4dp"
-                android:popupTheme="@style/Main.Theme.OurFinances"
                 android:theme="@style/AppTheme"
                 app:layout_constraintTop_toTopOf="parent" />
 

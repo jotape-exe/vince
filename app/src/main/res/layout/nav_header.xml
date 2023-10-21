@@ -10,7 +10,7 @@
         android:id="@+id/nav_header_container"
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:background="@color/variant_green_3">
+        android:background="@color/seed">
 
         <ImageView
             android:id="@+id/img_vince"

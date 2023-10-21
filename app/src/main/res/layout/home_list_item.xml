@@ -12,7 +12,7 @@
         android:layout_width="180dp"
         android:layout_height="40dp"
         android:background="@drawable/shape_title_view"
-        android:backgroundTint="@color/variant_green_3"
+        android:backgroundTint="@color/md_theme_light_secondary"
         android:gravity="center_vertical"
         android:paddingStart="10dp"
         android:text="Despesas"
@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_item_view"
-        android:backgroundTint="@color/variant_green_4"
+        android:backgroundTint="@color/md_theme_light_tertiaryContainer"
         android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +45,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/text_component_home"
-            app:tint="@color/variant_green" />
+            app:tint="@color/md_theme_light_secondary" />
 
         <TextView
             android:id="@+id/text_component_home"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:hint="Ver despesas"
             android:paddingStart="10dp"
-            android:textColor="@color/variant_green_3"
+            android:textColor="@color/md_theme_light_scrim"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image_component_home"
@@ -64,7 +64,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="@drawable/radius_shape"
-            android:backgroundTint="@color/variant_green"
+            android:backgroundTint="@color/md_theme_light_secondary"
             android:padding="12dp"
             android:src="@drawable/ic_arrow_right"
             android:contentDescription="@string/next"

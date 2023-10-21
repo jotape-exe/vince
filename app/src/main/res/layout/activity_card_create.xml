@@ -23,7 +23,6 @@
                 android:id="@+id/custom_toolbar_card"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@color/variant_green_3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -146,7 +145,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
         android:background="@drawable/button_shape"
-        android:backgroundTint="@color/variant_green"
         android:contentDescription="Save"
         android:elevation="4dp"
         android:src="@drawable/ic_save"

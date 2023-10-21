@@ -2,7 +2,7 @@
 <resources>
     <style name="NavigationItemRipple">
         <item name="android:colorControlHighlight">#A600FF</item>
-        <item name="itemBackground">@color/variant_green_6</item>
+        <item name="itemBackground">@color/seed</item>
         <item name="android:colorForeground">@color/red</item>
     </style>
 </resources>

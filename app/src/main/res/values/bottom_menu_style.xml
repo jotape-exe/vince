@@ -2,6 +2,6 @@
 <resources>
     <style name="BottomMenuStyle">
         <item name="android:textColor">@color/white</item>
-        <item name="android:colorBackground">@color/variant_green_3</item>
+        <item name="android:colorBackground">@color/seed</item>
     </style>
 </resources>

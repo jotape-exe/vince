@@ -16,7 +16,7 @@
         android:drawableStart="@drawable/goal_1_svgrepo_com"
         android:layout_height="wrap_content"
         android:background="@drawable/goal_item_title_shape"
-        android:backgroundTint="@color/variant_green_6"
+        android:backgroundTint="@color/md_theme_light_secondary"
         android:maxWidth="270dp"
         android:textColor="@color/white"
         android:drawablePadding="10dp"
@@ -102,14 +102,14 @@
         app:layout_constraintTop_toTopOf="@id/button_delete_goal"
         app:layout_constraintBottom_toBottomOf="@id/button_delete_goal"
         app:layout_constraintEnd_toStartOf="@id/button_delete_goal"
-        app:tint="@color/variant_green" />
+        app:tint="@color/seed" />
 
     <ImageButton
         android:id="@+id/button_delete_goal"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
-        android:backgroundTint="@color/variant_green_3"
+        android:backgroundTint="@color/seed"
         android:contentDescription="@string/delete_item"
         android:src="@drawable/ic_delete"
         app:layout_constraintTop_toBottomOf="@id/text_goal_finish"

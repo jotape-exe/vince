@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="4dp"
-    android:theme="@style/AppTheme"
     tools:context=".view.fragments.RevenueFragment">
 
     <TextView
@@ -18,16 +17,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_title"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="Escreva o título"
-        android:background="@drawable/edit_text_radius"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/text_category"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_description" />
+        app:layout_constraintTop_toBottomOf="@id/text_description">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Descreva o título" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/text_category"
@@ -36,21 +41,27 @@
         android:layout_marginTop="12dp"
         android:text="Categoria"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/spinner_category"
+        app:layout_constraintBottom_toTopOf="@id/spinner_category_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_title" />
 
-    <Spinner
-        android:id="@+id/spinner_category"
-        android:layout_width="180dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/style_spinner"
-        android:textAlignment="center"
-        android:textSize="16sp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/spinner_category_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
         app:layout_constraintBottom_toTopOf="@id/text_date"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_category" />
+        app:layout_constraintTop_toBottomOf="@id/text_category">
+
+        <AutoCompleteTextView
+            android:id="@+id/spinner_category"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none"
+            android:text="Selecionar" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/text_date"
@@ -59,26 +70,46 @@
         android:layout_marginTop="12dp"
         android:text="Data"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/button_date_picker"
+        app:layout_constraintBottom_toTopOf="@id/button_date_picker_layout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner_category" />
+        app:layout_constraintTop_toBottomOf="@id/spinner_category_layout" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/button_date_picker_layout"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toTopOf="@id/text_type_pay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_date" >
+
+        <AutoCompleteTextView
+            android:id="@+id/button_date_picker"
+            android:inputType="none"
+            android:drawableEnd="@drawable/ic_calendar_month"
+            android:padding="10dp"
+            android:text="Escolher data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_date_picker"
-        app:layout_constraintBottom_toTopOf="@id/text_type_pay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:background="@drawable/button_shape"
-        android:drawableEnd="@drawable/ic_calendar_month"
-        android:text="@string/select_date"
         android:backgroundTint="@color/md_theme_light_inversePrimary"
-        android:textColor="@color/md_theme_light_onPrimaryContainer"
+        android:drawableEnd="@drawable/ic_calendar_month"
+        android:drawableTint="?attr/colorOnPrimary"
+        android:text="@string/select_date"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="16sp"
-        android:theme="@style/ComponentsTheme"
+        app:layout_constraintBottom_toTopOf="@id/text_type_pay"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_date" />
-
+-->
     <TextView
         android:id="@+id/text_type_pay"
         android:layout_width="wrap_content"
@@ -86,21 +117,29 @@
         android:layout_marginTop="12dp"
         android:text="Tipo de Pagamento"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/spinner_type_pay"
+        app:layout_constraintBottom_toTopOf="@id/spinner_type_pay_layout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_date_picker" />
+        app:layout_constraintTop_toBottomOf="@id/button_date_picker_layout" />
 
-    <Spinner
-        android:id="@+id/spinner_type_pay"
-        android:layout_width="180dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/style_spinner"
-        android:textAlignment="center"
-        android:textSize="16sp"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/spinner_type_pay_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
         app:layout_constraintBottom_toTopOf="@id/text_value"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_type_pay" />
+        app:layout_constraintTop_toBottomOf="@id/text_type_pay">
+
+        <AutoCompleteTextView
+            android:id="@+id/spinner_type_pay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none"
+            android:text="Selecionar" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <TextView
         android:id="@+id/text_value"
@@ -109,48 +148,60 @@
         android:layout_marginTop="16dp"
         android:text="Valor"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/edit_value"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_type_pay" />
-
-    <EditText
-        android:id="@+id/edit_value"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:hint="R$ 00,00"
-        android:inputType="numberDecimal"
-        android:background="@drawable/edit_text_radius"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_value" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_type_pay_layout" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_value">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_value"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:hint="R$"
+            android:inputType="numberDecimal" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <TextView
         android:id="@+id/text_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cartão"
-        android:visibility="invisible"
-        android:textSize="20sp"
-        tools:visibility="visible"
         android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/spinner_card"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Spinner
-        android:id="@+id/spinner_card"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:background="@drawable/style_spinner"
-        android:textAlignment="center"
-        tools:visibility="visible"
+        android:text="Cartão"
+        android:textSize="20sp"
         android:visibility="invisible"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner_type_pay"
+        app:layout_constraintBottom_toTopOf="@+id/spinner_card_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/spinner_type_pay" />
+        tools:visibility="visible" />
 
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/spinner_card_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner_type_pay_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/spinner_type_pay_layout">
+
+        <AutoCompleteTextView
+            android:id="@+id/spinner_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none"
+            android:visibility="invisible"
+            android:text="Selecionar" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

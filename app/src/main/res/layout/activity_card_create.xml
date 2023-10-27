@@ -19,11 +19,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/custom_toolbar_card"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:background="?attr/colorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"
                 android:text="Novo Cartão"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/custom_toolbar_card"
                 app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +51,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/custom_toolbar_card"
                 app:layout_constraintEnd_toEndOf="@+id/custom_toolbar_card"
                 app:layout_constraintTop_toTopOf="@+id/custom_toolbar_card"
-                app:tint="@color/white" />
+                app:tint="?attr/colorOnPrimary" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -66,15 +68,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_app_bar_card" />
 
-    <EditText
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_card_name"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:hint="Digite o nome"
-        android:background="@drawable/edit_text_radius"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_name_card" />
+        app:layout_constraintTop_toBottomOf="@+id/text_name_card">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_card_name"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Digite o nome" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <TextView
         android:id="@+id/text_card_number"
@@ -86,15 +96,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_card_name" />
 
-    <EditText
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_card_number"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:hint="Digite o numero"
-        android:background="@drawable/edit_text_radius"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_card_number" />
+        app:layout_constraintTop_toBottomOf="@id/text_card_number">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_card_number"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Digite o nome" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <TextView
         android:id="@+id/text_card_type"

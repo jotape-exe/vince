@@ -63,7 +63,7 @@ class ExpenseFragment : Fragment(), FabClickListener {
     }
 
     override fun doSave() {
-        if (TextUtils.isEmpty(binding.editTitleExpense.text)) {
+        if (TextUtils.isEmpty(binding.inputTitleExpense.text)) {
             binding.editTitleExpense.error = getString(R.string.title_cannot_be_empty)
 
         } else if (TextUtils.equals(
@@ -73,7 +73,7 @@ class ExpenseFragment : Fragment(), FabClickListener {
         ) {
             binding.buttonDatePickerExpense.error = getString(R.string.date_cannot_be_empty)
 
-        } else if (TextUtils.isEmpty(binding.editValueExpense.text)) {
+        } else if (TextUtils.isEmpty(binding.inputValueExpense.text)) {
             binding.editValueExpense.error = getString(R.string.value_cannot_be_empty)
 
         } else {
@@ -92,8 +92,8 @@ class ExpenseFragment : Fragment(), FabClickListener {
 
             val financeRecord = FinanceRecordEntity.Builder()
                 .setRecordId(recordId)
-                .setTitle(binding.editTitleExpense.text.toString())
-                .setValue(binding.editValueExpense.text.toString().toDouble())
+                .setTitle(binding.inputTitleExpense.text.toString())
+                .setValue(binding.inputValueExpense.text.toString().toDouble())
                 .setDateRecord(binding.buttonDatePickerExpense.text.toString())
                 .setTypeRecord(RegisterTypeEnum.EXPENSE.value)
                 .setCategoryRecordId(categoryListener.getIdByName(binding.spinnerRecordCategory.selectedItem.toString()))
@@ -142,8 +142,8 @@ class ExpenseFragment : Fragment(), FabClickListener {
     }
 
     override fun clearAll() {
-        binding.editTitleExpense.text.clear()
-        binding.editValueExpense.text.clear()
+        binding.inputTitleExpense.text?.clear()
+        binding.inputValueExpense.text?.clear()
         binding.buttonDatePickerExpense.text = activity?.getString(R.string.select_date)
 
     }
@@ -179,8 +179,8 @@ class ExpenseFragment : Fragment(), FabClickListener {
 
         viewModel.financeRecord.observe(viewLifecycleOwner) { financeRecord ->
 
-            binding.editTitleExpense.setText(financeRecord.title)
-            binding.editValueExpense.setText(financeRecord.value.toString())
+            binding.inputTitleExpense.setText(financeRecord.title)
+            binding.inputValueExpense.setText(financeRecord.value.toString())
             binding.buttonDatePickerExpense.text = financeRecord.dateRecord
 
             val categoryName = financeRecord.categoryRecordId?.let { id ->
@@ -224,7 +224,7 @@ class ExpenseFragment : Fragment(), FabClickListener {
     private fun listeners() {
 
         binding.buttonDatePickerExpense.setOnClickListener {
-            CustomDatePicker(binding.buttonDatePickerExpense, parentFragmentManager)
+           // CustomDatePicker(binding.buttonDatePickerExpense, parentFragmentManager)
         }
 
         binding.spinnerTypePayExpense.onItemSelectedListener = object :

@@ -47,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@drawable/shape_item_view"
+        android:backgroundTint="?attr/colorFinance_record_background"
         android:padding="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

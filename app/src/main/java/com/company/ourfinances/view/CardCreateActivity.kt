@@ -83,16 +83,16 @@ class CardCreateActivity : AppCompatActivity() {
         }
 
         binding.buttonSaveCard.setOnClickListener {
-            if (TextUtils.isEmpty(binding.editCardName.text)){
+            if (TextUtils.isEmpty(binding.inputCardName.text)){
                 binding.editCardName.error = getString(R.string.name_not_empty)
-            } else if (TextUtils.isEmpty(binding.editCardNumber.text)){
+            } else if (TextUtils.isEmpty(binding.inputCardNumber.text)){
                 binding.editCardNumber.error = getString(R.string.number_not_empty)
             } else{
 
                 val card = CardEntity(
                     cardColor = colorHex,
-                    cardNumber = binding.editCardNumber.text.toString(),
-                    name = binding.editCardName.text.toString(),
+                    cardNumber = binding.inputCardNumber.text.toString(),
+                    name = binding.inputCardName.text.toString(),
                     cardType = binding.spinnerCardType.selectedItem.toString(),
                     cardTextColor = textColorHex
                 )

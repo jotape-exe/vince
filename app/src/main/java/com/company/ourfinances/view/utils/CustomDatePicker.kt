@@ -1,5 +1,6 @@
 package com.company.ourfinances.view.utils
 
+import android.widget.AutoCompleteTextView
 import androidx.fragment.app.FragmentManager
 import com.company.ourfinances.R
 import com.google.android.material.button.MaterialButton
@@ -12,7 +13,7 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
-class CustomDatePicker(button: MaterialButton, fragmentManager: FragmentManager) {
+class CustomDatePicker(button:AutoCompleteTextView, fragmentManager: FragmentManager) {
     init {
         val materialDatePicker: MaterialDatePicker<Long> =
             MaterialDatePicker.Builder.datePicker()
@@ -30,7 +31,7 @@ class CustomDatePicker(button: MaterialButton, fragmentManager: FragmentManager)
             dateFormat.timeZone = TimeZone.getTimeZone(systemDefault())
 
             val date: String = dateFormat.format(Date.from(localZonedDateTime.toInstant()))
-            button.text = date
+            button.setText(date)
         }
 
         fragmentManager?.let { manager ->

@@ -17,16 +17,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_title_expense"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="Escreva o título"
-        android:background="@drawable/edit_text_radius"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/text_category_expense"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_title_expense" />
+        app:layout_constraintTop_toBottomOf="@id/text_title_expense" >
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_title_expense"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Descreva o título"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/text_category_expense"
@@ -111,17 +120,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_type_pay_expense" />
 
-    <EditText
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_value_expense"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="40dp"
-        android:hint="R$ 00,00"
-        android:background="@drawable/edit_text_radius"
-        android:inputType="numberDecimal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_value_expense" />
+        app:layout_constraintTop_toBottomOf="@+id/text_value_expense">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_value_expense"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:hint="R$"
+            android:inputType="numberDecimal" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <TextView
         android:id="@+id/text_card_expense"

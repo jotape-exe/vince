@@ -1,0 +1,8 @@
+
+<resources>
+    <attr name="colorFinance_record_background" format="color" />
+    <attr name="colorOnFinance_record_background" format="color" />
+    <attr name="colorFinance_record_backgroundContainer" format="color" />
+    <attr name="colorOnFinance_record_backgroundContainer" format="color" />
+    <attr name="harmonizeFinance_record_background" format="boolean" />
+</resources>

@@ -7,6 +7,7 @@
     android:paddingEnd="14dp"
     android:layout_marginTop="16dp"
     android:background="@drawable/stroke_shape"
+    android:backgroundTint="?attr/colorFinance_record_background"
     android:paddingBottom="10dp">
 
 
@@ -16,7 +17,7 @@
         android:drawableStart="@drawable/goal_1_svgrepo_com"
         android:layout_height="wrap_content"
         android:background="@drawable/goal_item_title_shape"
-        android:backgroundTint="@color/md_theme_light_secondary"
+        android:backgroundTint="?attr/colorPrimary"
         android:maxWidth="270dp"
         android:textColor="@color/white"
         android:drawablePadding="10dp"
@@ -42,7 +43,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="60%"
-        android:textColor="@color/variant_gray_text"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="@+id/progress_goal"
         app:layout_constraintEnd_toEndOf="@+id/progress_goal"
@@ -69,7 +69,6 @@
         android:layout_height="wrap_content"
         android:text="12/01/2024"
         android:layout_marginTop="10dp"
-        android:textColor="@color/black"
         android:textSize="20sp"
         android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toTopOf="@id/text_goal_current"
@@ -85,7 +84,6 @@
         android:drawableStart="@drawable/goal_svgrepo_com"
         android:drawablePadding="8dp"
         android:text="R$ 3200"
-        android:textColor="@color/variant_gray_text"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/button_delete_goal"
         app:layout_constraintEnd_toEndOf="parent"

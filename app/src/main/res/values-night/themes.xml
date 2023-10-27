@@ -7,6 +7,7 @@
 
     <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/md_theme_dark_primary</item>
+        <item name="android:fontFamily">@font/lexend</item>
         <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
         <item name="colorOnPrimaryContainer">@color/md_theme_dark_onPrimaryContainer</item>
@@ -32,5 +33,10 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_dark_inverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/md_theme_dark_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
+        <item name="colorFinance_record_background">#353535</item>
+        <item name="colorOnFinance_record_background">#00363d</item>
+        <item name="colorFinance_record_backgroundContainer">#004f58</item>
+        <item name="colorOnFinance_record_backgroundContainer">#97f0ff</item>
+        <item name="harmonizeFinance_record_background">false</item>
     </style>
 </resources>

@@ -2,7 +2,9 @@ package com.company.ourfinances.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.company.ourfinances.R
@@ -34,9 +36,9 @@ class GoalManagerActivity : AppCompatActivity() {
 
     private fun observers() {
         viewModel.goal.observe(this) {goal->
-            binding.editGoalName.setText(goal.name)
-            binding.numberCurrentRevenue.setText(goal.currentValue.toString())
-            binding.numberGoalRevenue.setText(goal.finalValue.toString())
+            binding.inputGoalName.setText(goal.name)
+            binding.inputCurrentRevenue.setText(goal.currentValue.toString())
+            binding.inputGoalRevenue.setText(goal.finalValue.toString())
             binding.buttonDatePickerGoal.setText(goal.limitDate.toString())
         }
     }
@@ -55,21 +57,66 @@ class GoalManagerActivity : AppCompatActivity() {
     }
 
     private fun listeners() {
+        binding.inputGoalName.addTextChangedListener(object  : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.editGoalName.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
+        binding.inputCurrentRevenue.addTextChangedListener(object  : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.numberCurrentRevenue.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
+        binding.inputGoalRevenue.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.numberGoalRevenue.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
         binding.imageCloseGoal.setOnClickListener {
             finish()
         }
 
         binding.buttonSaveGoal.setOnClickListener {
             when {
-                TextUtils.isEmpty(binding.editGoalName.text) -> {
+                TextUtils.isEmpty(binding.inputGoalName.text) -> {
                     binding.editGoalName.error = "Nome vazio!"
                 }
 
-                TextUtils.isEmpty(binding.numberCurrentRevenue.text) -> {
+                TextUtils.isEmpty(binding.inputCurrentRevenue.text) -> {
                     binding.numberCurrentRevenue.error = "Valor vazio!"
                 }
 
-                TextUtils.isEmpty(binding.numberGoalRevenue.text) -> {
+                TextUtils.isEmpty(binding.inputGoalRevenue.text) -> {
                     binding.numberGoalRevenue.error = "Valor vazio!"
                 }
 
@@ -77,20 +124,20 @@ class GoalManagerActivity : AppCompatActivity() {
                     binding.buttonDatePickerGoal.error = getString(R.string.date_cannot_be_empty)
                 }
 
-                binding.numberGoalRevenue.text.toString().toDouble() <= 0.0 -> {
+                binding.inputGoalRevenue.text.toString().toDouble() <= 0.0 -> {
                     binding.numberGoalRevenue.error = "Meta deve ser maior que zero!"
                 }
 
-                binding.numberCurrentRevenue.text.toString().toDouble() > binding.numberGoalRevenue.text.toString().toDouble() ->{
+                binding.inputCurrentRevenue.text.toString().toDouble() > binding.inputGoalRevenue.text.toString().toDouble() ->{
                     binding.numberCurrentRevenue.error = "Valor maior que a meta!"
                 }
 
                 else -> {
                     val goal = GoalEntity(
                         goalId,
-                        binding.editGoalName.text.toString(),
-                        binding.numberCurrentRevenue.text.toString().toDouble(),
-                        binding.numberGoalRevenue.text.toString().toDouble(),
+                        binding.inputGoalName.text.toString(),
+                        binding.inputCurrentRevenue.text.toString().toDouble(),
+                        binding.inputGoalRevenue.text.toString().toDouble(),
                         binding.buttonDatePickerGoal.text.toString()
                     )
 
@@ -106,7 +153,7 @@ class GoalManagerActivity : AppCompatActivity() {
         }
 
         binding.buttonDatePickerGoal.setOnClickListener {
-            CustomDatePicker(binding.buttonDatePickerGoal, supportFragmentManager)
+            //CustomDatePicker(binding.buttonDatePickerGoal, supportFragmentManager)
         }
 
     }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="OutlinedTextField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/seed</item>
+        <item name="boxStrokeWidth">2dp</item> <!-- A largura da borda -->
+        <item name="android:paddingStart">8dp</item> <!-- Espaçamento à esquerda -->
+        <item name="android:paddingEnd">8dp</item> <!-- Espaçamento à direita -->
+    </style>
+</resources>

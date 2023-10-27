@@ -80,10 +80,10 @@ class TransferFragment : Fragment(), FabClickListener {
 
         viewModel.financeRecord.observe(viewLifecycleOwner) { financeRecord ->
 
-            binding.editTitleTransfer.setText(financeRecord.title)
-            binding.editValueTransfer.setText(financeRecord.value.toString())
+            binding.inputTitleTransfer.setText(financeRecord.title)
+            binding.inputValueTransfer.setText(financeRecord.value.toString())
             binding.buttonDatePickerTransfer.text = financeRecord.dateRecord
-            binding.editReceiverTransfer.setText(financeRecord.destinationAccount)
+            binding.inputReceiverTransfer.setText(financeRecord.destinationAccount)
 
             val paymentName = financeRecord.paymentTypeId?.let { id ->
                 viewModel.getTypePaymentById(id).name
@@ -113,10 +113,10 @@ class TransferFragment : Fragment(), FabClickListener {
     }
 
     override fun doSave() {
-        if (TextUtils.isEmpty(binding.editTitleTransfer.text)) {
+        if (TextUtils.isEmpty(binding.inputTitleTransfer.text)) {
             binding.editTitleTransfer.error = getString(R.string.title_cannot_be_empty)
 
-        } else if (TextUtils.isEmpty(binding.editReceiverTransfer.text)) {
+        } else if (TextUtils.isEmpty(binding.inputReceiverTransfer.text)) {
             binding.editReceiverTransfer.error = getString(R.string.receiver_not_empty)
 
         } else if (TextUtils.equals(
@@ -126,7 +126,7 @@ class TransferFragment : Fragment(), FabClickListener {
         ) {
             binding.buttonDatePickerTransfer.error = getString(R.string.date_cannot_be_empty)
 
-        } else if (TextUtils.isEmpty(binding.editValueTransfer.text)) {
+        } else if (TextUtils.isEmpty(binding.inputValueTransfer.text)) {
             binding.editValueTransfer.error = getString(R.string.value_cannot_be_empty)
 
         } else {
@@ -141,10 +141,10 @@ class TransferFragment : Fragment(), FabClickListener {
 
             val financeRecord = FinanceRecordEntity.Builder()
                 .setRecordId(recordId)
-                .setTitle(binding.editTitleTransfer.text.toString())
-                .setValue(binding.editValueTransfer.text.toString().toDouble())
+                .setTitle(binding.inputTitleTransfer.text.toString())
+                .setValue(binding.inputValueTransfer.text.toString().toDouble())
                 .setDateRecord(binding.buttonDatePickerTransfer.text.toString())
-                .setDestinationAccount(binding.editReceiverTransfer.text.toString())
+                .setDestinationAccount(binding.inputReceiverTransfer.text.toString())
                 .setTypeRecord(RegisterTypeEnum.TRANSFER.value)
                 .setPaymentTypeId(paymentListener.getIdByName(binding.spinnerTypePayTransfer.selectedItem.toString()))
 
@@ -188,10 +188,10 @@ class TransferFragment : Fragment(), FabClickListener {
     }
 
     override fun clearAll() {
-        binding.editTitleTransfer.text.clear()
-        binding.editValueTransfer.text.clear()
+        binding.inputTitleTransfer.text?.clear()
+        binding.inputValueTransfer.text?.clear()
         binding.buttonDatePickerTransfer.text = activity?.getString(R.string.select_date)
-        binding.editReceiverTransfer.text.clear()
+        binding.inputReceiverTransfer.text?.clear()
     }
 
     private fun getAdapter(itemsList: List<String>): ArrayAdapter<String>? {
@@ -210,8 +210,7 @@ class TransferFragment : Fragment(), FabClickListener {
 
     private fun listeners() {
         binding.buttonDatePickerTransfer.setOnClickListener { view ->
-            CustomDatePicker(binding.buttonDatePickerTransfer, parentFragmentManager)
-
+           // CustomDatePicker(binding.buttonDatePickerTransfer, parentFragmentManager)
         }
 
         binding.spinnerTypePayTransfer.onItemSelectedListener = object :

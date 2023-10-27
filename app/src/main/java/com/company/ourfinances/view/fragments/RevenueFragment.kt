@@ -2,7 +2,10 @@ package com.company.ourfinances.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,7 +72,7 @@ class RevenueFragment : Fragment(), FabClickListener {
     }
 
     override fun doSave() {
-        if (TextUtils.isEmpty(binding.editTitle.text)) {
+        if (TextUtils.isEmpty(binding.inputTitle.text)) {
             binding.editTitle.error = getString(R.string.title_cannot_be_empty)
 
         } else if (TextUtils.equals(
@@ -79,7 +82,7 @@ class RevenueFragment : Fragment(), FabClickListener {
         ) {
             binding.buttonDatePicker.error = getString(R.string.date_cannot_be_empty)
 
-        } else if (TextUtils.isEmpty(binding.editValue.text)) {
+        } else if (TextUtils.isEmpty(binding.inputValue.text)) {
             binding.editValue.error = getString(R.string.value_cannot_be_empty)
 
         } else {
@@ -100,12 +103,12 @@ class RevenueFragment : Fragment(), FabClickListener {
 
             val financeRecord = FinanceRecordEntity.Builder()
                 .setRecordId(recordId)
-                .setTitle(binding.editTitle.text.toString())
-                .setValue(binding.editValue.text.toString().toDouble())
+                .setTitle(binding.inputTitle.text.toString())
+                .setValue(binding.inputValue.text.toString().toDouble())
                 .setDateRecord(binding.buttonDatePicker.text.toString())
                 .setTypeRecord(RegisterTypeEnum.REVENUE.value)
-                .setCategoryRecordId(categoryListener.getIdByName(binding.spinnerCategory.selectedItem.toString()))
-                .setPaymentTypeId(paymentListener.getIdByName(binding.spinnerTypePay.selectedItem.toString()))
+                .setCategoryRecordId(categoryListener.getIdByName(binding.spinnerCategory.text.toString()))
+                .setPaymentTypeId(paymentListener.getIdByName(binding.spinnerTypePay.text.toString()))
 
             if (binding.spinnerCard.isVisible) {
                 val cardListener = object : OnSpinnerListener<CardEntity> {
@@ -113,7 +116,7 @@ class RevenueFragment : Fragment(), FabClickListener {
                         return cards.find { it.name == name }!!.cardId
                     }
                 }
-                financeRecord.setCardId(cardListener.getIdByName(binding.spinnerCard.selectedItem.toString()))
+                financeRecord.setCardId(cardListener.getIdByName(binding.spinnerCard.text.toString()))
             }
 
             viewModel.save(financeRecord.build())
@@ -154,9 +157,9 @@ class RevenueFragment : Fragment(), FabClickListener {
     }
 
     override fun clearAll() {
-        binding.editTitle.text.clear()
-        binding.editValue.text.clear()
-        binding.buttonDatePicker.text = activity?.getString(R.string.select_date)
+        binding.inputTitle.text?.clear()
+        binding.inputValue.text?.clear()
+        binding.buttonDatePicker.setText(activity?.getString(R.string.select_date))
     }
 
     private fun listeners() {
@@ -176,26 +179,27 @@ class RevenueFragment : Fragment(), FabClickListener {
 
         }
 
+        binding.spinnerTypePay.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
-        binding.spinnerTypePay.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val selectedName = parent?.getItemAtPosition(position) as? String
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val selectedName = binding.spinnerTypePay.text.toString()
 
                 val visibilityBySpinnerSelected = selectedName == "Cartão" && cards.isNotEmpty()
 
                 setCardSpinnerVisibility(visibilityBySpinnerSelected)
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
+            override fun afterTextChanged(s: Editable?) {
 
             }
 
-        }
+        })
+
+        binding.buttonDatePicker.isFocusable = false
+        binding.buttonDatePicker.isClickable = false
 
         binding.buttonDatePicker.setOnClickListener {
             CustomDatePicker(binding.buttonDatePicker, parentFragmentManager)
@@ -208,30 +212,30 @@ class RevenueFragment : Fragment(), FabClickListener {
                 cards = it
                 val cardNames: List<String> = cards.map { cardEntity -> cardEntity.name }
 
-                binding.spinnerCard.adapter = ArrayAdapter(
+                binding.spinnerCard.setAdapter(ArrayAdapter(
                     requireContext().applicationContext,
                     R.layout.style_spinner, cardNames
-                )
+                ))
             }
         }
 
         viewModel.categoryRecordList.observe(viewLifecycleOwner) {
             categoryRecordList = it
             val nameCategoriesList: List<String> = categoryRecordList.map { item -> item.name }
-            binding.spinnerCategory.adapter = getAdapter(nameCategoriesList)
+            binding.spinnerCategory.setAdapter(getAdapter(nameCategoriesList))
         }
 
         viewModel.typePaymentList.observe(viewLifecycleOwner) {
             paymentTypesList = it
             val namePaymentList: List<String> = paymentTypesList.map { item -> item.name }
-            binding.spinnerTypePay.adapter = getAdapter(namePaymentList)
+            binding.spinnerTypePay.setAdapter(getAdapter(namePaymentList))
         }
 
         viewModel.financeRecord.observe(viewLifecycleOwner) { financeRecord ->
 
-            binding.editTitle.setText(financeRecord.title)
-            binding.editValue.setText(financeRecord.value.toString())
-            binding.buttonDatePicker.text = financeRecord.dateRecord
+            binding.inputTitle.setText(financeRecord.title)
+            binding.inputValue.setText(financeRecord.value.toString())
+            binding.buttonDatePicker.setText(financeRecord.dateRecord)
 
             val categoryName = financeRecord.categoryRecordId?.let { id ->
                 viewModel.getCategoryById(id).name
@@ -309,6 +313,7 @@ class RevenueFragment : Fragment(), FabClickListener {
     private fun setCardSpinnerVisibility(visibility: Boolean) {
         binding.textCard.isVisible = visibility
         binding.spinnerCard.isVisible = visibility
+        binding.spinnerCardLayout.isVisible = visibility
     }
 
 

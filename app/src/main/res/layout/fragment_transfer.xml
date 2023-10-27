@@ -17,16 +17,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_title_transfer"
-        android:background="@drawable/edit_text_radius"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="Escreva o título"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/text_receiver_transfer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_title_transfer" />
+        app:layout_constraintTop_toBottomOf="@id/text_title_transfer"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_title_transfer"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Escreva o título" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/text_receiver_transfer"
@@ -39,16 +46,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_title_transfer" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_receiver_transfer"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/edit_text_radius"
-        android:hint="Destinatário"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/text_date_transfer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_receiver_transfer" />
+        app:layout_constraintTop_toBottomOf="@id/text_receiver_transfer"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_receiver_transfer"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Destinatário" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/text_date_transfer"
@@ -110,17 +124,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_type_pay_transfer" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_value_transfer"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:hint="R$ 00,00"
-        android:inputType="numberDecimal"
-        android:background="@drawable/edit_text_radius"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_value_transfer" />
+        app:layout_constraintTop_toBottomOf="@+id/text_value_transfer" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_value_transfer"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:hint="R$"
+            android:inputType="numberDecimal" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/text_card_transfer"

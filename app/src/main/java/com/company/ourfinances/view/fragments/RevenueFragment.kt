@@ -179,7 +179,7 @@ class RevenueFragment : Fragment(), FabClickListener {
 
         }
 
-        binding.spinnerTypePay.addTextChangedListener(object : TextWatcher{
+        binding.spinnerTypePay.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -212,10 +212,12 @@ class RevenueFragment : Fragment(), FabClickListener {
                 cards = it
                 val cardNames: List<String> = cards.map { cardEntity -> cardEntity.name }
 
-                binding.spinnerCard.setAdapter(ArrayAdapter(
-                    requireContext().applicationContext,
-                    R.layout.style_spinner, cardNames
-                ))
+                binding.spinnerCard.setAdapter(
+                    ArrayAdapter(
+                        requireContext().applicationContext,
+                        R.layout.style_spinner, cardNames
+                    )
+                )
             }
         }
 
@@ -246,30 +248,15 @@ class RevenueFragment : Fragment(), FabClickListener {
             }
 
             val cardName = financeRecord.cardId?.let { id ->
-                cardViewModel.getCardNameById(id)
+                cardViewModel.getCardById(id)?.name
             }
 
-            binding.spinnerCategory.setSelection(
-                getPositionByName(
-                    categoryName,
-                    expenseList = categoryRecordList
-                )
-            )
+            binding.spinnerCategory.setText(categoryName, false)
 
-            binding.spinnerTypePay.setSelection(
-                getPositionByName(
-                    paymentName,
-                    paymentList = paymentTypesList
-                )
-            )
+            binding.spinnerTypePay.setText(paymentName, false)
 
             financeRecord.cardId?.let {
-                binding.spinnerCard.setSelection(
-                    getPositionByName(
-                        cardName,
-                        cardList = cards
-                    )
-                )
+                binding.spinnerCard.setText(cardName, false)
             }
 
         }
@@ -295,20 +282,6 @@ class RevenueFragment : Fragment(), FabClickListener {
         }
     }
 
-    //REFACTOR
-    private fun getPositionByName(
-        name: String?,
-        expenseList: List<CategoryRecordEntity> = listOf(),
-        paymentList: List<PaymentTypeEntity> = listOf(),
-        cardList: List<CardEntity> = listOf()
-    ): Int {
-        return when {
-            expenseList.isNotEmpty() -> expenseList.indexOfFirst { it.name == name }
-            paymentList.isNotEmpty() -> paymentList.indexOfFirst { it.name == name }
-            cardList.isNotEmpty() -> cardList.indexOfFirst { it.name == name }
-            else -> -1
-        }
-    }
 
     private fun setCardSpinnerVisibility(visibility: Boolean) {
         binding.textCard.isVisible = visibility

@@ -38,7 +38,6 @@
         android:id="@+id/text_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:text="Categoria"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/spinner_category_layout"
@@ -67,7 +66,6 @@
         android:id="@+id/text_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:text="Data"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/button_date_picker_layout"
@@ -93,28 +91,10 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!--
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_date_picker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/button_shape"
-        android:backgroundTint="@color/md_theme_light_inversePrimary"
-        android:drawableEnd="@drawable/ic_calendar_month"
-        android:drawableTint="?attr/colorOnPrimary"
-        android:text="@string/select_date"
-        android:textColor="?attr/colorOnPrimary"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/text_type_pay"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_date" />
--->
     <TextView
         android:id="@+id/text_type_pay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:text="Tipo de Pagamento"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/spinner_type_pay_layout"
@@ -145,7 +125,6 @@
         android:id="@+id/text_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="Valor"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/edit_value"
@@ -174,12 +153,13 @@
         android:id="@+id/text_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:text="Cartão"
         android:textSize="20sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/spinner_card_layout"
+
+        app:layout_constraintBottom_toBottomOf="@+id/text_type_pay"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_type_pay"
         tools:visibility="visible" />
 
 
@@ -189,6 +169,7 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:visibility="invisible"
+        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/spinner_type_pay_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/spinner_type_pay_layout">
@@ -198,6 +179,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
+            tools:visibility="visible"
             android:visibility="invisible"
             android:text="Selecionar" />
 

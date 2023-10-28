@@ -38,5 +38,11 @@
         <item name="colorFinance_record_backgroundContainer">#004f58</item>
         <item name="colorOnFinance_record_backgroundContainer">#97f0ff</item>
         <item name="harmonizeFinance_record_background">false</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">?attr/colorOnPrimary</item>
     </style>
 </resources>

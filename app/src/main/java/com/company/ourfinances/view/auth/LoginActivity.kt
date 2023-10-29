@@ -1,10 +1,12 @@
-package com.company.ourfinances.view
+package com.company.ourfinances.view.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import androidx.activity.result.ActivityResult
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityLoginBinding
 import com.company.ourfinances.model.constants.RemoteConstants
+import com.company.ourfinances.view.MainActivity
 import com.company.ourfinances.view.utils.LoadingDialog
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -85,11 +88,26 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
+        binding.editEmailLogin.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.editEmailLoginLayout.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
         binding.buttonLogin.setOnClickListener {
             val email = binding.editEmailLogin.text
             val password = binding.editPasswordLogin.text
             if (TextUtils.isEmpty(email)) {
-                binding.editEmailLogin.error = getString(R.string.user_not_empty)
+                binding.editEmailLoginLayout.error = getString(R.string.user_not_empty)
             } else if (TextUtils.isEmpty(password)) {
                 binding.editPasswordLogin.error = getString(R.string.password_not_empty)
             } else {

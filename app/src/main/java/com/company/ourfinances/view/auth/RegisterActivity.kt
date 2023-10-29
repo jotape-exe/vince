@@ -1,4 +1,4 @@
-package com.company.ourfinances.view
+package com.company.ourfinances.view.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityRegisterBinding
+import com.company.ourfinances.view.MainActivity
 import com.company.ourfinances.view.utils.LoadingDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth

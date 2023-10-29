@@ -26,8 +26,8 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:contentDescription="@string/close_nav"
-        android:src="@drawable/ic_close"
-        android:background="#00000000"
+        app:srcCompat="@drawable/ic_close"
+        android:backgroundTint="?attr/colorSurface"
         app:layout_constraintTop_toTopOf="@id/text_add_record"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tab_finance" />

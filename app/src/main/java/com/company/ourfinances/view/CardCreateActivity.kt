@@ -1,7 +1,9 @@
 package com.company.ourfinances.view
 
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -36,7 +38,7 @@ class CardCreateActivity : AppCompatActivity() {
 
         val typeCards = listOf(CardTypeEnum.CREDIT.value, CardTypeEnum.DEBIT.value)
 
-        binding.spinnerCardType.adapter = getAdapter(typeCards)
+        binding.spinnerCardType.setAdapter(getAdapter(typeCards))
 
         spinnerColorInitializer()
 
@@ -75,25 +77,70 @@ class CardCreateActivity : AppCompatActivity() {
         }
     }
 
-
-
     private fun listener() {
         binding.imageClose.setOnClickListener {
             finish()
         }
+
+        binding.inputCardName.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.editCardName.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
+        binding.inputCardNumber.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.editCardName.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
+        binding.spinnerCardType.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.spinnerCardTypeLayout.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
 
         binding.buttonSaveCard.setOnClickListener {
             if (TextUtils.isEmpty(binding.inputCardName.text)){
                 binding.editCardName.error = getString(R.string.name_not_empty)
             } else if (TextUtils.isEmpty(binding.inputCardNumber.text)){
                 binding.editCardNumber.error = getString(R.string.number_not_empty)
+            } else if(TextUtils.equals(binding.spinnerCardType.text, "Selecionar")){
+                binding.spinnerCardTypeLayout.error = "Selecione um Tipo!"
             } else{
 
                 val card = CardEntity(
                     cardColor = colorHex,
                     cardNumber = binding.inputCardNumber.text.toString(),
                     name = binding.inputCardName.text.toString(),
-                    cardType = binding.spinnerCardType.selectedItem.toString(),
+                    cardType = binding.spinnerCardType.text.toString(),
                     cardTextColor = textColorHex
                 )
 

@@ -1,4 +1,4 @@
-package com.company.ourfinances.view
+package com.company.ourfinances.view.auth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

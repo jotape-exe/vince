@@ -5,11 +5,6 @@
         <item name="colorPrimary">@color/md_theme_light_inversePrimary</item>
     </style>
 
-    <style name="my_menu_item_style">
-        <item name="android:background">@color/red</item>
-        <item name="android:iconTint">@color/white</item>
-    </style>
-
     <style name="Actionbar" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>

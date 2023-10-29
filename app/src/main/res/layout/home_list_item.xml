@@ -60,11 +60,9 @@
 
         <ImageButton
             android:id="@+id/button_next"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/radius_shape"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:backgroundTint="?attr/colorPrimary"
-            android:padding="12dp"
             android:src="@drawable/ic_arrow_right"
             android:contentDescription="@string/next"
             app:layout_constraintBottom_toBottomOf="@+id/text_component_home"

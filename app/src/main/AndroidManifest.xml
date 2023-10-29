@@ -31,16 +31,16 @@
             android:name=".view.FinanceActivity"
             android:exported="false" />
         <activity
-            android:name=".view.ForgotPasswordActivity"
+            android:name=".view.auth.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".view.RegisterActivity"
+            android:name=".view.auth.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".view.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".view.LoginActivity"
+            android:name=".view.auth.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

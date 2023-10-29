@@ -124,16 +124,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_card_number" />
 
-    <Spinner
-        android:id="@+id/spinner_card_type"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/spinner_card_type_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
         android:layout_width="180dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_margin="20dp"
-        android:background="@drawable/style_spinner"
-        android:textAlignment="center"
-        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_card_type" />
+        app:layout_constraintTop_toBottomOf="@+id/text_card_type">
+
+        <AutoCompleteTextView
+            android:id="@+id/spinner_card_type"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none"
+            android:text="Selecionar" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/text_select_color"
@@ -143,14 +150,17 @@
         android:text="Cor do Cartão"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner_card_type" />
+        app:layout_constraintTop_toBottomOf="@id/spinner_card_type_layout" />
 
     <Spinner
         android:id="@+id/colorSpinner"
         android:layout_width="180dp"
         android:layout_height="50dp"
         android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/color_blob"
+        android:fontFamily="@font/lexend"
         android:spinnerMode="dialog"
         android:textAlignment="center"
         android:textSize="16sp"
@@ -162,15 +172,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
-        android:background="@drawable/button_shape"
         android:contentDescription="Save"
         android:elevation="4dp"
-        android:src="@drawable/ic_save"
         android:padding="20dp"
+        android:src="@drawable/ic_save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:maxImageSize="30dp"
-        app:tint="@color/white" />
+        app:maxImageSize="30dp" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="left"
+        app:constraint_referenced_ids="colorSpinner" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

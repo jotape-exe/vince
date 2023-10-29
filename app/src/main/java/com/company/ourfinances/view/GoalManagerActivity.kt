@@ -51,7 +51,6 @@ class GoalManagerActivity : AppCompatActivity() {
             }
         }
 
-
     private fun resetGoalId(){
         goalId = 0L
     }
@@ -102,6 +101,21 @@ class GoalManagerActivity : AppCompatActivity() {
 
         })
 
+        binding.buttonDatePickerGoal.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.buttonDatePickerLayoutGoal.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
         binding.imageCloseGoal.setOnClickListener {
             finish()
         }
@@ -118,7 +132,7 @@ class GoalManagerActivity : AppCompatActivity() {
                     binding.numberGoalRevenue.error = "Valor vazio!"
                 }
                 TextUtils.equals(binding.buttonDatePickerGoal.text, getString(R.string.select_date)) -> {
-                    binding.buttonDatePickerGoal.error = getString(R.string.date_cannot_be_empty)
+                    binding.buttonDatePickerLayoutGoal.error = getString(R.string.date_cannot_be_empty)
                 }
 
                 binding.inputGoalRevenue.text.toString().toDouble() <= 0.0 -> {
@@ -150,8 +164,12 @@ class GoalManagerActivity : AppCompatActivity() {
         }
 
         binding.buttonDatePickerGoal.setOnClickListener {
-            //CustomDatePicker(binding.buttonDatePickerGoal, supportFragmentManager)
+            CustomDatePicker(binding.buttonDatePickerGoal, supportFragmentManager)
         }
+
+        binding.buttonDatePickerGoal.isFocusable = false
+        binding.buttonDatePickerGoal.isClickable = false
+
 
     }
 }

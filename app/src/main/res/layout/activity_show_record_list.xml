@@ -28,12 +28,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/image_back"
                 android:layout_width="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_height="wrap_content"
+                android:contentDescription="Back"
                 android:src="@drawable/ic_arrow_back"
+                android:backgroundTint="?attr/colorSecondary"
                 app:layout_constraintBottom_toBottomOf="@id/custom_toolbar"
                 app:layout_constraintStart_toStartOf="@id/custom_toolbar"
                 app:layout_constraintTop_toTopOf="@id/custom_toolbar" />

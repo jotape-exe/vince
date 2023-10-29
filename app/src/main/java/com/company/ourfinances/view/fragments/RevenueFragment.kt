@@ -5,12 +5,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -25,9 +22,9 @@ import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.view.ShowRecordListActivity
-import com.company.ourfinances.view.utils.CustomDatePicker
 import com.company.ourfinances.view.listener.FabClickListener
 import com.company.ourfinances.view.listener.OnSpinnerListener
+import com.company.ourfinances.view.utils.CustomDatePicker
 import com.company.ourfinances.viewmodel.CardViewModel
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -68,23 +65,22 @@ class RevenueFragment : Fragment(), FabClickListener {
 
         listeners()
 
-
     }
 
     override fun doSave() {
         if (TextUtils.isEmpty(binding.inputTitle.text)) {
             binding.editTitle.error = getString(R.string.title_cannot_be_empty)
-
-        } else if (TextUtils.equals(
-                binding.buttonDatePicker.text,
-                requireContext().getString(R.string.select_date)
-            )
-        ) {
-            binding.buttonDatePicker.error = getString(R.string.date_cannot_be_empty)
-
-        } else if (TextUtils.isEmpty(binding.inputValue.text)) {
+        } else if (TextUtils.equals(binding.spinnerCategory.text, "Selecionar")) {
+            binding.spinnerCategoryLayout.error = "Selecione uma categoria!"
+        } else if (TextUtils.equals(binding.buttonDatePicker.text, requireContext().getString(R.string.select_date))) {
+            binding.buttonDatePickerLayout.error = getString(R.string.date_cannot_be_empty)
+        } else if (TextUtils.equals(binding.spinnerTypePay.text, "Selecionar")) {
+            binding.spinnerTypePayLayout.error = "Selecione um tipo!"
+        } else if (TextUtils.equals(binding.spinnerCard.text, "Selecionar") and binding.spinnerTypePay.text.toString().equals("Cartão")){
+            binding.spinnerCardLayout.error = "Escolha um cartão"
+        }
+        else if (TextUtils.isEmpty(binding.inputValue.text)) {
             binding.editValue.error = getString(R.string.value_cannot_be_empty)
-
         } else {
 
             val categoryListener = object : OnSpinnerListener<CategoryRecordEntity> {
@@ -163,23 +159,52 @@ class RevenueFragment : Fragment(), FabClickListener {
     }
 
     private fun listeners() {
-        binding.spinnerCategory.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
+
+        binding.inputTitle.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.editTitle.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+        })
+
+        binding.inputValue.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
 
-        }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.editValue.error = null
+            }
 
-        binding.spinnerTypePay.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
+        binding.spinnerCategory.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.spinnerCategoryLayout.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
+        binding.spinnerTypePay.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -190,6 +215,38 @@ class RevenueFragment : Fragment(), FabClickListener {
                 val visibilityBySpinnerSelected = selectedName == "Cartão" && cards.isNotEmpty()
 
                 setCardSpinnerVisibility(visibilityBySpinnerSelected)
+
+                binding.spinnerTypePayLayout.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
+        binding.spinnerCard.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.spinnerCardLayout.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
+        binding.buttonDatePicker.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.buttonDatePickerLayout.error = null
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -288,6 +345,7 @@ class RevenueFragment : Fragment(), FabClickListener {
         binding.spinnerCard.isVisible = visibility
         binding.spinnerCardLayout.isVisible = visibility
     }
+
 
 
 }

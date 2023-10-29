@@ -111,15 +111,12 @@ class GoalManagerActivity : AppCompatActivity() {
                 TextUtils.isEmpty(binding.inputGoalName.text) -> {
                     binding.editGoalName.error = "Nome vazio!"
                 }
-
                 TextUtils.isEmpty(binding.inputCurrentRevenue.text) -> {
                     binding.numberCurrentRevenue.error = "Valor vazio!"
                 }
-
                 TextUtils.isEmpty(binding.inputGoalRevenue.text) -> {
                     binding.numberGoalRevenue.error = "Valor vazio!"
                 }
-
                 TextUtils.equals(binding.buttonDatePickerGoal.text, getString(R.string.select_date)) -> {
                     binding.buttonDatePickerGoal.error = getString(R.string.date_cannot_be_empty)
                 }

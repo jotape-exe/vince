@@ -44,7 +44,7 @@ class TransferFragment : Fragment(), FabClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentTransferBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
         cardViewModel = ViewModelProvider(this)[CardViewModel::class.java]
@@ -109,20 +109,16 @@ class TransferFragment : Fragment(), FabClickListener {
     override fun doSave() {
         if (TextUtils.isEmpty(binding.inputTitleTransfer.text)) {
             binding.editTitleTransfer.error = getString(R.string.title_cannot_be_empty)
-
         } else if (TextUtils.isEmpty(binding.inputReceiverTransfer.text)) {
             binding.editReceiverTransfer.error = getString(R.string.receiver_not_empty)
-
-        } else if (TextUtils.equals(
-                binding.buttonDatePickerTransfer.text,
-                requireContext().getString(R.string.select_date)
-            )
-        ) {
-            binding.buttonDatePickerTransfer.error = getString(R.string.date_cannot_be_empty)
-
+        } else if (TextUtils.equals(binding.buttonDatePickerTransfer.text, requireContext().getString(R.string.select_date))) {
+            binding.buttonDatePickerLayoutTransfer.error = getString(R.string.date_cannot_be_empty)
+        } else if (TextUtils.equals(binding.spinnerTypePayTransfer.text, "Selecionar")) {
+            binding.spinnerTypePayLayoutTransfer.error = "Selecione um tipo!"
+        } else if (TextUtils.equals(binding.spinnerCardTransfer.text, "Selecionar") and binding.spinnerTypePayTransfer.text.toString().equals("Cartão")){
+            binding.spinnerCardLayoutTransfer.error = "Escolha um cartão"
         } else if (TextUtils.isEmpty(binding.inputValueTransfer.text)) {
             binding.editValueTransfer.error = getString(R.string.value_cannot_be_empty)
-
         } else {
 
             val paymentListener = object : OnSpinnerListener<PaymentTypeEntity> {
@@ -201,10 +197,82 @@ class TransferFragment : Fragment(), FabClickListener {
     }
 
     private fun listeners() {
-        binding.buttonDatePickerTransfer.isFocusable = false
-        binding.buttonDatePickerTransfer.isClickable = false
+        binding.inputTitleTransfer.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
-        binding.buttonDatePickerTransfer.setOnClickListener { view ->
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.editTitleTransfer.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
+        binding.inputReceiverTransfer.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.editReceiverTransfer.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
+        binding.buttonDatePickerTransfer.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.buttonDatePickerLayoutTransfer.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
+        binding.inputValueTransfer.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.editValueTransfer.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
+        binding.spinnerCardTransfer.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.spinnerCardLayoutTransfer.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
+        binding.buttonDatePickerTransfer.setOnClickListener {
             CustomDatePicker(binding.buttonDatePickerTransfer, parentFragmentManager)
         }
 
@@ -219,6 +287,8 @@ class TransferFragment : Fragment(), FabClickListener {
                 val visibilityBySpinnerSelected = selectedName == "Cartão" && cards.isNotEmpty()
 
                 setCardSpinnerVisibility(visibilityBySpinnerSelected)
+
+                binding.spinnerTypePayLayoutTransfer.error = null
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -226,6 +296,11 @@ class TransferFragment : Fragment(), FabClickListener {
             }
 
         })
+
+        binding.buttonDatePickerTransfer.isFocusable = false
+        binding.buttonDatePickerTransfer.isClickable = false
+
+
     }
 
     private fun loadRecord() {

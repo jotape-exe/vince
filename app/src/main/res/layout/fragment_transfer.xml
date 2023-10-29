@@ -86,7 +86,7 @@
             android:inputType="none"
             android:drawableEnd="@drawable/ic_calendar_month"
             android:padding="10dp"
-            android:text="Escolher data"
+            android:text="@string/select_date"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

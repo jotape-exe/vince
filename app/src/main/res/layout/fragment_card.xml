@@ -9,17 +9,16 @@
 
     <Button
         android:id="@+id/button_add_card"
+        style="@style/ThemeOverlay.Material3.Button.ElevatedButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_centerInParent="true"
-        style="@style/ThemeOverlay.Material3.Button.ElevatedButton"
         android:drawableEnd="@drawable/ic_add_card"
         android:text="Adicionar Cartão"
         android:textAlignment="textStart"
-        android:textSize="18sp"
         android:textColor="?attr/colorOnPrimary"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

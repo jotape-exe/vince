@@ -6,12 +6,11 @@
     tools:ShowIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <!--
-        Implementar configurações
+
         <item android:id="@+id/item_settings"
             android:title="@string/settings"
             android:icon="@drawable/ic_settings"/>
-        -->
+
         <item android:id="@+id/item_help"
             android:title="@string/help"
             android:icon="@drawable/ic_help"/>

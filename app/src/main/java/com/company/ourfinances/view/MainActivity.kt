@@ -6,6 +6,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -28,12 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var drawerLayout: DrawerLayout
-
-    /*private val viewModel: CurrencyViewModel = CurrencyViewModel()
-
-    //Notification?
-    private val updateInterval: Long = 600000 //10 minutos
-    private var job: Job? = null*/
+    private lateinit var header: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,61 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         setBottomMenu()
 
-        //Notification?
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelId = "running_channel"
-            val channelName = "channel_1"
-            val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
-            val notificationManager = getSystemService(NotificationManager::class.java)
-            notificationManager.createNotificationChannel(channel)
-        }
-
-        //Notification?
-        /*val currencyList: ArrayList<String> = arrayListOf("", "", "")
-
-        job = CoroutineScope(Dispatchers.Main).launch {
-            while (isActive) {
-                viewModel.getLastCurrencyData()
-                viewModel.currencyData.observe(this@MainActivity){
-
-                    it.forEach {
-                        currencyList.add(0, calculateCurrency(it.usdBRL.highValue, it.usdBRL.lowValue))
-                        currencyList.add(1,calculateCurrency(it.btcBRL.highValue, it.btcBRL.lowValue))
-                        currencyList.add(2, calculateCurrency(it.eurBRL.highValue, it.eurBRL.lowValue))
-                    }
-
-                    startNotification(currencyList)
-                }
-                delay(updateInterval)
-            }
-        }*/
-
-        val objects = arrayListOf(
-            CurrencyObject("R$ 1", R.drawable.brazil_flag),
-            CurrencyObject("€ 5", R.drawable.europe)
-        )
-
-
     }
-
-    /*private fun startNotification(currencyList: ArrayList<String>) {
-        val notification: NotificationCompat.Builder = NotificationCompat.Builder(this, "running_channel")
-            .setPriority(NotificationManager.IMPORTANCE_MAX)
-            .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle("Cotação diária")
-
-
-        val bigTextStyle = NotificationCompat.BigTextStyle()
-            .bigText("DOLAR: R$ ${currencyList[0]}\nBITCOIN: R$ ${currencyList[1]}\nEURO: R$ ${currencyList[2]}")
-            .setSummaryText("Cotação diária")
-
-        notification.setStyle(bigTextStyle)
-
-
-        val notificationManager: NotificationManager = getSystemService(NotificationManager::class.java)
-        notificationManager.notify(1, notification.build())
-    }*/
 
     private fun firebaseLogout(): Boolean {
         FirebaseAuth.getInstance().signOut()
@@ -113,6 +56,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.floatingBtn.setOnClickListener {
             startActivity(Intent(this, FinanceActivity::class.java))
+        }
+
+        header = binding.navView.getHeaderView(0)
+
+        header.setOnClickListener {
+            Toast.makeText(this, "Click", Toast.LENGTH_SHORT).show()
         }
 
         binding.navView.setNavigationItemSelectedListener { menuItem ->
@@ -134,14 +83,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        /*binding.imageCurrency.setOnClickListener {
-            //Visualização da cotação(Notification? Spinner? Popup?)
-        }*/
     }
-
-    /*private fun calculateCurrency(highValue: String, lowValue: String): String{
-       return String.format("%.2f", (highValue.toDouble() + lowValue.toDouble()) / 2)
-    }*/
 
     private fun setDrawerMenu() {
         val toolbar = binding.toolbar

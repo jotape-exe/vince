@@ -11,6 +11,8 @@ import com.anychart.AnyChart
 import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Pie
+import com.anychart.enums.Align
+import com.anychart.enums.LegendLayout
 import com.company.ourfinances.databinding.FragmentInsightsBinding
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
@@ -39,9 +41,45 @@ class InsightsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         pie = AnyChart.pie()
+        pie.labels().position("outside")
+        pie.title("MOVIMENTAÇÕES")
+        pie.legend()
+            .position("center-bottom")
+            .itemsLayout(LegendLayout.HORIZONTAL)
+            .align(Align.CENTER);
 
         viewModel.getAllFinanceRecords()
 
+        observe()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        observe()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+    }
+
+    private fun calculateTotalByType(list: List<FinanceRecordEntity>, typeEnum: RegisterTypeEnum): Float {
+        return list.filter { record -> record.typeRecord == typeEnum.value }
+            .sumOf { record -> record.value }
+            .toFloat()
+    }
+
+    private fun observe(){
         viewModel.financeRecordList.observe(viewLifecycleOwner) { list ->
             val revenueValue = calculateTotalByType(list, RegisterTypeEnum.REVENUE)
             val transferValue = calculateTotalByType(list, RegisterTypeEnum.TRANSFER)
@@ -57,24 +95,6 @@ class InsightsFragment : Fragment() {
             binding.anyChart.setChart(pie)
             binding.anyChart.setProgressBar(binding.progressBar)
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
-    override fun onStart() {
-        super.onStart()
-    }
-
-    override fun onStop() {
-        super.onStop()
-    }
-
-    private fun calculateTotalByType(list: List<FinanceRecordEntity>, typeEnum: RegisterTypeEnum): Float {
-        return list.filter { record -> record.typeRecord == typeEnum.value }
-            .sumOf { record -> record.value }
-            .toFloat()
     }
 
 

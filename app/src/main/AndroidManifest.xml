@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="androidx.multidex.MultiDexApplication"
+        android:name=".view.MyApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -22,9 +22,6 @@
             android:name=".view.SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings" />
-        <activity
-            android:name=".view.GeralActivity"
-            android:exported="false" />
         <activity
             android:name=".view.GoalManagerActivity"
             android:exported="false" />

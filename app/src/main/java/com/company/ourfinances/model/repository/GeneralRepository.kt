@@ -14,23 +14,4 @@ class GeneralRepository(context: Context) {
         database.deleteCategoryRecords()
     }
 
-    fun deleteGoals() {
-
-    }
-
-    fun deletePaymentTypes() {
-
-    }
-
-    fun deleteRecordPayments() {
-
-    }
-
-    fun deleteFinanceRecords() {
-
-    }
-
-    fun deleteCategoryRecords() {
-
-    }
 }

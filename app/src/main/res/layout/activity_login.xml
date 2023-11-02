@@ -12,7 +12,7 @@
         android:id="@+id/image_vince"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/logo_vince_clean"
+        android:src="@drawable/vince_master"
         app:layout_constraintBottom_toTopOf="@+id/text_welcome_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +75,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
+    <Button
         android:id="@+id/text_forgot_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,8 +83,7 @@
         android:layout_marginEnd="60dp"
         android:layout_marginTop="4dp"
         android:text="@string/forgot_password"
-        android:textColor="@color/seed"
-        android:textSize="16sp"
+        style="@style/Widget.Material3.Button.TextButton"
         app:layout_constraintBottom_toTopOf="@id/button_login"
         app:layout_constraintEnd_toEndOf="@+id/edit_password_login_layout"
         app:layout_constraintStart_toEndOf="@+id/button_login"
@@ -92,11 +91,13 @@
 
     <Button
         android:id="@+id/button_login"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
+        android:paddingEnd="46dp"
+        android:paddingStart="46dp"
         android:text="@string/login"
         android:textColor="@color/white"
         android:textSize="16sp"
@@ -125,18 +126,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_or" />
 
-    <TextView
+    <Button
         android:id="@+id/text_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="@string/dont_have_a_login_then_register"
+        android:text="Não tenho cadastro"
+        style="@style/Widget.Material3.Button.TextButton"
         android:textAlignment="center"
         android:textSize="18sp"
+        app:icon="@drawable/ic_app_registration"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/google_button" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

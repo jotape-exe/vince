@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.anychart.AnyChart
-import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Pie
 import com.anychart.enums.Align
@@ -18,7 +16,6 @@ import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
-import com.github.mikephil.charting.data.BarEntry
 
 class InsightsFragment : Fragment() {
 
@@ -32,7 +29,6 @@ class InsightsFragment : Fragment() {
     ): View {
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
         binding = FragmentInsightsBinding.inflate(inflater, container, false)
-        viewModel.getAllFinanceRecords()
 
         return binding.root
     }
@@ -52,25 +48,6 @@ class InsightsFragment : Fragment() {
 
         observe()
 
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        observe()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-    }
-
-    override fun onStop() {
-        super.onStop()
     }
 
     private fun calculateTotalByType(list: List<FinanceRecordEntity>, typeEnum: RegisterTypeEnum): Float {

@@ -57,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
 
         val fullTextRegister = binding.textRegister.text.toString()
 
-        binding.textRegister.apply {
+        /*binding.textRegister.apply {
             val coloredText = SpannableString(fullTextRegister)
             coloredText.setSpan(
                 ForegroundColorSpan(getColor(R.color.seed)),
@@ -66,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             )
             this.text = coloredText
-        }
+        }*/
 
     }
 
@@ -103,13 +103,28 @@ class LoginActivity : AppCompatActivity() {
 
         })
 
+        binding.editPasswordLogin.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.editPasswordLoginLayout.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
         binding.buttonLogin.setOnClickListener {
             val email = binding.editEmailLogin.text
             val password = binding.editPasswordLogin.text
             if (TextUtils.isEmpty(email)) {
                 binding.editEmailLoginLayout.error = getString(R.string.user_not_empty)
             } else if (TextUtils.isEmpty(password)) {
-                binding.editPasswordLogin.error = getString(R.string.password_not_empty)
+                binding.editPasswordLoginLayout.error = getString(R.string.password_not_empty)
             } else {
                 loadingDialog.startLoadingDialog()
                 loginWithEmailAndPassword(email.toString(), password.toString())

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.anychart.AnyChart
@@ -11,6 +13,7 @@ import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Pie
 import com.anychart.enums.Align
 import com.anychart.enums.LegendLayout
+import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentInsightsBinding
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.enums.RegisterTypeEnum
@@ -58,6 +61,9 @@ class InsightsFragment : Fragment() {
 
     private fun observe(){
         viewModel.financeRecordList.observe(viewLifecycleOwner) { list ->
+
+            binding.root.findViewById<TextView>(R.id.text_not_data).isVisible = list.isEmpty()
+
             val revenueValue = calculateTotalByType(list, RegisterTypeEnum.REVENUE)
             val transferValue = calculateTotalByType(list, RegisterTypeEnum.TRANSFER)
             val expenseValue = calculateTotalByType(list, RegisterTypeEnum.EXPENSE)

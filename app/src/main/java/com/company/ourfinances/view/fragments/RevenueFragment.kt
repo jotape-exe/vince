@@ -70,16 +70,15 @@ class RevenueFragment : Fragment(), FabClickListener {
     override fun doSave() {
         if (TextUtils.isEmpty(binding.inputTitle.text)) {
             binding.editTitle.error = getString(R.string.title_cannot_be_empty)
-        } else if (TextUtils.equals(binding.spinnerCategory.text, "Selecionar")) {
+        } else if (TextUtils.equals(binding.spinnerCategory.text, getString(R.string.select))) {
             binding.spinnerCategoryLayout.error = "Selecione uma categoria!"
         } else if (TextUtils.equals(binding.buttonDatePicker.text, requireContext().getString(R.string.select_date))) {
             binding.buttonDatePickerLayout.error = getString(R.string.date_cannot_be_empty)
-        } else if (TextUtils.equals(binding.spinnerTypePay.text, "Selecionar")) {
+        } else if (TextUtils.equals(binding.spinnerTypePay.text, getString(R.string.select))) {
             binding.spinnerTypePayLayout.error = "Selecione um tipo!"
-        } else if (TextUtils.equals(binding.spinnerCard.text, "Selecionar") and binding.spinnerTypePay.text.toString().equals("Cartão")){
+        } else if (TextUtils.equals(binding.spinnerCard.text, getString(R.string.select)) and binding.spinnerTypePay.text.equals("Cartão")){
             binding.spinnerCardLayout.error = "Escolha um cartão"
-        }
-        else if (TextUtils.isEmpty(binding.inputValue.text)) {
+        } else if (TextUtils.isEmpty(binding.inputValue.text)) {
             binding.editValue.error = getString(R.string.value_cannot_be_empty)
         } else {
 
@@ -87,14 +86,12 @@ class RevenueFragment : Fragment(), FabClickListener {
                 override fun getIdByName(name: String): Long {
                     return categoryRecordList.find { it.name == name }!!.id
                 }
-
             }
 
             val paymentListener = object : OnSpinnerListener<PaymentTypeEntity> {
                 override fun getIdByName(name: String): Long {
                     return paymentTypesList.find { it.name == name }!!.paymentId
                 }
-
             }
 
             val financeRecord = FinanceRecordEntity.Builder()

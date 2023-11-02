@@ -17,6 +17,7 @@ import com.company.ourfinances.model.enums.CardTypeEnum
 import com.company.ourfinances.view.adapters.ColorSpinnerAdapter
 import com.company.ourfinances.view.utils.ColorList
 import com.company.ourfinances.view.utils.ColorObject
+import com.company.ourfinances.view.utils.CryptoUtils
 import com.company.ourfinances.viewmodel.CardViewModel
 
 
@@ -28,6 +29,7 @@ class CardCreateActivity : AppCompatActivity() {
     private lateinit var viewModel: CardViewModel
     private lateinit var colorHex: String
     private lateinit var textColorHex: String
+    private val cripto = CryptoUtils()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -138,7 +140,7 @@ class CardCreateActivity : AppCompatActivity() {
 
                 val card = CardEntity(
                     cardColor = colorHex,
-                    cardNumber = binding.inputCardNumber.text.toString(),
+                    cardNumber = cripto.encrypt(binding.inputCardNumber.text.toString()),
                     name = binding.inputCardName.text.toString(),
                     cardType = binding.spinnerCardType.text.toString(),
                     cardTextColor = textColorHex

@@ -6,16 +6,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.company.ourfinances.databinding.CardItemBinding
 import com.company.ourfinances.model.entity.CardEntity
 import com.company.ourfinances.view.listener.OnCardListener
+import com.company.ourfinances.view.utils.CryptoUtils
 
 class CardViewHolder(
     private val bind: CardItemBinding,
     private val listener: OnCardListener
 ) : RecyclerView.ViewHolder(bind.root) {
 
+    private val cripto = CryptoUtils()
     fun bind(card: CardEntity) {
 
         bind.textCardNameItem.text = card.name
-        bind.textCardNumberItem.text = card.cardNumber
+        bind.textCardNumberItem.text = cripto.decrypt(card.cardNumber)
         bind.textCardTypeItem.text = card.cardType
 
         bind.textCardNameItem.setTextColor(Color.parseColor(card.cardTextColor))

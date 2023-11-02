@@ -69,18 +69,23 @@ class MainActivity : AppCompatActivity() {
                 R.id.item_help -> {
                     sendEmail()
                 }
-                R.id.item_info -> {
+                /*R.id.item_info -> {
                     AlertDialog.Builder(this)
                         .setTitle("Informação")
                         .setMessage("Vince®\nDesenvolvedor: João Pedro")
                         .setPositiveButton("OK", null)
                         .create()
                         .show()
+                }*/
+                R.id.item_settings -> {
+                    startActivity(Intent(this, SettingsActivity::class.java))
                 }
                 R.id.item_logout -> firebaseLogout()
             }
             drawerLayout.closeDrawer(GravityCompat.START)
-            true
+
+            menuItem.isChecked = false
+            false
         }
 
     }

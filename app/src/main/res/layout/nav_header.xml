@@ -10,7 +10,7 @@
         android:id="@+id/nav_header_container"
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:background="@color/seed">
+        android:background="@color/md_theme_dark_onPrimary">
 
         <ImageView
             android:id="@+id/img_vince"
@@ -18,7 +18,7 @@
             android:layout_height="90dp"
             android:layout_marginTop="30dp"
             android:layout_marginStart="20dp"
-            android:background="@drawable/logo_vince_clean"
+            android:background="@drawable/vince_master"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

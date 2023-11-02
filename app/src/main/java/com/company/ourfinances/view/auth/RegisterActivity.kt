@@ -40,7 +40,7 @@ class RegisterActivity : AppCompatActivity() {
 
         loadingDialog = LoadingDialog(this)
 
-        binding.textToLogin.run {
+        /*binding.textToLogin.run {
             val coloredText = SpannableString(binding.textToLogin.text.toString())
             coloredText.setSpan(
                 ForegroundColorSpan(getColor(R.color.seed)),
@@ -49,7 +49,7 @@ class RegisterActivity : AppCompatActivity() {
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             )
             text = coloredText
-        }
+        }*/
     }
 
     override fun onDestroy() {
@@ -65,9 +65,9 @@ class RegisterActivity : AppCompatActivity() {
             val password = binding.editPasswordRegister.text
 
             if (TextUtils.isEmpty(email)) {
-                binding.editEmailRegister.error = getString(R.string.user_not_empty)
+                binding.editEmailRegisterLayout.error = getString(R.string.user_not_empty)
             } else if (TextUtils.isEmpty(password)) {
-                binding.editPasswordRegister.error = getString(R.string.password_not_empty)
+                binding.editPasswordRegisterLayout.error = getString(R.string.password_not_empty)
             } else {
                 loadingDialog.startLoadingDialog()
                 registerWithEmailAndPassword(email.toString(), password.toString())

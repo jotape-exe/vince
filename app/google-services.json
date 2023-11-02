@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "688509858493-ih7seb3jb90qp0916qhgp12vcr264nrg.apps.googleusercontent.com",
+          "client_id": "688509858493-8ead96g94ehh663pendm3sfsfn97mr57.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.company.ourfinances",
+            "certificate_hash": "735212777e861f84f0d5622f91d605dcf88a6571"
+          }
+        },
+        {
+          "client_id": "688509858493-0ao0mb3af4vhn06j7h84v8j06qgkki48.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,7 +35,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "688509858493-ih7seb3jb90qp0916qhgp12vcr264nrg.apps.googleusercontent.com",
+              "client_id": "688509858493-0ao0mb3af4vhn06j7h84v8j06qgkki48.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

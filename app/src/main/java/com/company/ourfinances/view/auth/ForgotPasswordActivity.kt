@@ -2,7 +2,9 @@ package com.company.ourfinances.view.auth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityForgotPasswordBinding
@@ -36,11 +38,25 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
     }
 
-    private fun listeners()
-    {
+    private fun listeners() {
+        binding.editExistingEmail.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.editExistingEmailLayout.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
         binding.buttonSendLink.setOnClickListener {
             if (TextUtils.isEmpty(binding.editExistingEmail.text.toString())){
-                binding.editExistingEmail.error = getString(R.string.user_not_empty)
+                binding.editExistingEmailLayout.error = getString(R.string.user_not_empty)
             } else{
                 loadingDialog.startLoadingDialog()
                 val emailAddress = binding.editExistingEmail.text.toString()
@@ -60,6 +76,10 @@ class ForgotPasswordActivity : AppCompatActivity() {
                     }
                 loadingDialog.dismissDialog()
             }
+        }
+
+        binding.buttonBack.setOnClickListener {
+            finish()
         }
     }
 }

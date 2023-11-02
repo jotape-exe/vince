@@ -2,26 +2,29 @@ package com.company.ourfinances.view
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
-import android.os.Build.VERSION
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.core.view.isVisible
-import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivitySettingsBinding
 import com.company.ourfinances.model.repository.GeneralRepository
+import com.company.ourfinances.view.preferences.ThemePreferences
 
 class SettingsActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySettingsBinding
+    lateinit var binding: ActivitySettingsBinding
+    private lateinit var themePreferences: ThemePreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        themePreferences = ThemePreferences(this)
 
         setup()
 
@@ -30,6 +33,7 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun setup() {
         binding.textAppVersion.text = "Versão ${getAppVersion(this)?.versionNumber.toString()}"
+
     }
 
     private fun listeners() {
@@ -48,6 +52,17 @@ class SettingsActivity : AppCompatActivity() {
                 .create()
                 .show()
         }
+        binding.switchTheme.setOnCheckedChangeListener { button, isChecked ->
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+
+            themePreferences.setState(isChecked)
+        }
+
+        binding.switchTheme.isChecked = themePreferences.getState()
     }
 
     private fun doDeleteAll() {

@@ -113,9 +113,9 @@ class TransferFragment : Fragment(), FabClickListener {
             binding.editReceiverTransfer.error = getString(R.string.receiver_not_empty)
         } else if (TextUtils.equals(binding.buttonDatePickerTransfer.text, requireContext().getString(R.string.select_date))) {
             binding.buttonDatePickerLayoutTransfer.error = getString(R.string.date_cannot_be_empty)
-        } else if (TextUtils.equals(binding.spinnerTypePayTransfer.text, "Selecionar")) {
+        } else if (TextUtils.equals(binding.spinnerTypePayTransfer.text, getString(R.string.select))) {
             binding.spinnerTypePayLayoutTransfer.error = "Selecione um tipo!"
-        } else if (TextUtils.equals(binding.spinnerCardTransfer.text, "Selecionar") and binding.spinnerTypePayTransfer.text.toString().equals("Cartão")){
+        } else if (TextUtils.equals(binding.spinnerCardTransfer.text, getString(R.string.select)) and binding.spinnerTypePayTransfer.text.equals("Cartão")){
             binding.spinnerCardLayoutTransfer.error = "Escolha um cartão"
         } else if (TextUtils.isEmpty(binding.inputValueTransfer.text)) {
             binding.editValueTransfer.error = getString(R.string.value_cannot_be_empty)

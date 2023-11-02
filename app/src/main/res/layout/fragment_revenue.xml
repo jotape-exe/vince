@@ -181,7 +181,7 @@
             android:inputType="none"
             tools:visibility="visible"
             android:visibility="invisible"
-            android:text="Selecionar" />
+            android:text="@string/select" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

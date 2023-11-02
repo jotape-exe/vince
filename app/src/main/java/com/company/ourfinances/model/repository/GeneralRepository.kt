@@ -11,7 +11,6 @@ class GeneralRepository(context: Context) {
         database.deleteCards()
         database.deleteGoals()
         database.deleteFinanceRecords()
-        database.deleteCategoryRecords()
     }
 
 }

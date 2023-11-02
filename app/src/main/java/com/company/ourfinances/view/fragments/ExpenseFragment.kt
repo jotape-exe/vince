@@ -66,13 +66,13 @@ class ExpenseFragment : Fragment(), FabClickListener {
     override fun doSave() {
         if (TextUtils.isEmpty(binding.inputTitleExpense.text)) {
             binding.editTitleExpense.error = getString(R.string.title_cannot_be_empty)
-        } else if (TextUtils.equals(binding.spinnerCategoryExpense.text, "Selecionar")) {
+        } else if (TextUtils.equals(binding.spinnerCategoryExpense.text, getString(R.string.select))) {
             binding.spinnerCategoryExpenseLayout.error = "Selecione uma categoria!"
         } else if (TextUtils.equals(binding.buttonDatePickerExpense.text, requireContext().getString(R.string.select_date))) {
             binding.buttonDatePickerExpenseLayout.error = getString(R.string.date_cannot_be_empty)
-        } else if (TextUtils.equals(binding.spinnerTypePayExpense.text, "Selecionar")) {
+        } else if (TextUtils.equals(binding.spinnerTypePayExpense.text, getString(R.string.select))) {
             binding.spinnerTypePayExpenseLayout.error = "Selecione um tipo!"
-        } else if (TextUtils.equals(binding.spinnerCardExpense.text, "Selecionar") and binding.spinnerTypePayExpense.text.toString().equals("Cartão")){
+        } else if (TextUtils.equals(binding.spinnerCardExpense.text, getString(R.string.select)) and binding.spinnerTypePayExpense.text.equals("Cartão")){
             binding.spinnerCardExpenseLayout.error = "Escolha um cartão"
         } else if (TextUtils.isEmpty(binding.inputValueExpense.text)) {
             binding.editValueExpense.error = getString(R.string.value_cannot_be_empty)

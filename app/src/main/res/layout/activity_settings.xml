@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:backgroundTint="?attr/colorSecondary"
-                android:contentDescription="Back"
+                android:contentDescription="@string/back"
                 android:src="@drawable/ic_arrow_back"
                 app:layout_constraintBottom_toBottomOf="@id/custom_toolbar"
                 app:layout_constraintStart_toStartOf="@id/custom_toolbar"
@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:text="Configurações"
+                android:text="@string/settings"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/custom_toolbar"
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
-        android:text="Tema"
+        android:text="@string/theme"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top_app_bar" />
@@ -84,7 +84,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40sp"
         android:layout_marginTop="8dp"
-        android:text="Mudar tema do APP   "
+        app:switchPadding="6dp"
+        android:text="@string/change_theme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_theme" />
 
@@ -93,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="?attr/colorOutline"
-        android:text="Muda o tema entre Claro/Escuro"
+        android:text="@string/change_dark_light"
         app:layout_constraintStart_toStartOf="@+id/switchTheme"
         app:layout_constraintTop_toBottomOf="@+id/switchTheme" />
 
@@ -110,7 +111,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
-        android:text="Zona Perigosa!"
+        android:text="@string/danger_zone"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider"/>
@@ -119,7 +120,7 @@
         android:id="@+id/button_delete_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Limpar dados"
+        android:text="@string/delete_all"
         app:icon="@drawable/ic_dangerous"
         android:backgroundTint="?attr/colorError"
         android:layout_marginStart="40dp"
@@ -131,7 +132,7 @@
         android:id="@+id/text_sub_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Limpa todos os seu dados. MUITO CUIDADO!"
+        android:text="@string/clear_all_caution"
         android:textColor="?attr/colorOutline"
         android:layout_marginStart="40dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -149,7 +150,7 @@
         android:id="@+id/text_app_version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Versão 1.0"
+        android:text="@string/version_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

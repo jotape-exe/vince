@@ -68,8 +68,10 @@ class GoalFragment : Fragment() {
 
     private fun observers(){
         viewModel.goalList.observe(viewLifecycleOwner){
+            binding.root.findViewById<TextView>(R.id.text_not_data).isVisible = it.isEmpty()
             adapter.updateList(it)
         }
+
     }
 
     override fun onResume() {

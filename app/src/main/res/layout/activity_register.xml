@@ -112,7 +112,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/Widget.Material3.Button.TextButton"
-        android:text="Possui Login?"
+        android:text="@string/have_login"
         app:icon="@drawable/ic_login"
         android:textAlignment="center"
         android:textSize="18sp"

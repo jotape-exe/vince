@@ -23,7 +23,7 @@
         android:drawablePadding="10dp"
         android:paddingEnd="8dp"
         android:padding="6dp"
-        android:text="Nome da meta"
+        android:text="@string/goal_name"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

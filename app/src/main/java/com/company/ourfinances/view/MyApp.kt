@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDex
 import com.company.ourfinances.view.preferences.THEME_PREFERENCES_KEY
 import com.company.ourfinances.view.preferences.THEME_PREFERENCES_NAME
+import com.company.ourfinances.view.preferences.ThemePreferences
 
 class MyApp : Application() {
     override fun onCreate() {
@@ -19,8 +20,7 @@ class MyApp : Application() {
     }
 
     private fun applyTheme() {
-        val isDarkModeEnabled = getSharedPreferences(THEME_PREFERENCES_NAME, MODE_PRIVATE)
-            .getBoolean(THEME_PREFERENCES_KEY, false)
+        val isDarkModeEnabled = ThemePreferences(this).getState()
 
         AppCompatDelegate.setDefaultNightMode(
             if (isDarkModeEnabled) {

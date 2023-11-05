@@ -11,7 +11,7 @@
         android:id="@+id/text_title_transfer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Título"
+        android:text="@string/title"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/edit_title_transfer"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
             android:id="@+id/input_title_transfer"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Escreva o título" />
+            android:hint="@string/describe_title" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -39,7 +39,7 @@
         android:id="@+id/text_receiver_transfer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Destinatário"
+        android:text="@string/receiver"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/edit_receiver_transfer"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,7 @@
             android:id="@+id/input_receiver_transfer"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Destinatário" />
+            android:hint="@string/receiver" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,7 +67,7 @@
         android:id="@+id/text_date_transfer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Data"
+        android:text="@string/date"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/button_date_picker_layout_transfer"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +96,7 @@
         android:id="@+id/text_type_pay_transfer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tipo de Pagamento"
+        android:text="@string/type_pay"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/spinner_type_pay_layout_transfer"
         app:layout_constraintStart_toStartOf="parent"
@@ -116,7 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
-            android:text="Selecionar" />
+            android:text="@string/select" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,7 +124,7 @@
         android:id="@+id/text_value_transfer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Valor"
+        android:text="@string/value"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/edit_value_transfer"
         app:layout_constraintStart_toStartOf="parent"
@@ -142,7 +142,7 @@
             android:id="@+id/input_value_transfer"
             android:layout_width="200dp"
             android:layout_height="50dp"
-            android:hint="R$"
+            android:hint="@string/coin"
             android:inputType="numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -151,7 +151,7 @@
         android:id="@+id/text_card_transfer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cartão"
+        android:text="@string/card"
         android:textSize="20sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/text_type_pay_transfer"
@@ -177,7 +177,7 @@
             android:inputType="none"
             android:visibility="invisible"
             tools:visibility="visible"
-            android:text="Selecionar" />
+            android:text="@string/select" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
-        android:text="Salvar Meta"
+        android:text="@string/save_goal"
         android:textColor="?attr/colorOnPrimary"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/custom_toolbar_goal"
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:contentDescription="Back"
+        android:contentDescription="@string/back"
         android:backgroundTint="?attr/colorSecondary"
         android:src="@drawable/ic_close"
         app:layout_constraintBottom_toBottomOf="@+id/custom_toolbar_goal"
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Nome da meta"
+        android:text="@string/goal_name"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/custom_toolbar_goal" />
@@ -63,7 +63,7 @@
             android:id="@+id/input_goal_name"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Digite o nome" />
+            android:hint="@string/enter_name" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Valor guardado"
+        android:text="@string/saved_value"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_goal_name" />
@@ -91,7 +91,7 @@
             android:id="@+id/input_current_revenue"
             android:layout_width="200dp"
             android:layout_height="50dp"
-            android:hint="R$"
+            android:hint="@string/coin"
             android:inputType="numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -102,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Valor objetivo"
+        android:text="@string/objective_value"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/number_current_revenue" />
@@ -120,7 +120,7 @@
             android:id="@+id/input_goal_revenue"
             android:layout_width="200dp"
             android:layout_height="50dp"
-            android:hint="R$"
+            android:hint="@string/coin"
             android:inputType="numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -130,7 +130,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Data Estimada"
+        android:text="@string/estimated_date"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/number_goal_revenue" />
@@ -159,7 +159,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
-        android:contentDescription="Save"
+        android:contentDescription="@string/save"
         android:elevation="4dp"
         android:padding="20dp"
         android:src="@drawable/ic_save"

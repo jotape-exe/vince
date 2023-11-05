@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentCardBinding
 import com.company.ourfinances.view.CardCreateActivity
 import com.company.ourfinances.view.adapters.CardItemAdapter
@@ -56,6 +59,7 @@ class CardFragment : Fragment() {
 
     private fun observe(){
         viewModel.cardRecordList.observe(viewLifecycleOwner){
+            binding.root.findViewById<TextView>(R.id.text_not_data).isVisible = it.isEmpty()
             adapter.updateList(it)
         }
     }

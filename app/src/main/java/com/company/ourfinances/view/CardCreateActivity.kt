@@ -14,6 +14,7 @@ import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityCardCreateBinding
 import com.company.ourfinances.model.entity.CardEntity
 import com.company.ourfinances.model.enums.CardTypeEnum
+import com.company.ourfinances.model.enums.EnumUtils
 import com.company.ourfinances.view.adapters.ColorSpinnerAdapter
 import com.company.ourfinances.view.utils.ColorList
 import com.company.ourfinances.view.utils.ColorObject
@@ -38,7 +39,10 @@ class CardCreateActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[CardViewModel::class.java]
 
-        val typeCards = listOf(CardTypeEnum.CREDIT.value, CardTypeEnum.DEBIT.value)
+        val typeCards = listOf(
+            EnumUtils.getCardTypeName(CardTypeEnum.CREDIT, applicationContext),
+            EnumUtils.getCardTypeName(CardTypeEnum.DEBIT, applicationContext)
+        )
 
         binding.spinnerCardType.setAdapter(getAdapter(typeCards))
 

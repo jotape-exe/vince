@@ -11,12 +11,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="Nenhum registro salvo!"
-        android:textSize="26sp"
+        android:textSize="22sp"
         android:gravity="center"
         android:textColor="@android:color/darker_gray"
         android:layout_width="wrap_content"
         android:drawablePadding="10dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         app:drawableStartCompat="@drawable/ic_inbox" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

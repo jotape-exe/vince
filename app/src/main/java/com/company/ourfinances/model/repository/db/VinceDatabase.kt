@@ -8,9 +8,9 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.company.ourfinances.model.entity.CardEntity
 import com.company.ourfinances.model.entity.CategoryRecordEntity
-import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.GoalEntity
+import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.repository.dao.CardDAO
 import com.company.ourfinances.model.repository.dao.CategoryRecordDAO
 import com.company.ourfinances.model.repository.dao.FinanceRecordDAO

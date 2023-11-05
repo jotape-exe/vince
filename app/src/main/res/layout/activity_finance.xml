@@ -12,7 +12,7 @@
         android:id="@+id/text_add_record"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Salvar"
+        android:text="@string/save"
         android:textSize="26sp"
         android:textColor="?attr/colorSecondary"
         app:layout_constraintBottom_toTopOf="@id/tab_finance"
@@ -48,17 +48,17 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Receita" />
+            android:text="@string/revenue" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Despesa" />
+            android:text="@string/expense" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Transferencia" />
+            android:text="@string/transfer" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
@@ -75,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="14dp"
-        android:contentDescription="Save"
+        android:contentDescription="@string/save"
         android:elevation="4dp"
         android:src="@drawable/ic_save"
         app:layout_constraintBottom_toBottomOf="parent"

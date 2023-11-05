@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"
-                android:text="Novo Cartão"
+                android:text="@string/new_card"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/custom_toolbar_card"
@@ -63,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Nome do Cartão"
+        android:text="@string/card_name"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/edit_card_name"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +82,7 @@
             android:id="@+id/input_card_name"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Digite o nome" />
+            android:hint="@string/enter_name" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,7 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Numero do Cartão"
+        android:text="@string/card_number"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_card_name" />
@@ -110,7 +110,7 @@
             android:id="@+id/input_card_number"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Digite o nome" />
+            android:hint="@string/enter_name" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,7 +120,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Tipo de Cartão"
+        android:text="@string/card_type"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_card_number" />
@@ -139,7 +139,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
-            android:text="Selecionar" />
+            android:text="@string/select" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -148,7 +148,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Cor do Cartão"
+        android:text="@string/card_color"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/spinner_card_type_layout" />

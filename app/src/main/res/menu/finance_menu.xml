@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/menu_receita"
-        android:title="Receita"
+        android:title="@string/revenue"
         android:orderInCategory="1" />
 
     <item
         android:id="@+id/menu_despesa"
-        android:title="Despesa"
+        android:title="@string/expense"
         android:orderInCategory="2" />
 
     <item
         android:id="@+id/menu_transferencia"
-        android:title="Transferência"
+        android:title="@string/transfer"
         android:orderInCategory="3" />
 
 </menu>

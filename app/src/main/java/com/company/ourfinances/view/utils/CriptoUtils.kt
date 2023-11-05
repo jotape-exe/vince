@@ -1,19 +1,18 @@
 package com.company.ourfinances.view.utils
 
+import android.util.Base64
+import java.security.InvalidKeyException
+import java.security.NoSuchAlgorithmException
+import java.security.spec.InvalidKeySpecException
+import java.security.spec.KeySpec
+import javax.crypto.BadPaddingException
 import javax.crypto.Cipher
+import javax.crypto.IllegalBlockSizeException
+import javax.crypto.NoSuchPaddingException
 import javax.crypto.SecretKey
 import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.PBEKeySpec
 import javax.crypto.spec.SecretKeySpec
-import java.security.SecureRandom
-import java.security.spec.KeySpec
-import android.util.Base64
-import java.security.NoSuchAlgorithmException
-import java.security.InvalidKeyException
-import java.security.spec.InvalidKeySpecException
-import javax.crypto.BadPaddingException
-import javax.crypto.IllegalBlockSizeException
-import javax.crypto.NoSuchPaddingException
 
 private const val SALT = "4631241932312dasasda12312"
 private const val PASSWORD = "341p8966432413890312321122ggdfdfg34134"
@@ -23,7 +22,7 @@ class CryptoUtils {
 
     fun encrypt(cardNumber: String): String {
         try {
-            val keySpec: KeySpec = PBEKeySpec(password.toCharArray(), salt.toByteArray(), 65536, 256) // Geração da chave secreta
+            val keySpec: KeySpec = PBEKeySpec(password.toCharArray(), salt.toByteArray(), 26, 26) // Geração da chave secreta
             val secretKeyFactory: SecretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1")
             val keyBytes: ByteArray = secretKeyFactory.generateSecret(keySpec).encoded
             val secretKey: SecretKey = SecretKeySpec(keyBytes, "AES")
@@ -54,7 +53,7 @@ class CryptoUtils {
         try {
             val encryptedTextBytes: ByteArray = Base64.decode(encryptedCardNumber, Base64.DEFAULT)
 
-            val keySpec: KeySpec = PBEKeySpec(password.toCharArray(), salt.toByteArray(), 65536, 256) // Geração da chave secreta
+            val keySpec: KeySpec = PBEKeySpec(password.toCharArray(), salt.toByteArray(), 26, 26) // Geração da chave secreta
             val secretKeyFactory: SecretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1")
             val keyBytes: ByteArray = secretKeyFactory.generateSecret(keySpec).encoded
             val secretKey: SecretKey = SecretKeySpec(keyBytes, "AES")

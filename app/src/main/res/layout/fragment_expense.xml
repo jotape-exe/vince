@@ -11,7 +11,7 @@
         android:id="@+id/text_title_expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Título"
+        android:text="@string/title"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/edit_title_expense"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
             android:id="@+id/input_title_expense"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Descreva o título"
+            android:hint="@string/describe_title"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="Categoria"
+        android:text="@string/category"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/spinner_category_expense_layout"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
-            android:text="Selecionar" />
+            android:text="@string/select" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -71,7 +71,7 @@
         android:id="@+id/text_date_expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Data"
+        android:text="@string/date"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/button_date_picker_expense_layout"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +100,7 @@
         android:id="@+id/text_type_pay_expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-         android:text="Tipo de Pagamento"
+         android:text="@string/type_pay"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/spinner_type_pay_expense_layout"
         app:layout_constraintStart_toStartOf="parent"
@@ -120,7 +120,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
-            android:text="Selecionar" />
+            android:text="@string/select" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -147,7 +147,7 @@
             android:id="@+id/input_value_expense"
             android:layout_width="200dp"
             android:layout_height="50dp"
-            android:hint="R$"
+            android:hint="@string/coin"
             android:inputType="numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -157,7 +157,7 @@
         android:id="@+id/text_card_expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cartão"
+        android:text="@string/card"
         android:textSize="20sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/text_type_pay_expense"
@@ -182,7 +182,7 @@
             android:inputType="none"
             android:visibility="invisible"
             tools:visibility="visible"
-            android:text="Selecionar" />
+            android:text="@string/select" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

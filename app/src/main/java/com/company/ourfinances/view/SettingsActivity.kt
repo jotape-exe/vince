@@ -66,11 +66,8 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun doDeleteAll() {
-        binding.progressDelete.isVisible = true
-        Handler().postDelayed({
-            GeneralRepository(this).deleteAll()
-        }, 1000)
-        binding.progressDelete.isVisible = false
+
+        GeneralRepository(this).deleteAll()
 
         Toast.makeText(this, "Sucesso!", Toast.LENGTH_LONG).show()
 
@@ -93,7 +90,8 @@ class SettingsActivity : AppCompatActivity() {
             )
         } catch (e: Exception) {
             null
-        }}
+        }
+    }
 }
 
 data class AppVersion(

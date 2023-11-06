@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
@@ -20,12 +18,13 @@ import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.entity.CardEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
+import com.company.ourfinances.model.enums.EnumUtils
 import com.company.ourfinances.model.enums.RegisterTypeEnum
-import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.utils.CustomDatePicker
 import com.company.ourfinances.view.listener.FabClickListener
 import com.company.ourfinances.view.listener.OnSpinnerListener
+import com.company.ourfinances.view.utils.TypePaymentList
 import com.company.ourfinances.viewmodel.CardViewModel
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -54,6 +53,8 @@ class TransferFragment : Fragment(), FabClickListener {
 
         loadRecord()
 
+        setupLists()
+
         observe()
 
         listeners()
@@ -76,12 +77,6 @@ class TransferFragment : Fragment(), FabClickListener {
             }
         }
 
-        viewModel.typePaymentList.observe(viewLifecycleOwner) {
-            paymentTypesList = it
-            val namePaymentList: List<String> = paymentTypesList.map { item -> item.name }
-            binding.spinnerTypePayTransfer.setAdapter(getAdapter(namePaymentList))
-        }
-
         viewModel.financeRecord.observe(viewLifecycleOwner) { financeRecord ->
 
             binding.inputTitleTransfer.setText(financeRecord.title)
@@ -89,15 +84,11 @@ class TransferFragment : Fragment(), FabClickListener {
             binding.buttonDatePickerTransfer.setText(financeRecord.dateRecord)
             binding.inputReceiverTransfer.setText(financeRecord.destinationAccount)
 
-            val paymentName = financeRecord.paymentTypeId?.let { id ->
-                viewModel.getTypePaymentById(id).name
-            }
-
             val cardName = financeRecord.cardId?.let { id ->
                 cardViewModel.getCardById(id)?.name
             }
 
-            binding.spinnerTypePayTransfer.setText(paymentName, false)
+            binding.spinnerTypePayTransfer.setText(financeRecord.paymentType, false)
 
             financeRecord.cardId?.let {
                 binding.spinnerCardTransfer.setText(cardName, false)
@@ -114,18 +105,12 @@ class TransferFragment : Fragment(), FabClickListener {
         } else if (TextUtils.equals(binding.buttonDatePickerTransfer.text, requireContext().getString(R.string.select_date))) {
             binding.buttonDatePickerLayoutTransfer.error = getString(R.string.date_cannot_be_empty)
         } else if (TextUtils.equals(binding.spinnerTypePayTransfer.text, getString(R.string.select))) {
-            binding.spinnerTypePayLayoutTransfer.error = "Selecione um tipo!"
+            binding.spinnerTypePayLayoutTransfer.error = getString(R.string.select_a_type)
         } else if (TextUtils.equals(binding.spinnerCardTransfer.text, getString(R.string.select)) and binding.spinnerTypePayTransfer.text.equals("Cartão")){
-            binding.spinnerCardLayoutTransfer.error = "Escolha um cartão"
+            binding.spinnerCardLayoutTransfer.error = getString(R.string.choose_a_card)
         } else if (TextUtils.isEmpty(binding.inputValueTransfer.text)) {
             binding.editValueTransfer.error = getString(R.string.value_cannot_be_empty)
         } else {
-
-            val paymentListener = object : OnSpinnerListener<PaymentTypeEntity> {
-                override fun getIdByName(name: String): Long {
-                    return paymentTypesList.find { it.name == name }!!.paymentId
-                }
-            }
 
             val financeRecord = FinanceRecordEntity.Builder()
                 .setRecordId(recordId)
@@ -133,8 +118,8 @@ class TransferFragment : Fragment(), FabClickListener {
                 .setValue(binding.inputValueTransfer.text.toString().toDouble())
                 .setDateRecord(binding.buttonDatePickerTransfer.text.toString())
                 .setDestinationAccount(binding.inputReceiverTransfer.text.toString())
-                .setTypeRecord(RegisterTypeEnum.TRANSFER.value)
-                .setPaymentTypeId(paymentListener.getIdByName(binding.spinnerTypePayTransfer.text.toString()))
+                .setTypeRecord(EnumUtils.getRegisterType(RegisterTypeEnum.TRANSFERENCIA, requireContext()))
+                .setPaymentType(binding.spinnerTypePayTransfer.text.toString())
 
             if (binding.spinnerCardTransfer.isVisible) {
                 val cardListener = object : OnSpinnerListener<CardEntity> {
@@ -148,7 +133,7 @@ class TransferFragment : Fragment(), FabClickListener {
             viewModel.save(financeRecord.build())
 
             val bundle = Bundle()
-            bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.TRANSFERENCIA.value)
+            bundle.putString(getString(R.string.fragmentIdentifier), EnumUtils.getRegisterType(RegisterTypeEnum.TRANSFERENCIA, requireContext()))
 
             clearAll()
 
@@ -157,8 +142,8 @@ class TransferFragment : Fragment(), FabClickListener {
             }
 
             activity?.findViewById<View>(R.id.finance_main)?.let { view ->
-                Snackbar.make(view, "Salvo com sucesso!", Snackbar.LENGTH_LONG)
-                    .setAction("Ver") {
+                Snackbar.make(view, getString(R.string.saved_successfully), Snackbar.LENGTH_LONG)
+                    .setAction(getString(R.string.view)) {
                         if (extras.isNullOrBlank()) {
                             activity?.startActivity(
                                 Intent(
@@ -180,6 +165,11 @@ class TransferFragment : Fragment(), FabClickListener {
         binding.inputValueTransfer.text?.clear()
         binding.buttonDatePickerTransfer.setText(activity?.getString(R.string.select_date))
         binding.inputReceiverTransfer.text?.clear()
+    }
+
+    private fun setupLists() {
+        val namePaymentList: List<String> = TypePaymentList(requireContext()).getList()
+        binding.spinnerTypePayTransfer.setAdapter(getAdapter(namePaymentList))
     }
 
     private fun getAdapter(itemsList: List<String>): ArrayAdapter<String>? {
@@ -284,7 +274,7 @@ class TransferFragment : Fragment(), FabClickListener {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val selectedName = binding.spinnerTypePayTransfer.text.toString()
 
-                val visibilityBySpinnerSelected = selectedName == "Cartão" && cards.isNotEmpty()
+                val visibilityBySpinnerSelected = selectedName == getString(R.string.card) && cards.isNotEmpty()
 
                 setCardSpinnerVisibility(visibilityBySpinnerSelected)
 
@@ -306,7 +296,7 @@ class TransferFragment : Fragment(), FabClickListener {
     private fun loadRecord() {
         val bundle = activity?.intent?.extras
         bundle?.let { bundleObj ->
-            if (bundleObj.getString(activity?.getString(R.string.fragmentIdentifier)) == TitleEnum.TRANSFERENCIA.value) {
+            if (bundleObj.getString(activity?.getString(R.string.fragmentIdentifier)) == EnumUtils.getRegisterType(RegisterTypeEnum.TRANSFERENCIA, requireContext())) {
                 recordId = bundleObj.getLong(DatabaseConstants.FinanceRecord.recordId)
                 viewModel.getRecordById(recordId)
             }

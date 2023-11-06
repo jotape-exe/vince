@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vince</string>
+    <string name="title_home">Inicio</string>
+    <string name="title_dashboard">Tablero</string>
+    <string name="title_notifications">Notificaciones</string>
+    <string name="open_nav">Abrir</string>
+    <string name="close_nav">Cerrar</string>
+    <string name="hello_blank_fragment">Hola fragmento en blanco</string>
+    <string name="user_not_empty">¡El correo electrónico no puede estar vacío!</string>
+    <string name="password_not_empty">¡La contraseña no puede estar vacía!</string>
+    <string name="invalid_user_or_password">¡Correo electrónico o contraseña inválidos!</string>
+    <string name="name_not_empty">¡El nombre no puede estar vacío!</string>
+    <string name="email_has_been_registered">¡El correo electrónico ya ha sido registrado!</string>
+    <string name="Password_had_more_than_6_characters">¡La contraseña debe tener más de 6 caracteres!</string>
+    <string name="error_when_registering">¡Error al registrar!</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="email">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="forgot_password">Olvidé la contraseña</string>
+    <string name="or">O</string>
+    <string name="dont_have_a_login_then_register">¿No tienes una cuenta? \nEntonces regístrate</string>
+    <string name="go_register">Registrarse</string>
+    <string name="name">Nombre</string>
+    <string name="register">Registrar</string>
+    <string name="already_have_a_register_then_login">¿Ya tienes una cuenta? \nEntonces inicia sesión</string>
+    <string name="loading">Cargando...</string>
+    <string name="home">Inicio</string>
+    <string name="insights">Informes</string>
+    <string name="cards">Tarjetas</string>
+    <string name="goals">Metas</string>
+    <string name="settings">Configuración</string>
+    <string name="help">Ayuda</string>
+    <string name="info">Información</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="send_to_email">¡Enviado!</string>
+    <string name="open_email_app">Abrir correo electrónico</string>
+    <string name="com_google_android_gm">com.google.android.gm</string>
+    <string name="error_with_google">Error al iniciar sesión con Google.</string>
+    <string name="value_cannot_be_empty">¡El valor no puede estar vacío!</string>
+    <string name="title_cannot_be_empty">¡El título no puede estar vacío!</string>
+    <string name="select_date">Seleccionar fecha</string>
+    <string name="date_cannot_be_empty">La fecha no puede estar vacía</string>
+    <string name="delete_item">Eliminar ítem</string>
+    <string name="edit_item">Editar ítem</string>
+    <string name="next">Siguiente</string>
+    <string name="fragmentIdentifier">Identificador de fragmento</string>
+    <string name="show_expense">Ver Gastos</string>
+    <string name="show_revenue">Ver Ingresos</string>
+    <string name="show_trasnfer">Ver Transferencias</string>
+    <string name="number_not_empty">¡El número no puede estar vacío!</string>
+    <string name="receiver_not_empty">¡El destinatario no puede estar vacío!</string>
+    <string name="value">Valor</string>
+    <string-array name="categories">
+        <item>Elemento 1</item>
+        <item>Elemento 2</item>
+        <item>Elemento 3</item>
+    </string-array>
+    <string name="title_activity_settings">Actividad de configuración</string>
+
+    <!-- Títulos de preferencias -->
+    <string name="messages_header">Mensajes</string>
+    <string name="sync_header">Sincronización</string>
+
+    <!-- Preferencias de mensajes -->
+    <string name="signature_title">Tu firma</string>
+    <string name="reply_title">Acción de respuesta predeterminada</string>
+
+    <!-- Preferencias de sincronización -->
+    <string name="sync_title">Sincronizar correo electrónico periódicamente</string>
+    <string name="attachment_title">Descargar adjuntos entrantes</string>
+    <string name="attachment_summary_on">Descargar automáticamente adjuntos de correos electrónicos entrantes
+    </string>
+    <string name="attachment_summary_off">Solo descargar adjuntos cuando se soliciten manualmente</string>
+    <string name="select">Seleccionar</string>
+    <string name="new_card">Nueva Tarjeta</string>
+    <string name="card_name">Nombre de la Tarjeta</string>
+    <string name="enter_name">Ingrese el nombre</string>
+    <string name="card_number">Número de la Tarjeta</string>
+    <string name="card_type">Tipo de Tarjeta</string>
+    <string name="card_color">Color de la Tarjeta</string>
+    <string name="save">Guardar</string>
+    <string name="revenue">Ingreso</string>
+    <string name="expense">Gasto</string>
+    <string name="transfer">Transferencia</string>
+    <string name="link_in_email">¡Se enviará un enlace a su correo electrónico!</string>
+    <string name="send">Enviar</string>
+    <string name="back">Volver</string>
+    <string name="save_goal">Guardar Meta</string>
+    <string name="goal_name">Nombre de la meta</string>
+    <string name="saved_value">Valor guardado</string>
+    <string name="coin">AR$</string>
+    <string name="objective_value">Valor objetivo</string>
+    <string name="estimated_date">Fecha estimada</string>
+    <string name="not_registration">No tengo una cuenta</string>
+    <string name="add_task">Agregar tarea</string>
+    <string name="have_login">¿Tiene una cuenta?</string>
+    <string name="theme">Tema</string>
+    <string name="change_theme">Cambiar tema</string>
+    <string name="change_dark_light">Cambiar entre tema oscuro/claro</string>
+    <string name="danger_zone">Zona peligrosa</string>
+    <string name="delete_all">Eliminar todo</string>
+    <string name="clear_all_caution">Elimina todos tus datos. ¡Ten mucho cuidado!</string>
+    <string name="version_1">Versión 1.0</string>
+    <string name="type">Tipo</string>
+    <string name="number">Número</string>
+    <string name="bradesco">Bradesco</string>
+    <string name="pix">Pix</string>
+    <string name="title_UPPER">TÍTULO</string>
+    <string name="tag_UPPER">ETIQUETA</string>
+    <string name="date_UPPER">FECHA</string>
+    <string name="value_UPPER">VALOR</string>
+    <string name="add_card">Agregar Tarjeta</string>
+    <string name="title">Título</string>
+    <string name="describe_title">Describa el título</string>
+    <string name="category">Categoría</string>
+    <string name="date">Fecha</string>
+    <string name="type_pay">Tipo de Pago</string>
+    <string name="card">Tarjeta</string>
+    <string name="receiver">Destinatario</string>
+    <string name="credit">Crédito</string>
+    <string name="debit">Débito</string>
+    <string name="money">Efectivo</string>
+    <string name="no_records_saved">¡No hay registros guardados!</string>
+    <string name="silver">Plata</string>
+    <string name="black">Negro</string>
+    <string name="gray">Gris</string>
+    <string name="brown">Marrón</string>
+    <string name="red">Rojo</string>
+    <string name="fuchsia">Fucsia</string>
+    <string name="green">Verde</string>
+    <string name="lime">Lima</string>
+    <string name="olive">Oliva</string>
+    <string name="yellow">Amarillo</string>
+    <string name="marine">Azul marino</string>
+    <string name="blue">Azul</string>
+    <string name="bluish_green">Verde azulado</string>
+    <string name="purple">Púrpura</string>
+    <string name="aqua">Aqua</string>
+    <string name="saved_successfully">Guardado exitosamente!</string>
+    <string name="select_a_type">¡Seleccione un Tipo!</string>
+    <string name="empty_name">¡Nombre vacío!</string>
+    <string name="empty_value">¡Valor vacío!</string>
+    <string name="goal_greater_than_zero">¡La meta debe ser mayor que cero!</string>
+    <string name="value_greater_target">¡Valor mayor que la meta!</string>
+    <string name="cancel">Cancelar</string>
+    <string name="yes">Sí</string>
+    <string name="really_delete">¿Estás seguro de que deseas eliminar todo? Esto no se puede deshacer.</string>
+    <string name="success">Éxito</string>
+    <string name="delete_card">Eliminar Tarjeta</string>
+    <string name="really_delete_card">¿Estás seguro de que deseas eliminar la tarjeta? ¡Todos los registros con esta tarjeta serán eliminados!</string>
+    <string name="delete_record">Eliminar Registro</string>
+    <string name="really_delete_record">¿Estás seguro de que deseas eliminar el registro? Esto no se puede deshacer.</string>
+    <string name="delete_goal">Eliminar Meta</string>
+    <string name="reallt_delete_goal">¿Estás seguro de que deseas eliminar la meta? Esto no se puede deshacer.</string>
+    <string name="select_a_category">¡Seleccione una categoría!</string>
+    <string name="choose_a_card">Elige una tarjeta</string>
+    <string name="view">Ver</string>
+    <string name="transactions">Transacciones</string>
+
+    <string name="categoria_alimentacao">Alimentos</string>
+    <string name="categoria_moradia">Vivienda</string>
+    <string name="categoria_transporte">Transporte</string>
+    <string name="categoria_lazer">Ocio</string>
+    <string name="categoria_investimentos">Inversiones</string>
+    <string name="categoria_compras">Compras</string>
+    <string name="categoria_veiculo">Vehículo</string>
+    <string name="categoria_outro">Otro</string>
+    <string name="categoria_saude">Salud</string>
+    <string name="billet">Boleto</string>
+
+</resources>

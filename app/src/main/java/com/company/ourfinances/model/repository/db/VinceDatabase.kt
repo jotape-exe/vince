@@ -48,8 +48,6 @@ abstract class VinceDatabase : RoomDatabase() {
                         .addCallback(object : Callback() {
                             override fun onCreate(db: SupportSQLiteDatabase) {
                                 super.onCreate(db)
-                                db.execSQL("INSERT INTO category_records (name) VALUES ('Alimentação'), ('Moradia'), ('Transporte'), ('Lazer'), ('Investimentos'), ('Compras'), ('Veículo'), ('Outro')")
-                                db.execSQL("INSERT INTO payment_types (name) VALUES ('Pix'), ('Dinheiro'), ('Boleto'), ('Cartão')")
                             }
                         })
                         .build()

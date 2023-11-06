@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.core.view.isVisible
+import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivitySettingsBinding
 import com.company.ourfinances.model.repository.GeneralRepository
 import com.company.ourfinances.view.preferences.ThemePreferences
@@ -43,12 +44,12 @@ class SettingsActivity : AppCompatActivity() {
 
         binding.buttonDeleteAccount.setOnClickListener {
             AlertDialog.Builder(this)
-                .setTitle("Apagar Tudo")
-                .setMessage("Tem certeza que deseja excluir tudo? Isso não pode ser revertido.")
-                .setPositiveButton("Sim") { dialog, which ->
+                .setTitle(getString(R.string.delete_all))
+                .setMessage(getString(R.string.really_delete))
+                .setPositiveButton(getString(R.string.yes)) { dialog, which ->
                     doDeleteAll()
                 }
-                .setNeutralButton("Cancelar", null)
+                .setNeutralButton(getString(R.string.cancel), null)
                 .create()
                 .show()
         }
@@ -69,7 +70,7 @@ class SettingsActivity : AppCompatActivity() {
 
         GeneralRepository(this).deleteAll()
 
-        Toast.makeText(this, "Sucesso!", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, getString(R.string.success), Toast.LENGTH_LONG).show()
 
     }
 

@@ -52,19 +52,19 @@ class CardCreateActivity : AppCompatActivity() {
 
     }
 
-    private fun getAdapter(itemsList: List<String>): ArrayAdapter<String>? {
+    private fun getAdapter(itemsList: List<String>): ArrayAdapter<String> {
         return ArrayAdapter(applicationContext, R.layout.style_spinner, itemsList)
     }
 
     private fun spinnerColorInitializer() {
 
-        selectedColor = ColorList().defaultColor
+        selectedColor = ColorList(this).defaultColor
         colorHex = selectedColor.hexHash
         textColorHex = selectedColor.contrastHexHash
 
         binding.colorSpinner.apply {
-            adapter = ColorSpinnerAdapter(applicationContext, ColorList().getColors())
-            setSelection(ColorList().colorPosition(selectedColor), false)
+            adapter = ColorSpinnerAdapter(applicationContext, ColorList(this@CardCreateActivity).getColors())
+            setSelection(ColorList(this@CardCreateActivity).colorPosition(selectedColor), false)
             onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
@@ -72,7 +72,7 @@ class CardCreateActivity : AppCompatActivity() {
                     position: Int,
                     id: Long
                 ) {
-                    selectedColor = ColorList().getColors()[position]
+                    selectedColor = ColorList(this@CardCreateActivity).getColors()[position]
                     colorHex = selectedColor.hexHash
                     textColorHex = selectedColor.contrastHexHash
                 }
@@ -138,8 +138,8 @@ class CardCreateActivity : AppCompatActivity() {
                 binding.editCardName.error = getString(R.string.name_not_empty)
             } else if (TextUtils.isEmpty(binding.inputCardNumber.text)){
                 binding.editCardNumber.error = getString(R.string.number_not_empty)
-            } else if(TextUtils.equals(binding.spinnerCardType.text, "Selecionar")){
-                binding.spinnerCardTypeLayout.error = "Selecione um Tipo!"
+            } else if(TextUtils.equals(binding.spinnerCardType.text, getString(R.string.select))){
+                binding.spinnerCardTypeLayout.error = getString(R.string.select_a_type)
             } else{
 
                 val card = CardEntity(
@@ -152,7 +152,7 @@ class CardCreateActivity : AppCompatActivity() {
 
                 viewModel.insertCard(card)
 
-                Toast.makeText(this, "Salvo com sucesso!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.saved_successfully), Toast.LENGTH_SHORT).show()
 
                 finish()
             }

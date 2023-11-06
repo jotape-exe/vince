@@ -1,6 +1,9 @@
 package com.company.ourfinances.view.utils
 
-class ColorList {
+import android.content.Context
+import com.company.ourfinances.R
+
+class ColorList(val context: Context) {
 
     private val textBlack = "000000"
     private val textWhite = "FFFFFF"
@@ -18,21 +21,21 @@ class ColorList {
 
     fun getColors(): List<ColorObject> {
         return listOf(
-            ColorObject("Prata", "C0C0C0", textBlack),
-            ColorObject("Preto", textBlack, textWhite),
-            ColorObject("Cinza", "808080", textWhite),
-            ColorObject("Marrom", "800000", textWhite),
-            ColorObject("Vermelho", "FF0000", textWhite),
-            ColorObject("Fúcsia", "FF00FF", textWhite),
-            ColorObject("Verde", "008000", textWhite),
-            ColorObject("Lima", "00FF00", textBlack),
-            ColorObject("Oliva", "808000", textWhite),
-            ColorObject("Amarelo", "FFFF00", textBlack),
-            ColorObject("Marinho", "000080", textWhite),
-            ColorObject("Azul", "0000FF", textWhite),
-            ColorObject("Verde-azulado", "008080", textWhite),
-            ColorObject("Aqua", "00FFFF", textBlack),
-            ColorObject("Roxo", "9803FC", textWhite)
+            ColorObject(context.getString(R.string.silver), "C0C0C0", textBlack),
+            ColorObject(context.getString(R.string.black), textBlack, textWhite),
+            ColorObject(context.getString(R.string.gray), "808080", textWhite),
+            ColorObject(context.getString(R.string.brown), "800000", textWhite),
+            ColorObject(context.getString(R.string.red), "FF0000", textWhite),
+            ColorObject(context.getString(R.string.fuchsia), "FF00FF", textWhite),
+            ColorObject(context.getString(R.string.green), "008000", textWhite),
+            ColorObject(context.getString(R.string.lime), "00FF00", textBlack),
+            ColorObject(context.getString(R.string.olive), "808000", textWhite),
+            ColorObject(context.getString(R.string.yellow), "FFFF00", textBlack),
+            ColorObject(context.getString(R.string.marine), "000080", textWhite),
+            ColorObject(context.getString(R.string.blue), "0000FF", textWhite),
+            ColorObject(context.getString(R.string.bluish_green), "008080", textWhite),
+            ColorObject(context.getString(R.string.aqua), "00FFFF", textBlack),
+            ColorObject(context.getString(R.string.purple), "9803FC", textWhite)
 
         )
     }

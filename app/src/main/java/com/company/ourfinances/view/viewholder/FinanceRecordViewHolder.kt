@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.graphics.Color
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FinaceRecordViewItemBinding
 import com.company.ourfinances.model.entity.CategoryRecordEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
@@ -19,22 +20,18 @@ class FinanceRecordViewHolder(
         bind.textTitleView.text = financeRecordEntity.title
         bind.textDateView.text = financeRecordEntity.dateRecord
         bind.textValueView.text = "R$ ${financeRecordEntity.value}"
-        bind.textTagRecord.text = listener.getEntityNameById(
-            financeRecordEntity.categoryRecordId, CategoryRecordEntity::class.java
-        )
-        bind.textTypePayCard.text = listener.getEntityNameById(
-            financeRecordEntity.paymentTypeId, PaymentTypeEntity::class.java
-        )
+        bind.textTagRecord.text = financeRecordEntity.categoryRecord
+        bind.textTypePayCard.text = financeRecordEntity.paymentType
 
         bind.buttonDeleteView.setOnClickListener {
 
             AlertDialog.Builder(itemView.context)
-                .setTitle("Remoção de Registro")
-                .setMessage("Tem certeza que deseja excluir o registro? Isso não pode ser revertido.")
-                .setPositiveButton("Sim") { dialog, which ->
+                .setTitle(itemView.context.getString(R.string.delete_record))
+                .setMessage(itemView.context.getString(R.string.really_delete_record))
+                .setPositiveButton(itemView.context.getString(R.string.yes)) { dialog, which ->
                     listener.onDelete(financeRecordEntity.recordId)
                 }
-                .setNeutralButton("Cancelar", null)
+                .setNeutralButton(itemView.context.getString(R.string.cancel), null)
                 .create()
                 .show()
         }

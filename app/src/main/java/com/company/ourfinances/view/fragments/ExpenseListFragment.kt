@@ -16,8 +16,8 @@ import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.entity.CardEntity
 import com.company.ourfinances.model.entity.CategoryRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
+import com.company.ourfinances.model.enums.EnumUtils
 import com.company.ourfinances.model.enums.RegisterTypeEnum
-import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.view.FinanceActivity
 import com.company.ourfinances.view.adapters.FinanceRecordAdapter
 import com.company.ourfinances.view.listener.OnFinanceRecordListener
@@ -40,7 +40,7 @@ class ExpenseListFragment : Fragment() {
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
         cardViewModel = ViewModelProvider(this)[CardViewModel::class.java]
 
-        viewModel.getAllByExpenseCategory(RegisterTypeEnum.EXPENSE.value)
+        viewModel.getAllByExpenseCategory(EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, requireContext()))
 
         adapter = FinanceRecordAdapter()
 
@@ -50,14 +50,14 @@ class ExpenseListFragment : Fragment() {
         val listener = object : OnFinanceRecordListener {
             override fun onDelete(id: Long) {
                 viewModel.delete(id)
-                viewModel.getAllByExpenseCategory(RegisterTypeEnum.EXPENSE.value)
+                viewModel.getAllByExpenseCategory(EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, requireContext()))
             }
 
             override fun onClick(id: Long) {
                 val bundle = Bundle()
 
                 bundle.putLong(DatabaseConstants.FinanceRecord.recordId, id)
-                bundle.putString(activity?.getString(R.string.fragmentIdentifier), TitleEnum.DESPESA.value)
+                bundle.putString(activity?.getString(R.string.fragmentIdentifier), EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, requireContext()))
 
                 startActivity(Intent(context, FinanceActivity::class.java).putExtras(bundle))
             }
@@ -89,7 +89,7 @@ class ExpenseListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getAllByExpenseCategory(RegisterTypeEnum.EXPENSE.value)
+        viewModel.getAllByExpenseCategory(EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, requireContext()))
 
         observe()
     }

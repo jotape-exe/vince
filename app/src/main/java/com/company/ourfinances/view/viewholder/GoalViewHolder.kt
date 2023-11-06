@@ -2,6 +2,7 @@ package com.company.ourfinances.view.viewholder
 
 import android.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import com.company.ourfinances.R
 import com.company.ourfinances.databinding.GoalItemBinding
 import com.company.ourfinances.model.entity.GoalEntity
 import com.company.ourfinances.view.listener.OnGoalListener
@@ -14,20 +15,20 @@ class GoalViewHolder(
     RecyclerView.ViewHolder(bind.root) {
         fun bind(goal: GoalEntity){
             bind.textGoalName.text = goal.name
-            bind.textGoalCurrent.text = "R$ ${goal.currentValue.toString()}"
-            bind.textGoalFinish.text = "R$ ${goal.finalValue.toString()}"
+            bind.textGoalCurrent.text = "${itemView.context.getString(R.string.coin)} ${goal.currentValue.toString()}"
+            bind.textGoalFinish.text = "${itemView.context.getString(R.string.coin)} ${goal.finalValue.toString()}"
             bind.textGoalDate.text = goal.limitDate
             bind.buttonEditGoal.setOnClickListener {
                 listener.onClick(goal.goalId)
             }
             bind.buttonDeleteGoal.setOnClickListener {
                 AlertDialog.Builder(itemView.context)
-                    .setTitle("Remoção de Meta")
-                    .setMessage("Tem certeza que deseja excluir a meta? Isso não pode ser revertido.")
-                    .setPositiveButton("Sim") { dialog, which ->
+                    .setTitle(itemView.context.getString(R.string.delete_goal))
+                    .setMessage(itemView.context.getString(R.string.reallt_delete_goal))
+                    .setPositiveButton(itemView.context.getString(R.string.yes)) { dialog, which ->
                         listener.onDelete(goal.goalId)
                     }
-                    .setNeutralButton("Cancelar", null)
+                    .setNeutralButton(itemView.context.getString(R.string.cancel), null)
                     .create()
                     .show()
             }

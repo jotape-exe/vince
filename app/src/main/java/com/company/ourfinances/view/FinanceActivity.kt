@@ -3,16 +3,15 @@ package com.company.ourfinances.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityFinanceBinding
-import com.company.ourfinances.model.enums.TitleEnum
+import com.company.ourfinances.model.enums.EnumUtils
+import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.view.adapters.FinanceTabAdapter
 import com.company.ourfinances.view.fragments.ExpenseFragment
 import com.company.ourfinances.view.fragments.RevenueFragment
 import com.company.ourfinances.view.fragments.TransferFragment
-import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 import com.google.android.material.tabs.TabLayout
 
 class FinanceActivity : AppCompatActivity() {
@@ -44,13 +43,13 @@ class FinanceActivity : AppCompatActivity() {
 
     private fun setupCurrentFragment(fragment: String?) {
         when(fragment){
-            TitleEnum.RECEITA.value -> {
+            EnumUtils.getRegisterType(RegisterTypeEnum.RECEITA, this) -> {
                 viewPager2.currentItem = REVENUE_POSITION
             }
-            TitleEnum.DESPESA.value -> {
+            EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, this) -> {
                 viewPager2.currentItem = EXPENSE_POSITION
             }
-            TitleEnum.TRANSFERENCIA.value -> {
+            EnumUtils.getRegisterType(RegisterTypeEnum.TRANSFERENCIA, this) -> {
                 viewPager2.currentItem = TRANSFER_POSITION
             }
         }

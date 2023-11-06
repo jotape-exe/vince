@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         header = binding.navView.getHeaderView(0)
 
         header.setOnClickListener {
-            Toast.makeText(this, "Click", Toast.LENGTH_SHORT).show()
+
         }
 
         binding.navView.setNavigationItemSelectedListener { menuItem ->

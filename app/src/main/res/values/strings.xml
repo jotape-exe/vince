@@ -120,4 +120,56 @@
     <string name="credit">Crédito</string>
     <string name="debit">Débito</string>
     <string name="money">Dinheiro</string>
+    <string name="no_records_saved">Nenhum registro salvo!</string>
+
+
+    <!--Cores-->
+    <string name="silver">Prata</string>
+    <string name="black">Preto</string>
+    <string name="gray">Cinza</string>
+    <string name="brown">Marrom</string>
+    <string name="red">Vermelho</string>
+    <string name="fuchsia">Fúcsia</string>
+    <string name="green">Verde</string>
+    <string name="lime">Lima</string>
+    <string name="olive">Oliva</string>
+    <string name="yellow">Amarelo</string>
+    <string name="marine">Marinho</string>
+    <string name="blue">Azul</string>
+    <string name="bluish_green">Verde-azulado</string>
+    <string name="purple">Roxo</string>
+    <string name="aqua">Aqua</string>
+    <!--Cores-->
+
+    <string name="saved_successfully">Salvo com sucesso!</string>
+    <string name="select_a_type">Selecione um Tipo!</string>
+    <string name="empty_name">Nome vazio!</string>
+    <string name="empty_value">Valor vazio!</string>
+    <string name="goal_greater_than_zero">Meta deve ser maior que zero!</string>
+    <string name="value_greater_target">Valor maior que a meta!</string>
+    <string name="cancel">Cancelar</string>
+    <string name="yes">Sim</string>
+    <string name="really_delete">Tem certeza que deseja excluir tudo? Isso não pode ser revertido.</string>
+    <string name="success">Sucesso!</string>
+    <string name="delete_card">Apagar Cartão</string>
+    <string name="really_delete_card">Tem certeza que deseja excluir o cartão? Todos os registros com este cartão serão apagados!</string>
+    <string name="delete_record">Remoção de Registro</string>
+    <string name="really_delete_record">Tem certeza que deseja excluir o registro? Isso não pode ser revertido.</string>
+    <string name="delete_goal">Apagar Meta</string>
+    <string name="reallt_delete_goal">Tem certeza que deseja excluir a meta? Isso não pode ser revertido.</string>
+    <string name="select_a_category">Selecione uma categoria!</string>
+    <string name="choose_a_card">Escolha um cartão</string>
+    <string name="view">Ver</string>
+    <string name="transactions">Transações</string>
+
+    <string name="categoria_alimentacao">Alimentação</string>
+    <string name="categoria_moradia">Moradia</string>
+    <string name="categoria_transporte">Transporte</string>
+    <string name="categoria_lazer">Lazer</string>
+    <string name="categoria_investimentos">Investimentos</string>
+    <string name="categoria_compras">Compras</string>
+    <string name="categoria_veiculo">Veículo</string>
+    <string name="categoria_outro">Outro</string>
+    <string name="categoria_saude">Saúde</string>
+    <string name="billet">Boleto</string>
 </resources>

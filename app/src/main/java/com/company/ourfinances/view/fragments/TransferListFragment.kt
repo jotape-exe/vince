@@ -15,8 +15,8 @@ import com.company.ourfinances.databinding.FragmentTransferListBinding
 import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.entity.CardEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
+import com.company.ourfinances.model.enums.EnumUtils
 import com.company.ourfinances.model.enums.RegisterTypeEnum
-import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.view.FinanceActivity
 import com.company.ourfinances.view.adapters.TransferRecordAdapter
 import com.company.ourfinances.view.listener.OnFinanceRecordListener
@@ -47,14 +47,14 @@ class TransferListFragment : Fragment() {
         val listener = object : OnFinanceRecordListener {
             override fun onDelete(id: Long) {
                 viewModel.delete(id)
-                viewModel.getAllByExpenseCategory(RegisterTypeEnum.TRANSFER.value)
+                viewModel.getAllByExpenseCategory(EnumUtils.getRegisterType(RegisterTypeEnum.TRANSFERENCIA, requireContext()))
             }
 
             override fun onClick(id: Long) {
                 val bundle = Bundle()
 
                 bundle.putLong(DatabaseConstants.FinanceRecord.recordId, id)
-                bundle.putString(activity?.getString(R.string.fragmentIdentifier), TitleEnum.TRANSFERENCIA.value)
+                bundle.putString(activity?.getString(R.string.fragmentIdentifier), EnumUtils.getRegisterType(RegisterTypeEnum.TRANSFERENCIA, requireContext()))
 
                 startActivity(Intent(context, FinanceActivity::class.java).putExtras(bundle))
             }
@@ -82,7 +82,8 @@ class TransferListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getAllByExpenseCategory(RegisterTypeEnum.TRANSFER.value)
+        viewModel.getAllByExpenseCategory(EnumUtils.getRegisterType(RegisterTypeEnum.TRANSFERENCIA,requireContext())
+        )
 
         observe()
 

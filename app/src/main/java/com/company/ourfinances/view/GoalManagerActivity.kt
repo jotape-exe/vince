@@ -123,24 +123,24 @@ class GoalManagerActivity : AppCompatActivity() {
         binding.buttonSaveGoal.setOnClickListener {
             when {
                 TextUtils.isEmpty(binding.inputGoalName.text) -> {
-                    binding.editGoalName.error = "Nome vazio!"
+                    binding.editGoalName.error = getString(R.string.empty_name)
                 }
                 TextUtils.isEmpty(binding.inputCurrentRevenue.text) -> {
-                    binding.numberCurrentRevenue.error = "Valor vazio!"
+                    binding.numberCurrentRevenue.error = getString(R.string.empty_value)
                 }
                 TextUtils.isEmpty(binding.inputGoalRevenue.text) -> {
-                    binding.numberGoalRevenue.error = "Valor vazio!"
+                    binding.numberGoalRevenue.error = getString(R.string.empty_value)
                 }
                 TextUtils.equals(binding.buttonDatePickerGoal.text, getString(R.string.select_date)) -> {
                     binding.buttonDatePickerLayoutGoal.error = getString(R.string.date_cannot_be_empty)
                 }
 
                 binding.inputGoalRevenue.text.toString().toDouble() <= 0.0 -> {
-                    binding.numberGoalRevenue.error = "Meta deve ser maior que zero!"
+                    binding.numberGoalRevenue.error = getString(R.string.goal_greater_than_zero)
                 }
 
                 binding.inputCurrentRevenue.text.toString().toDouble() > binding.inputGoalRevenue.text.toString().toDouble() ->{
-                    binding.numberCurrentRevenue.error = "Valor maior que a meta!"
+                    binding.numberCurrentRevenue.error = getString(R.string.value_greater_target)
                 }
 
                 else -> {
@@ -155,7 +155,7 @@ class GoalManagerActivity : AppCompatActivity() {
                     viewModel.save(goal)
                     resetGoalId()
 
-                    Toast.makeText(this, "Salvo com sucesso!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.saved_successfully), Toast.LENGTH_SHORT).show()
 
                     finish()
 

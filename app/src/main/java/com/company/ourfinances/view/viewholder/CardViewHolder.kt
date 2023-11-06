@@ -3,6 +3,7 @@ package com.company.ourfinances.view.viewholder
 import android.app.AlertDialog
 import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
+import com.company.ourfinances.R
 import com.company.ourfinances.databinding.CardItemBinding
 import com.company.ourfinances.model.entity.CardEntity
 import com.company.ourfinances.view.listener.OnCardListener
@@ -27,13 +28,12 @@ class CardViewHolder(
         bind.cardContent.background.setTint(Color.parseColor(card.cardColor))
         bind.cardContent.setOnLongClickListener {
             AlertDialog.Builder(itemView.context)
-                .setTitle("Remoção de Cartão")
-                .setMessage("Tem certeza que deseja excluir o cartão? Todos os registros com este cartão" +
-                        " serão apagados!")
-                .setPositiveButton("Sim") { dialog, which ->
+                .setTitle(itemView.context.getString(R.string.delete_card))
+                .setMessage(itemView.context.getString(R.string.really_delete_card))
+                .setPositiveButton(itemView.context.getString(R.string.yes)) { dialog, which ->
                     listener.onLongClick(card.cardId)
                 }
-                .setNeutralButton("Cancelar", null)
+                .setNeutralButton(itemView.context.getString(R.string.cancel), null)
                 .create()
                 .show()
             true

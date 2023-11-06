@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentGoalBinding
 import com.company.ourfinances.model.constants.DatabaseConstants
-import com.company.ourfinances.model.enums.TitleEnum
-import com.company.ourfinances.view.FinanceActivity
 import com.company.ourfinances.view.GoalManagerActivity
 import com.company.ourfinances.view.adapters.GoalAdapter
 import com.company.ourfinances.view.listener.OnGoalListener

@@ -10,7 +10,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Nenhum registro salvo!"
+        android:text="@string/no_records_saved"
         android:textSize="22sp"
         android:gravity="center"
         android:textColor="@android:color/darker_gray"

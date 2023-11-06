@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentHomeBinding
-import com.company.ourfinances.model.enums.TitleEnum
+import com.company.ourfinances.model.enums.EnumUtils
+import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.adapters.HomeComponentAdapter
 import com.company.ourfinances.view.utils.HomeComponent
@@ -26,12 +27,21 @@ class HomeFragment : Fragment() {
     lateinit var textDescription: Array<String>
     lateinit var textTitle: Array<String>
 
+    lateinit var receita: String
+    lateinit var despesa: String
+    lateinit var transferencia: String
+
+
     private lateinit var binding: FragmentHomeBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        receita = EnumUtils.getRegisterType(RegisterTypeEnum.RECEITA, context)
+        despesa = EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, context)
+        transferencia = EnumUtils.getRegisterType(RegisterTypeEnum.TRANSFERENCIA, context)
 
         return binding.root
     }
@@ -56,16 +66,16 @@ class HomeFragment : Fragment() {
                 val bundle = Bundle()
 
                 when (fragmentIdentifier) {
-                    TitleEnum.DESPESA.value -> {
-                        bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.DESPESA.value)
+                    receita -> {
+                        bundle.putString(getString(R.string.fragmentIdentifier), receita)
                     }
 
-                    TitleEnum.RECEITA.value -> {
-                        bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.RECEITA.value)
+                    despesa -> {
+                        bundle.putString(getString(R.string.fragmentIdentifier), despesa)
                     }
 
-                    TitleEnum.TRANSFERENCIA.value -> {
-                        bundle.putString(getString(R.string.fragmentIdentifier), TitleEnum.TRANSFERENCIA.value)
+                    transferencia -> {
+                        bundle.putString(getString(R.string.fragmentIdentifier), transferencia)
                     }
                 }
 
@@ -98,9 +108,9 @@ class HomeFragment : Fragment() {
         )
 
         textTitle = arrayOf(
-            TitleEnum.DESPESA.value,
-            TitleEnum.RECEITA.value,
-            TitleEnum.TRANSFERENCIA.value
+            despesa,
+            receita,
+            transferencia
         )
 
         for (item in imageId.indices) {

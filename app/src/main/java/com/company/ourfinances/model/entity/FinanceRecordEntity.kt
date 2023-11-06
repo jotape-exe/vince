@@ -9,18 +9,6 @@ import androidx.room.PrimaryKey
     tableName = "finance_records",
     foreignKeys = [
         ForeignKey(
-            entity = CategoryRecordEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("categoryRecordId"),
-            onDelete = ForeignKey.CASCADE
-        ),
-        ForeignKey(
-            entity = PaymentTypeEntity::class,
-            parentColumns = arrayOf("paymentId"),
-            childColumns = arrayOf("paymentTypeId"),
-            onDelete = ForeignKey.CASCADE
-        ),
-        ForeignKey(
             entity = CardEntity::class,
             parentColumns = arrayOf("cardId"),
             childColumns = arrayOf("cardId"),
@@ -36,10 +24,8 @@ data class FinanceRecordEntity(
     val dateRecord: String,
     val destinationAccount: String?,
     val typeRecord: String,
-    @ColumnInfo(index = true)
-    val categoryRecordId: Long?,
-    @ColumnInfo(index = true)
-    val paymentTypeId: Long?,
+    val categoryRecord: String,
+    val paymentType: String,
     @ColumnInfo(index = true)
     val cardId: Long?
 ) {
@@ -50,8 +36,8 @@ data class FinanceRecordEntity(
         private lateinit var dateRecord: String
         private var destinationAccount: String? = null
         private lateinit var typeRecord: String
-        private var categoryRecordId: Long? = null
-        private var paymentTypeId: Long? = null
+        private var categoryRecord: String = ""
+        private var paymentType: String = ""
         private var cardId: Long? = null
 
         fun setRecordId(recordId: Long) = apply { this.recordId = recordId }
@@ -66,9 +52,9 @@ data class FinanceRecordEntity(
 
         fun setTypeRecord(typeRecord: String) = apply { this.typeRecord = typeRecord }
 
-        fun setCategoryRecordId(categoryRecordId: Long?) = apply { this.categoryRecordId = categoryRecordId }
+        fun setCategoryRecord(categoryRecord: String) = apply { this.categoryRecord = categoryRecord }
 
-        fun setPaymentTypeId(paymentTypeId: Long?) = apply { this.paymentTypeId = paymentTypeId }
+        fun setPaymentType(paymentType: String) = apply { this.paymentType = paymentType }
 
         fun setCardId(cardId: Long?) = apply { this.cardId = cardId }
 
@@ -79,8 +65,8 @@ data class FinanceRecordEntity(
             dateRecord,
             destinationAccount,
             typeRecord,
-            categoryRecordId,
-            paymentTypeId,
+            categoryRecord,
+            paymentType,
             cardId
         )
     }

@@ -16,8 +16,8 @@ import com.anychart.enums.LegendLayout
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentInsightsBinding
 import com.company.ourfinances.model.entity.FinanceRecordEntity
+import com.company.ourfinances.model.enums.EnumUtils
 import com.company.ourfinances.model.enums.RegisterTypeEnum
-import com.company.ourfinances.model.enums.TitleEnum
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 
 class InsightsFragment : Fragment() {
@@ -41,7 +41,7 @@ class InsightsFragment : Fragment() {
 
         pie = AnyChart.pie()
         pie.labels().position("outside")
-        pie.title("MOVIMENTAÇÕES")
+        pie.title(getString(R.string.transactions).uppercase())
         pie.legend()
             .position("center-bottom")
             .itemsLayout(LegendLayout.HORIZONTAL)
@@ -64,14 +64,14 @@ class InsightsFragment : Fragment() {
 
             binding.root.findViewById<TextView>(R.id.text_not_data).isVisible = list.isEmpty()
 
-            val revenueValue = calculateTotalByType(list, RegisterTypeEnum.REVENUE)
-            val transferValue = calculateTotalByType(list, RegisterTypeEnum.TRANSFER)
-            val expenseValue = calculateTotalByType(list, RegisterTypeEnum.EXPENSE)
+            val revenueValue = calculateTotalByType(list, RegisterTypeEnum.RECEITA)
+            val transferValue = calculateTotalByType(list, RegisterTypeEnum.TRANSFERENCIA)
+            val expenseValue = calculateTotalByType(list, RegisterTypeEnum.DESPESA)
 
             val dataEntries = listOf(
-                ValueDataEntry(TitleEnum.RECEITA.value, revenueValue),
-                ValueDataEntry(TitleEnum.TRANSFERENCIA.value, transferValue),
-                ValueDataEntry(TitleEnum.DESPESA.value, expenseValue)
+                ValueDataEntry(EnumUtils.getRegisterType(RegisterTypeEnum.RECEITA, requireContext()), revenueValue),
+                ValueDataEntry(EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, requireContext()), transferValue),
+                ValueDataEntry(EnumUtils.getRegisterType(RegisterTypeEnum.TRANSFERENCIA, requireContext()), expenseValue)
             )
 
             pie.data(dataEntries)

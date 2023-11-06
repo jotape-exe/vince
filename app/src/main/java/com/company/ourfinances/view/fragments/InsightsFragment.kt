@@ -26,12 +26,20 @@ class InsightsFragment : Fragment() {
     private lateinit var viewModel: FinanceActivityViewModel
     private lateinit var pie: Pie
 
+    lateinit var receita: String
+    lateinit var despesa: String
+    lateinit var transferencia: String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
         binding = FragmentInsightsBinding.inflate(inflater, container, false)
+
+        receita = EnumUtils.getRegisterType(RegisterTypeEnum.RECEITA, context)
+        despesa = EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, context)
+        transferencia = EnumUtils.getRegisterType(RegisterTypeEnum.TRANSFERENCIA, context)
 
         return binding.root
     }
@@ -53,8 +61,8 @@ class InsightsFragment : Fragment() {
 
     }
 
-    private fun calculateTotalByType(list: List<FinanceRecordEntity>, typeEnum: RegisterTypeEnum): Float {
-        return list.filter { record -> record.typeRecord == typeEnum.value }
+    private fun calculateTotalByType(list: List<FinanceRecordEntity>, typeEnum: String): Float {
+        return list.filter { record -> record.typeRecord == typeEnum }
             .sumOf { record -> record.value }
             .toFloat()
     }
@@ -64,14 +72,14 @@ class InsightsFragment : Fragment() {
 
             binding.root.findViewById<TextView>(R.id.text_not_data).isVisible = list.isEmpty()
 
-            val revenueValue = calculateTotalByType(list, RegisterTypeEnum.RECEITA)
-            val transferValue = calculateTotalByType(list, RegisterTypeEnum.TRANSFERENCIA)
-            val expenseValue = calculateTotalByType(list, RegisterTypeEnum.DESPESA)
+            val revenueValue = calculateTotalByType(list, receita)
+            val transferValue = calculateTotalByType(list, transferencia)
+            val expenseValue = calculateTotalByType(list, despesa)
 
             val dataEntries = listOf(
-                ValueDataEntry(EnumUtils.getRegisterType(RegisterTypeEnum.RECEITA, requireContext()), revenueValue),
-                ValueDataEntry(EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, requireContext()), transferValue),
-                ValueDataEntry(EnumUtils.getRegisterType(RegisterTypeEnum.TRANSFERENCIA, requireContext()), expenseValue)
+                ValueDataEntry(receita, revenueValue),
+                ValueDataEntry(despesa, transferValue),
+                ValueDataEntry(transferencia, expenseValue)
             )
 
             pie.data(dataEntries)

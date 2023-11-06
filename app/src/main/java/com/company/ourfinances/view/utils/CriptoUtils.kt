@@ -22,7 +22,7 @@ class CryptoUtils {
 
     fun encrypt(cardNumber: String): String {
         try {
-            val keySpec: KeySpec = PBEKeySpec(password.toCharArray(), salt.toByteArray(), 26, 26) // Geração da chave secreta
+            val keySpec: KeySpec = PBEKeySpec(password.toCharArray(), salt.toByteArray(), 212, 256) // Geração da chave secreta
             val secretKeyFactory: SecretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1")
             val keyBytes: ByteArray = secretKeyFactory.generateSecret(keySpec).encoded
             val secretKey: SecretKey = SecretKeySpec(keyBytes, "AES")
@@ -53,7 +53,7 @@ class CryptoUtils {
         try {
             val encryptedTextBytes: ByteArray = Base64.decode(encryptedCardNumber, Base64.DEFAULT)
 
-            val keySpec: KeySpec = PBEKeySpec(password.toCharArray(), salt.toByteArray(), 26, 26) // Geração da chave secreta
+            val keySpec: KeySpec = PBEKeySpec(password.toCharArray(), salt.toByteArray(), 212, 256) // Geração da chave secreta
             val secretKeyFactory: SecretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1")
             val keyBytes: ByteArray = secretKeyFactory.generateSecret(keySpec).encoded
             val secretKey: SecretKey = SecretKeySpec(keyBytes, "AES")

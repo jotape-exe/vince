@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,8 +38,6 @@ class RevenueFragment : Fragment(), FabClickListener {
     private lateinit var viewModel: FinanceActivityViewModel
     private lateinit var cardViewModel: CardViewModel
 
-    private lateinit var paymentTypesList: List<PaymentTypeEntity>
-    private lateinit var categoryRecordList: List<CategoryRecordEntity>
     private var cards: List<CardEntity> = listOf()
 
     private var recordId: Long = 0
@@ -80,28 +79,7 @@ class RevenueFragment : Fragment(), FabClickListener {
     }
 
     override fun doSave() {
-        if (TextUtils.isEmpty(binding.inputTitle.text)) {
-            binding.editTitle.error = getString(R.string.title_cannot_be_empty)
-        } else if (TextUtils.equals(binding.spinnerCategory.text, getString(R.string.select))) {
-            binding.spinnerCategoryLayout.error = getString(R.string.select_a_category)
-        } else if (TextUtils.equals(
-                binding.buttonDatePicker.text,
-                requireContext().getString(R.string.select_date)
-            )
-        ) {
-            binding.buttonDatePickerLayout.error = getString(R.string.date_cannot_be_empty)
-        } else if (TextUtils.equals(binding.spinnerTypePay.text, getString(R.string.select))) {
-            binding.spinnerTypePayLayout.error = getString(R.string.select_a_type)
-        } else if (TextUtils.equals(
-                binding.spinnerCard.text,
-                getString(R.string.select)
-            ) and binding.spinnerTypePay.text.equals("Cartão")
-        ) {
-            binding.spinnerCardLayout.error = getString(R.string.choose_a_card)
-        } else if (TextUtils.isEmpty(binding.inputValue.text)) {
-            binding.editValue.error = getString(R.string.value_cannot_be_empty)
-        } else {
-
+        if (validateFields()){
             val financeRecord = FinanceRecordEntity.Builder()
                 .setRecordId(recordId)
                 .setTitle(binding.inputTitle.text.toString())
@@ -122,11 +100,12 @@ class RevenueFragment : Fragment(), FabClickListener {
 
             viewModel.save(financeRecord.build())
 
+            Log.i("info", financeRecord.build().toString())
 
             clearAll()
 
             val bundle = Bundle()
-            bundle.putString(getString(R.string.fragmentIdentifier), EnumUtils.getRegisterType(RegisterTypeEnum.RECEITA, requireContext()))
+            bundle.putString(getString(R.string.fragmentIdentifier), EnumUtils.getRegisterType(RegisterTypeEnum.RECEITA, context))
 
             val extras = activity?.intent?.extras?.let {
                 it.getString(activity?.getString(R.string.fragmentIdentifier)) ?: ""
@@ -149,7 +128,6 @@ class RevenueFragment : Fragment(), FabClickListener {
             }
 
             resetRecordId()
-
         }
     }
 
@@ -317,6 +295,7 @@ class RevenueFragment : Fragment(), FabClickListener {
 
     private fun loadRecord() {
         val bundle = activity?.intent?.extras
+        //Log.i("info", "DATA -> ${bundle!!.getString(activity?.getString(R.string.fragmentIdentifier))}")
         bundle?.let { bundleObj ->
             if (bundleObj.getString(activity?.getString(R.string.fragmentIdentifier)) == EnumUtils.getRegisterType(RegisterTypeEnum.RECEITA, requireContext())) {
                 recordId = bundleObj.getLong(DatabaseConstants.FinanceRecord.recordId)
@@ -329,6 +308,27 @@ class RevenueFragment : Fragment(), FabClickListener {
         binding.textCard.isVisible = visibility
         binding.spinnerCard.isVisible = visibility
         binding.spinnerCardLayout.isVisible = visibility
+    }
+
+    private fun validateFields(): Boolean{
+        var isValid = false
+        if (TextUtils.isEmpty(binding.inputTitle.text)) {
+            binding.editTitle.error = getString(R.string.title_cannot_be_empty)
+        } else if (TextUtils.equals(binding.spinnerCategory.text, getString(R.string.select))) {
+            binding.spinnerCategoryLayout.error = getString(R.string.select_a_category)
+        } else if (TextUtils.equals(binding.buttonDatePicker.text, requireContext().getString(R.string.select_date))) {
+            binding.buttonDatePickerLayout.error = getString(R.string.date_cannot_be_empty)
+        } else if (TextUtils.equals(binding.spinnerTypePay.text, getString(R.string.select))) {
+            binding.spinnerTypePayLayout.error = getString(R.string.select_a_type)
+        } else if (TextUtils.equals(binding.spinnerCard.text, getString(R.string.select)) and binding.spinnerTypePay.text.equals("Cartão")) {
+            binding.spinnerCardLayout.error = getString(R.string.choose_a_card)
+        } else if (TextUtils.isEmpty(binding.inputValue.text)) {
+            binding.editValue.error = getString(R.string.value_cannot_be_empty)
+        } else{
+            isValid = true
+        }
+
+        return isValid
     }
 
 

@@ -25,8 +25,8 @@ class ShowRecordListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         when (intent.getStringExtra(getString(R.string.fragmentIdentifier))) {
-            EnumUtils.getRegisterType(RegisterTypeEnum.RECEITA, this) -> replaceFragment(ExpenseListFragment())
-            EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, this) -> replaceFragment(RevenueListFragment())
+            EnumUtils.getRegisterType(RegisterTypeEnum.RECEITA, this) -> replaceFragment(RevenueListFragment())
+            EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, this) -> replaceFragment(ExpenseListFragment())
             EnumUtils.getRegisterType(RegisterTypeEnum.TRANSFERENCIA, this) -> replaceFragment(TransferListFragment())
         }
 

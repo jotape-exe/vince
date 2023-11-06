@@ -2,6 +2,7 @@ package com.company.ourfinances.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +41,7 @@ class ExpenseListFragment : Fragment() {
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
         cardViewModel = ViewModelProvider(this)[CardViewModel::class.java]
 
-        viewModel.getAllByExpenseCategory(EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, requireContext()))
+        viewModel.getAllByExpenseCategory(EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, context))
 
         adapter = FinanceRecordAdapter()
 
@@ -50,30 +51,16 @@ class ExpenseListFragment : Fragment() {
         val listener = object : OnFinanceRecordListener {
             override fun onDelete(id: Long) {
                 viewModel.delete(id)
-                viewModel.getAllByExpenseCategory(EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, requireContext()))
+                viewModel.getAllByExpenseCategory(EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, context))
             }
 
             override fun onClick(id: Long) {
                 val bundle = Bundle()
 
                 bundle.putLong(DatabaseConstants.FinanceRecord.recordId, id)
-                bundle.putString(activity?.getString(R.string.fragmentIdentifier), EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, requireContext()))
+                bundle.putString(activity?.getString(R.string.fragmentIdentifier), EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, context))
 
                 startActivity(Intent(context, FinanceActivity::class.java).putExtras(bundle))
-            }
-
-            override fun <T> getEntityNameById(id: Long?, entityType: Class<T>): String {
-                return when (entityType) {
-                    PaymentTypeEntity::class.java -> {
-                        viewModel.getTypePaymentById(id!!).name
-                    }
-
-                    CategoryRecordEntity::class.java -> {
-                        viewModel.getCategoryById(id!!).name
-                    }
-
-                    else -> throw IllegalArgumentException("Tipo de entidade não suportado")
-                }
             }
 
             override fun getCardById(id: Long?): CardEntity? {
@@ -89,7 +76,7 @@ class ExpenseListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getAllByExpenseCategory(EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, requireContext()))
+        viewModel.getAllByExpenseCategory(EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, context))
 
         observe()
     }
@@ -98,6 +85,10 @@ class ExpenseListFragment : Fragment() {
         viewModel.financeRecordList.observe(viewLifecycleOwner) {
             binding.root.findViewById<TextView>(R.id.text_not_data).isVisible = it.isEmpty()
             adapter.updateList(it)
+             it.forEach {
+                print(it.typeRecord)
+                print(it.title)
+            }
         }
     }
 

@@ -96,20 +96,20 @@ class HomeFragment : Fragment() {
         componentsList = arrayListOf()
 
         imageId = arrayOf(
-            R.drawable.ic_expense,
             R.drawable.ic_money,
+            R.drawable.ic_expense,
             R.drawable.ic_transfer
         )
 
         textDescription = arrayOf(
-            getString(R.string.show_expense),
             getString(R.string.show_revenue),
+            getString(R.string.show_expense),
             getString(R.string.show_trasnfer)
         )
 
         textTitle = arrayOf(
-            despesa,
             receita,
+            despesa,
             transferencia
         )
 

@@ -59,15 +59,6 @@ class TransferListFragment : Fragment() {
                 startActivity(Intent(context, FinanceActivity::class.java).putExtras(bundle))
             }
 
-            override fun <T> getEntityNameById(id: Long?, entityType: Class<T>): String {
-                return when (entityType) {
-                    PaymentTypeEntity::class.java -> {
-                        viewModel.getTypePaymentById(id!!).name
-                    }
-                    else -> throw IllegalArgumentException("Tipo de entidade não suportado")
-                }
-            }
-
             override fun getCardById(id: Long?): CardEntity? {
                 return id?.let { cardViewModel.getCardById(it) }
             }

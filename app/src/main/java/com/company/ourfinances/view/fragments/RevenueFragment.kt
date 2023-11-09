@@ -151,6 +151,8 @@ class RevenueFragment : Fragment(), FabClickListener {
         binding.inputTitle.text?.clear()
         binding.inputValue.text?.clear()
         binding.buttonDatePicker.setText(activity?.getString(R.string.select_date))
+        binding.spinnerCategory.setText(requireContext().getString(R.string.select), false)
+        binding.spinnerTypePay.setText(requireContext().getString(R.string.select), false)
     }
 
     private fun listeners() {
@@ -265,12 +267,7 @@ class RevenueFragment : Fragment(), FabClickListener {
                 cards = it
                 val cardNames: List<String> = cards.map { cardEntity -> cardEntity.name }
 
-                binding.spinnerCard.setAdapter(
-                    ArrayAdapter(
-                        requireContext().applicationContext,
-                        R.layout.style_spinner, cardNames
-                    )
-                )
+                binding.spinnerCard.setAdapter(getAdapter(cardNames))
             }
         }
 
@@ -296,9 +293,9 @@ class RevenueFragment : Fragment(), FabClickListener {
     }
 
     private fun getAdapter(itemsList: List<String>): ArrayAdapter<String>? {
-        val adapter = activity?.let {
+        val adapter = context?.let {
             ArrayAdapter(
-                it.applicationContext,
+                it,
                 R.layout.style_spinner, itemsList
             )
         }
@@ -323,7 +320,9 @@ class RevenueFragment : Fragment(), FabClickListener {
     }
 
     private fun validateFields(): Boolean{
+
         var isValid = false
+
         if (TextUtils.isEmpty(binding.inputTitle.text)) {
             binding.editTitle.error = getString(R.string.title_cannot_be_empty)
         } else if (TextUtils.equals(binding.spinnerCategory.text, getString(R.string.select))) {
@@ -332,7 +331,7 @@ class RevenueFragment : Fragment(), FabClickListener {
             binding.buttonDatePickerLayout.error = getString(R.string.date_cannot_be_empty)
         } else if (TextUtils.equals(binding.spinnerTypePay.text, getString(R.string.select))) {
             binding.spinnerTypePayLayout.error = getString(R.string.select_a_type)
-        } else if(cardViewModel.cardRecordList.value!!.isEmpty()) {
+        } else if(cardViewModel.cardRecordList.value!!.isEmpty() and TextUtils.equals(binding.spinnerTypePay.text, getString(R.string.card))) {
             binding.spinnerTypePayLayout.error = getString(R.string.no_card)
 
             Snackbar.make(

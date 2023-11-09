@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var header: View
     private lateinit var themePreferences: ThemePreferences
+    private var currentFragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +49,16 @@ class MainActivity : AppCompatActivity() {
         setDrawerMenu()
 
         setBottomMenu()
+
+        if (savedInstanceState == null) {
+            currentFragment = HomeFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frame_bottom, currentFragment!!)
+                .commit()
+        } else {
+            currentFragment = supportFragmentManager.findFragmentById(R.id.frame_bottom)
+        }
+
 
     }
 
@@ -75,9 +86,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.item_help -> {
                     sendEmail()
                 }
+
                 R.id.item_settings -> {
                     startActivity(Intent(this, SettingsActivity::class.java))
                 }
+
                 R.id.item_logout -> firebaseLogout()
             }
             drawerLayout.closeDrawer(GravityCompat.START)
@@ -110,7 +123,10 @@ class MainActivity : AppCompatActivity() {
     private fun replaceFragment(fragment: Fragment): Boolean {
         val fragmentManager: FragmentManager = supportFragmentManager
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_bottom, fragment).commit()
+
+        fragmentTransaction.replace(R.id.frame_bottom, fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
 
         return true
     }
@@ -135,7 +151,7 @@ class MainActivity : AppCompatActivity() {
             data = Uri.parse("mailto:")
             putExtra(Intent.EXTRA_EMAIL, arrayOf("joaoxstone@gmail.com"))
         }
-            startActivity(intent)
+        startActivity(intent)
         return true
     }
 

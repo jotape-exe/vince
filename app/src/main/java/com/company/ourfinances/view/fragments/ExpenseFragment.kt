@@ -144,7 +144,7 @@ class ExpenseFragment : Fragment(), FabClickListener {
             binding.buttonDatePickerExpenseLayout.error = getString(R.string.date_cannot_be_empty)
         } else if (TextUtils.equals(binding.spinnerTypePayExpense.text, getString(R.string.select))) {
             binding.spinnerTypePayExpenseLayout.error = getString(R.string.select_a_type)
-        }else if(cardViewModel.cardRecordList.value!!.isEmpty()) {
+        }else if(cardViewModel.cardRecordList.value!!.isEmpty() and TextUtils.equals(binding.spinnerTypePayExpense.text, getString(R.string.card))) {
             binding.spinnerTypePayExpenseLayout.error = getString(R.string.no_card)
 
             Snackbar.make(
@@ -170,7 +170,8 @@ class ExpenseFragment : Fragment(), FabClickListener {
         binding.inputTitleExpense.text?.clear()
         binding.inputValueExpense.text?.clear()
         binding.buttonDatePickerExpense.setText(activity?.getString(R.string.select_date))
-
+        binding.spinnerCategoryExpense.setText(requireContext().getString(R.string.select), false)
+        binding.spinnerTypePayExpense.setText(requireContext().getString(R.string.select), false)
     }
 
     private fun resetRecordId() {
@@ -191,10 +192,7 @@ class ExpenseFragment : Fragment(), FabClickListener {
                 cards = it
                 val cardNames: List<String> = cards.map { cardEntity -> cardEntity.name }
 
-                binding.spinnerCardExpense.setAdapter(ArrayAdapter(
-                    requireContext().applicationContext,
-                    R.layout.style_spinner, cardNames
-                ))
+                binding.spinnerCardExpense.setAdapter(getAdapter(cardNames))
             }
         }
 
@@ -325,9 +323,9 @@ class ExpenseFragment : Fragment(), FabClickListener {
     }
 
     private fun getAdapter(itemsList: List<String>): ArrayAdapter<String>? {
-        val adapter = activity?.let {
+        val adapter = context?.let {
             ArrayAdapter(
-                it.applicationContext,
+                it,
                 R.layout.style_spinner, itemsList
             )
         }

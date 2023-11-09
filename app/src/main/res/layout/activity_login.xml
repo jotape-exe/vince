@@ -59,6 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        app:endIconMode="password_toggle"
         app:layout_constraintBottom_toTopOf="@+id/text_forgot_password"
         app:layout_constraintEnd_toEndOf="@+id/edit_email_login_layout"
         app:layout_constraintStart_toStartOf="@+id/edit_email_login_layout"

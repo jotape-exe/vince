@@ -77,6 +77,7 @@
         android:layout_margin="14dp"
         android:contentDescription="@string/save"
         android:elevation="4dp"
+        app:fabCustomSize="70dp"
         android:src="@drawable/ic_save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

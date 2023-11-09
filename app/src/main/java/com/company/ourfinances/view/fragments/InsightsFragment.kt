@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +19,7 @@ import com.company.ourfinances.databinding.FragmentInsightsBinding
 import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.enums.EnumUtils
 import com.company.ourfinances.model.enums.RegisterTypeEnum
+import com.company.ourfinances.view.preferences.ThemePreferences
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 
 class InsightsFragment : Fragment() {
@@ -46,6 +48,12 @@ class InsightsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var isDarkModeEnabled: Boolean = false
+
+        context?.let {
+            isDarkModeEnabled = ThemePreferences(it).getState()
+        }
+
 
         pie = AnyChart.pie()
         pie.labels().position("outside")
@@ -54,6 +62,13 @@ class InsightsFragment : Fragment() {
             .position("center-bottom")
             .itemsLayout(LegendLayout.HORIZONTAL)
             .align(Align.CENTER);
+
+            if (isDarkModeEnabled) {
+                pie.background().fill("#191C1A")
+            } else {
+                pie.background().fill("#FBFDF9")
+            }
+
 
         viewModel.getAllFinanceRecords()
 

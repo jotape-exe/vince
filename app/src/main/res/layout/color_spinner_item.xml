@@ -23,10 +23,11 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="Purple"
-        android:textColor="@color/black"
+        android:textColor="?attr/colorPrimary"
+        android:theme="@style/AppTheme"
+        android:fontFamily="@font/lexend"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/colorBlob"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

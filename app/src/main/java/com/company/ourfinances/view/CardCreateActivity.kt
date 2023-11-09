@@ -53,7 +53,7 @@ class CardCreateActivity : AppCompatActivity() {
     }
 
     private fun getAdapter(itemsList: List<String>): ArrayAdapter<String> {
-        return ArrayAdapter(applicationContext, R.layout.style_spinner, itemsList)
+        return ArrayAdapter(this, R.layout.style_spinner, itemsList)
     }
 
     private fun spinnerColorInitializer() {
@@ -63,7 +63,7 @@ class CardCreateActivity : AppCompatActivity() {
         textColorHex = selectedColor.contrastHexHash
 
         binding.colorSpinner.apply {
-            adapter = ColorSpinnerAdapter(applicationContext, ColorList(this@CardCreateActivity).getColors())
+            adapter = ColorSpinnerAdapter(this@CardCreateActivity, ColorList(this@CardCreateActivity).getColors())
             setSelection(ColorList(this@CardCreateActivity).colorPosition(selectedColor), false)
             onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -109,7 +109,7 @@ class CardCreateActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.editCardName.error = null
+                binding.editCardNumber.error = null
             }
 
             override fun afterTextChanged(s: Editable?) {

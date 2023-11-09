@@ -47,7 +47,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/spinner_category_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
         android:layout_width="200dp"
         android:layout_height="60dp"
         app:layout_constraintBottom_toTopOf="@id/text_date"
@@ -105,7 +105,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/spinner_type_pay_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
         android:layout_width="200dp"
         android:layout_height="60dp"
         app:layout_constraintBottom_toTopOf="@id/text_value"
@@ -166,7 +166,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/spinner_card_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:visibility="invisible"

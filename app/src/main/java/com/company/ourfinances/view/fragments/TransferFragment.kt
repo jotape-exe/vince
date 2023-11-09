@@ -83,12 +83,7 @@ class TransferFragment : Fragment(), FabClickListener {
                 cards = it
                 val cardNames: List<String> = cards.map { cardEntity -> cardEntity.name }
 
-                binding.spinnerCardTransfer.setAdapter(
-                    ArrayAdapter(
-                        requireContext().applicationContext,
-                        R.layout.style_spinner, cardNames
-                    )
-                )
+                binding.spinnerCardTransfer.setAdapter(getAdapter(cardNames))
             }
         }
 
@@ -175,7 +170,7 @@ class TransferFragment : Fragment(), FabClickListener {
             binding.buttonDatePickerLayoutTransfer.error = getString(R.string.date_cannot_be_empty)
         } else if (TextUtils.equals(binding.spinnerTypePayTransfer.text, getString(R.string.select))) {
             binding.spinnerTypePayLayoutTransfer.error = getString(R.string.select_a_type)
-        }else if(cardViewModel.cardRecordList.value!!.isEmpty()) {
+        }else if(cardViewModel.cardRecordList.value!!.isEmpty() and TextUtils.equals(binding.spinnerTypePayTransfer.text, getString(R.string.card))) {
             binding.spinnerTypePayLayoutTransfer.error = getString(R.string.no_card)
 
             Snackbar.make(
@@ -201,6 +196,7 @@ class TransferFragment : Fragment(), FabClickListener {
         binding.inputValueTransfer.text?.clear()
         binding.buttonDatePickerTransfer.setText(activity?.getString(R.string.select_date))
         binding.inputReceiverTransfer.text?.clear()
+        binding.spinnerTypePayTransfer.setText(requireContext().getString(R.string.select), false)
     }
 
     private fun setupLists() {
@@ -209,9 +205,9 @@ class TransferFragment : Fragment(), FabClickListener {
     }
 
     private fun getAdapter(itemsList: List<String>): ArrayAdapter<String>? {
-        val adapter = activity?.let {
+        val adapter = context?.let {
             ArrayAdapter(
-                it.applicationContext,
+                it,
                 R.layout.style_spinner, itemsList
             )
         }

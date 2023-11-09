@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:paddingEnd="10dp"
+                android:contentDescription="@string/close_nav"
                 android:backgroundTint="?attr/colorSecondary"
                 android:src="@drawable/ic_close"
                 app:layout_constraintBottom_toBottomOf="@+id/custom_toolbar_card"
@@ -110,7 +111,7 @@
             android:id="@+id/input_card_number"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="@string/enter_name" />
+            android:hint="@string/enter_number" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

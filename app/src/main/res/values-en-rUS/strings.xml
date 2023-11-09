@@ -170,5 +170,9 @@
     <string name="categoria_outro">Other</string>
     <string name="categoria_saude">Health</string>
     <string name="billet">Bill</string>
+    <string name="enter_number">Enter the number</string>
+    <string name="no_card">No card</string>
+    <string name="dont_have_cards">You don\'t have cards!</string>
+
 
 </resources>

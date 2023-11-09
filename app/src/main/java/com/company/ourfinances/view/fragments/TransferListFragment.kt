@@ -14,7 +14,6 @@ import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentTransferListBinding
 import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.entity.CardEntity
-import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.EnumUtils
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.view.FinanceActivity
@@ -34,7 +33,7 @@ class TransferListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentTransferListBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
         cardViewModel = ViewModelProvider(this)[CardViewModel::class.java]
@@ -66,7 +65,7 @@ class TransferListFragment : Fragment() {
 
         adapter.attachToListener(listener)
 
-        textNotEmpty = binding.root.findViewById<TextView>(R.id.text_not_data)
+        textNotEmpty = binding.root.findViewById(R.id.text_not_data)
 
         return binding.root
     }

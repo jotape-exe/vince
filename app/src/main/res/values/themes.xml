@@ -50,11 +50,16 @@
         <item name="colorOnFinance_record_backgroundContainer">#001f24</item>
         <item name="harmonizeFinance_record_background">false</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="android:textViewStyle">@style/TextStyle</item>
     </style>
 
     <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
         <item name="color">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="TextStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">?android:attr/colorPrimary</item>
     </style>
 
 </resources>

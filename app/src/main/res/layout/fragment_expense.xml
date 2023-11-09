@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_expense"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="4dp"
@@ -25,15 +26,14 @@
         app:layout_constraintBottom_toTopOf="@id/text_category_expense"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_title_expense" >
+        app:layout_constraintTop_toBottomOf="@id/text_title_expense">
 
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_title_expense"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="@string/describe_title"
-            />
+            android:hint="@string/describe_title" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,7 +56,7 @@
         android:layout_height="60dp"
         app:layout_constraintBottom_toTopOf="@id/text_date_expense"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_category_expense" >
+        app:layout_constraintTop_toBottomOf="@id/text_category_expense">
 
         <AutoCompleteTextView
             android:id="@+id/spinner_category_expense"
@@ -83,16 +83,16 @@
         android:layout_height="60dp"
         app:layout_constraintBottom_toTopOf="@id/text_type_pay_expense"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_date_expense" >
+        app:layout_constraintTop_toBottomOf="@+id/text_date_expense">
 
         <AutoCompleteTextView
             android:id="@+id/button_date_picker_expense"
-            android:inputType="none"
-            android:drawableEnd="@drawable/ic_calendar_month"
-            android:padding="10dp"
-            android:text="@string/select_date"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:drawableEnd="@drawable/ic_calendar_month"
+            android:inputType="none"
+            android:padding="10dp"
+            android:text="@string/select_date" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,7 +100,7 @@
         android:id="@+id/text_type_pay_expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-         android:text="@string/type_pay"
+        android:text="@string/type_pay"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/spinner_type_pay_expense_layout"
         app:layout_constraintStart_toStartOf="parent"
@@ -170,19 +170,19 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:visibility="invisible"
-        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/spinner_type_pay_expense_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/spinner_type_pay_expense_layout">
+        app:layout_constraintTop_toTopOf="@+id/spinner_type_pay_expense_layout"
+        tools:visibility="visible">
 
         <AutoCompleteTextView
             android:id="@+id/spinner_card_expense"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
+            android:text="@string/select"
             android:visibility="invisible"
-            tools:visibility="visible"
-            android:text="@string/select" />
+            tools:visibility="visible" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -22,6 +22,7 @@ import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.EnumUtils
 import com.company.ourfinances.model.enums.RegisterTypeEnum
+import com.company.ourfinances.view.CardCreateActivity
 import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.listener.FabClickListener
 import com.company.ourfinances.view.listener.OnSpinnerListener
@@ -50,10 +51,6 @@ class RevenueFragment : Fragment(), FabClickListener {
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
         cardViewModel = ViewModelProvider(this)[CardViewModel::class.java]
 
-        viewModel.getAllCategories()
-        viewModel.getAllTypePayments()
-        cardViewModel.getAllCards()
-
         return binding.root
     }
 
@@ -67,6 +64,21 @@ class RevenueFragment : Fragment(), FabClickListener {
         observe()
 
         listeners()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.getAllCategories()
+        viewModel.getAllTypePayments()
+        cardViewModel.getAllCards()
+
+        cardViewModel.cardRecordList.value?.let {
+            if (it.isNotEmpty()){
+                binding.spinnerTypePay.setText(context?.getString(R.string.select), false)
+            }
+        }
 
     }
 
@@ -320,7 +332,18 @@ class RevenueFragment : Fragment(), FabClickListener {
             binding.buttonDatePickerLayout.error = getString(R.string.date_cannot_be_empty)
         } else if (TextUtils.equals(binding.spinnerTypePay.text, getString(R.string.select))) {
             binding.spinnerTypePayLayout.error = getString(R.string.select_a_type)
-        } else if (TextUtils.equals(binding.spinnerCard.text, getString(R.string.select)) and binding.spinnerTypePay.text.equals("Cartão")) {
+        } else if(cardViewModel.cardRecordList.value!!.isEmpty()) {
+            binding.spinnerTypePayLayout.error = getString(R.string.no_card)
+
+            Snackbar.make(
+                binding.constraintRevenue,
+                getString(R.string.dont_have_cards),
+                Snackbar.LENGTH_SHORT
+            ).setAction(getString(R.string.add_card)) {
+                startActivity(Intent(context, CardCreateActivity::class.java))
+            }.show()
+
+        } else if (TextUtils.equals(binding.spinnerCard.text, getString(R.string.select)) and TextUtils.equals(binding.spinnerTypePay.text,getString(R.string.card)) ) {
             binding.spinnerCardLayout.error = getString(R.string.choose_a_card)
         } else if (TextUtils.isEmpty(binding.inputValue.text)) {
             binding.editValue.error = getString(R.string.value_cannot_be_empty)

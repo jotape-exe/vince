@@ -20,6 +20,7 @@ import com.company.ourfinances.model.entity.FinanceRecordEntity
 import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.EnumUtils
 import com.company.ourfinances.model.enums.RegisterTypeEnum
+import com.company.ourfinances.view.CardCreateActivity
 import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.utils.CustomDatePicker
 import com.company.ourfinances.view.listener.FabClickListener
@@ -35,7 +36,6 @@ class TransferFragment : Fragment(), FabClickListener {
     private lateinit var viewModel: FinanceActivityViewModel
     private lateinit var cardViewModel: CardViewModel
 
-    private lateinit var paymentTypesList: List<PaymentTypeEntity>
     private var cards: List<CardEntity> = listOf()
 
     private var recordId: Long = 0
@@ -48,8 +48,11 @@ class TransferFragment : Fragment(), FabClickListener {
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
         cardViewModel = ViewModelProvider(this)[CardViewModel::class.java]
 
-        viewModel.getAllTypePayments()
-        cardViewModel.getAllCards()
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         loadRecord()
 
@@ -59,7 +62,19 @@ class TransferFragment : Fragment(), FabClickListener {
 
         listeners()
 
-        return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.getAllTypePayments()
+        cardViewModel.getAllCards()
+
+        cardViewModel.cardRecordList.value?.let {
+            if (it.isNotEmpty()){
+                binding.spinnerTypePayTransfer.setText(context?.getString(R.string.select), false)
+            }
+        }
     }
 
     private fun observe() {
@@ -98,19 +113,7 @@ class TransferFragment : Fragment(), FabClickListener {
     }
 
     override fun doSave() {
-        if (TextUtils.isEmpty(binding.inputTitleTransfer.text)) {
-            binding.editTitleTransfer.error = getString(R.string.title_cannot_be_empty)
-        } else if (TextUtils.isEmpty(binding.inputReceiverTransfer.text)) {
-            binding.editReceiverTransfer.error = getString(R.string.receiver_not_empty)
-        } else if (TextUtils.equals(binding.buttonDatePickerTransfer.text, requireContext().getString(R.string.select_date))) {
-            binding.buttonDatePickerLayoutTransfer.error = getString(R.string.date_cannot_be_empty)
-        } else if (TextUtils.equals(binding.spinnerTypePayTransfer.text, getString(R.string.select))) {
-            binding.spinnerTypePayLayoutTransfer.error = getString(R.string.select_a_type)
-        } else if (TextUtils.equals(binding.spinnerCardTransfer.text, getString(R.string.select)) and binding.spinnerTypePayTransfer.text.equals("Cartão")){
-            binding.spinnerCardLayoutTransfer.error = getString(R.string.choose_a_card)
-        } else if (TextUtils.isEmpty(binding.inputValueTransfer.text)) {
-            binding.editValueTransfer.error = getString(R.string.value_cannot_be_empty)
-        } else {
+        if (validateFields()) {
 
             val financeRecord = FinanceRecordEntity.Builder()
                 .setRecordId(recordId)
@@ -158,6 +161,39 @@ class TransferFragment : Fragment(), FabClickListener {
 
             resetRecordId()
         }
+    }
+
+    private fun validateFields(): Boolean {
+
+        var isValid = false
+
+        if (TextUtils.isEmpty(binding.inputTitleTransfer.text)) {
+            binding.editTitleTransfer.error = getString(R.string.title_cannot_be_empty)
+        } else if (TextUtils.isEmpty(binding.inputReceiverTransfer.text)) {
+            binding.editReceiverTransfer.error = getString(R.string.receiver_not_empty)
+        } else if (TextUtils.equals(binding.buttonDatePickerTransfer.text, requireContext().getString(R.string.select_date))) {
+            binding.buttonDatePickerLayoutTransfer.error = getString(R.string.date_cannot_be_empty)
+        } else if (TextUtils.equals(binding.spinnerTypePayTransfer.text, getString(R.string.select))) {
+            binding.spinnerTypePayLayoutTransfer.error = getString(R.string.select_a_type)
+        }else if(cardViewModel.cardRecordList.value!!.isEmpty()) {
+            binding.spinnerTypePayLayoutTransfer.error = getString(R.string.no_card)
+
+            Snackbar.make(
+                binding.constraintTransfer,
+                getString(R.string.dont_have_cards),
+                Snackbar.LENGTH_SHORT
+            ).setAction(getString(R.string.add_card)) {
+                startActivity(Intent(context, CardCreateActivity::class.java))
+            }.show()
+
+        } else if (TextUtils.equals(binding.spinnerCardTransfer.text, getString(R.string.select)) and binding.spinnerTypePayTransfer.text.equals("Cartão")){
+            binding.spinnerCardLayoutTransfer.error = getString(R.string.choose_a_card)
+        } else if (TextUtils.isEmpty(binding.inputValueTransfer.text)) {
+            binding.editValueTransfer.error = getString(R.string.value_cannot_be_empty)
+        } else {
+            isValid = true
+        }
+        return isValid
     }
 
     override fun clearAll() {

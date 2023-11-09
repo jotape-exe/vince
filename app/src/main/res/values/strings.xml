@@ -172,4 +172,7 @@
     <string name="categoria_outro">Outro</string>
     <string name="categoria_saude">Saúde</string>
     <string name="billet">Boleto</string>
+    <string name="enter_number">Digite o numero</string>
+    <string name="no_card">Sem cartão</string>
+    <string name="dont_have_cards">Você não possui cartões!</string>
 </resources>

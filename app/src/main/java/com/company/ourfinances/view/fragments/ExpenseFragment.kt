@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -16,11 +17,10 @@ import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentExpenseBinding
 import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.entity.CardEntity
-import com.company.ourfinances.model.entity.CategoryRecordEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
-import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.EnumUtils
 import com.company.ourfinances.model.enums.RegisterTypeEnum
+import com.company.ourfinances.view.CardCreateActivity
 import com.company.ourfinances.view.ShowRecordListActivity
 import com.company.ourfinances.view.listener.FabClickListener
 import com.company.ourfinances.view.listener.OnSpinnerListener
@@ -35,8 +35,6 @@ class ExpenseFragment : Fragment(), FabClickListener {
 
     private lateinit var binding: FragmentExpenseBinding
 
-    private lateinit var paymentTypesList: List<PaymentTypeEntity>
-    private lateinit var categoryRecordList: List<CategoryRecordEntity>
     private var cards: List<CardEntity> = listOf()
 
     private lateinit var viewModel: FinanceActivityViewModel
@@ -52,36 +50,39 @@ class ExpenseFragment : Fragment(), FabClickListener {
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
         cardViewModel = ViewModelProvider(this)[CardViewModel::class.java]
 
-        viewModel.getAllCategories()
-        viewModel.getAllTypePayments()
-        cardViewModel.getAllCards()
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         loadRecord()
-
-        listeners()
 
         setupLists()
 
         observe()
 
-        return binding.root
+        listeners()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.getAllCategories()
+        viewModel.getAllTypePayments()
+        cardViewModel.getAllCards()
+
+        cardViewModel.cardRecordList.value?.let {
+            if (it.isNotEmpty()){
+                binding.spinnerTypePayExpense.setText(context?.getString(R.string.select), false)
+            }
+        }
+
     }
 
     override fun doSave() {
-        if (TextUtils.isEmpty(binding.inputTitleExpense.text)) {
-            binding.editTitleExpense.error = getString(R.string.title_cannot_be_empty)
-        } else if (TextUtils.equals(binding.spinnerCategoryExpense.text, getString(R.string.select))) {
-            binding.spinnerCategoryExpenseLayout.error = getString(R.string.select_a_category)
-        } else if (TextUtils.equals(binding.buttonDatePickerExpense.text, requireContext().getString(R.string.select_date))) {
-            binding.buttonDatePickerExpenseLayout.error = getString(R.string.date_cannot_be_empty)
-        } else if (TextUtils.equals(binding.spinnerTypePayExpense.text, getString(R.string.select))) {
-            binding.spinnerTypePayExpenseLayout.error = getString(R.string.select_a_type)
-        } else if (TextUtils.equals(binding.spinnerCardExpense.text, getString(R.string.select)) and binding.spinnerTypePayExpense.text.equals("Cartão")){
-            binding.spinnerCardExpenseLayout.error = getString(R.string.choose_a_card)
-        } else if (TextUtils.isEmpty(binding.inputValueExpense.text)) {
-            binding.editValueExpense.error = getString(R.string.value_cannot_be_empty)
-        } else {
-
+        if (validateFields()){
             val financeRecord = FinanceRecordEntity.Builder()
                 .setRecordId(recordId)
                 .setTitle(binding.inputTitleExpense.text.toString())
@@ -130,6 +131,39 @@ class ExpenseFragment : Fragment(), FabClickListener {
 
             resetRecordId()
         }
+    }
+
+    private fun validateFields(): Boolean {
+
+        var isValid = false
+        if (TextUtils.isEmpty(binding.inputTitleExpense.text)) {
+            binding.editTitleExpense.error = getString(R.string.title_cannot_be_empty)
+        } else if (TextUtils.equals(binding.spinnerCategoryExpense.text, getString(R.string.select))) {
+            binding.spinnerCategoryExpenseLayout.error = getString(R.string.select_a_category)
+        } else if (TextUtils.equals(binding.buttonDatePickerExpense.text, requireContext().getString(R.string.select_date))) {
+            binding.buttonDatePickerExpenseLayout.error = getString(R.string.date_cannot_be_empty)
+        } else if (TextUtils.equals(binding.spinnerTypePayExpense.text, getString(R.string.select))) {
+            binding.spinnerTypePayExpenseLayout.error = getString(R.string.select_a_type)
+        }else if(cardViewModel.cardRecordList.value!!.isEmpty()) {
+            binding.spinnerTypePayExpenseLayout.error = getString(R.string.no_card)
+
+            Snackbar.make(
+                binding.constraintExpense,
+                getString(R.string.dont_have_cards),
+                Snackbar.LENGTH_SHORT
+            ).setAction(getString(R.string.add_card)) {
+                startActivity(Intent(context, CardCreateActivity::class.java))
+            }.show()
+
+        } else if (TextUtils.equals(binding.spinnerCardExpense.text, getString(R.string.select)) and TextUtils.equals(binding.spinnerTypePayExpense.text,getString(R.string.card)) ){
+            binding.spinnerCardExpenseLayout.error = getString(R.string.choose_a_card)
+        } else if (TextUtils.isEmpty(binding.inputValueExpense.text)) {
+            binding.editValueExpense.error = getString(R.string.value_cannot_be_empty)
+        } else {
+            isValid = true
+        }
+
+        return isValid
     }
 
     override fun clearAll() {

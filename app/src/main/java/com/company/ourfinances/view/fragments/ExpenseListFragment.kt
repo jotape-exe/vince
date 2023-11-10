@@ -41,12 +41,14 @@ class ExpenseListFragment : Fragment() {
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
         cardViewModel = ViewModelProvider(this)[CardViewModel::class.java]
 
-        viewModel.getAllByExpenseCategory(EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, context))
-
-        adapter = FinanceRecordAdapter()
-
         binding.recyclerExpense.layoutManager = LinearLayoutManager(context)
-        binding.recyclerExpense.adapter = adapter
+
+        return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllByExpenseCategory(EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, context))
 
         val listener = object : OnFinanceRecordListener {
             override fun onDelete(id: Long) {
@@ -69,14 +71,13 @@ class ExpenseListFragment : Fragment() {
 
         }
 
+        viewModel.financeRecordList.value?.let {
+            adapter = FinanceRecordAdapter(it)
+        }
+
+        binding.recyclerExpense.adapter = adapter
+
         adapter.attachToListener(listener)
-
-        return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getAllByExpenseCategory(EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, context))
 
         observe()
     }
@@ -84,11 +85,6 @@ class ExpenseListFragment : Fragment() {
     private fun observe() {
         viewModel.financeRecordList.observe(viewLifecycleOwner) {
             binding.root.findViewById<TextView>(R.id.text_not_data).isVisible = it.isEmpty()
-            adapter.updateList(it)
-             it.forEach {
-                print(it.typeRecord)
-                print(it.title)
-            }
         }
     }
 

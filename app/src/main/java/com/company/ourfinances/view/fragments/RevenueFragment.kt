@@ -17,9 +17,7 @@ import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentRevenueBinding
 import com.company.ourfinances.model.constants.DatabaseConstants
 import com.company.ourfinances.model.entity.CardEntity
-import com.company.ourfinances.model.entity.CategoryRecordEntity
 import com.company.ourfinances.model.entity.FinanceRecordEntity
-import com.company.ourfinances.model.entity.PaymentTypeEntity
 import com.company.ourfinances.model.enums.EnumUtils
 import com.company.ourfinances.model.enums.RegisterTypeEnum
 import com.company.ourfinances.view.CardCreateActivity
@@ -74,11 +72,11 @@ class RevenueFragment : Fragment(), FabClickListener {
         viewModel.getAllTypePayments()
         cardViewModel.getAllCards()
 
-        cardViewModel.cardRecordList.value?.let {
-            if (it.isNotEmpty()){
-                binding.spinnerTypePay.setText(context?.getString(R.string.select), false)
-            }
-        }
+        val selectedName = binding.spinnerTypePay.text.toString()
+
+        val visibilityBySpinnerSelected = selectedName == getString(R.string.card) && cards.isNotEmpty()
+
+        setCardSpinnerVisibility(visibilityBySpinnerSelected)
 
     }
 
@@ -91,13 +89,18 @@ class RevenueFragment : Fragment(), FabClickListener {
     }
 
     override fun doSave() {
-        if (validateFields()){
+        if (validateFields()) {
             val financeRecord = FinanceRecordEntity.Builder()
                 .setRecordId(recordId)
                 .setTitle(binding.inputTitle.text.toString())
                 .setValue(binding.inputValue.text.toString().toDouble())
                 .setDateRecord(binding.buttonDatePicker.text.toString())
-                .setTypeRecord(EnumUtils.getRegisterType(RegisterTypeEnum.RECEITA, requireContext()))
+                .setTypeRecord(
+                    EnumUtils.getRegisterType(
+                        RegisterTypeEnum.RECEITA,
+                        requireContext()
+                    )
+                )
                 .setCategoryRecord(binding.spinnerCategory.text.toString())
                 .setPaymentType(binding.spinnerTypePay.text.toString())
 
@@ -117,7 +120,10 @@ class RevenueFragment : Fragment(), FabClickListener {
             clearAll()
 
             val bundle = Bundle()
-            bundle.putString(getString(R.string.fragmentIdentifier), EnumUtils.getRegisterType(RegisterTypeEnum.RECEITA, context))
+            bundle.putString(
+                getString(R.string.fragmentIdentifier),
+                EnumUtils.getRegisterType(RegisterTypeEnum.RECEITA, context)
+            )
 
             val extras = activity?.intent?.extras?.let {
                 it.getString(activity?.getString(R.string.fragmentIdentifier)) ?: ""
@@ -214,7 +220,9 @@ class RevenueFragment : Fragment(), FabClickListener {
 
                 setCardSpinnerVisibility(visibilityBySpinnerSelected)
 
-                binding.spinnerTypePayLayout.error = null
+                if (visibilityBySpinnerSelected) {
+                    binding.spinnerTypePayLayout.error = null
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -306,7 +314,11 @@ class RevenueFragment : Fragment(), FabClickListener {
         val bundle = activity?.intent?.extras
         //Log.i("info", "DATA -> ${bundle!!.getString(activity?.getString(R.string.fragmentIdentifier))}")
         bundle?.let { bundleObj ->
-            if (bundleObj.getString(activity?.getString(R.string.fragmentIdentifier)) == EnumUtils.getRegisterType(RegisterTypeEnum.RECEITA, requireContext())) {
+            if (bundleObj.getString(activity?.getString(R.string.fragmentIdentifier)) == EnumUtils.getRegisterType(
+                    RegisterTypeEnum.RECEITA,
+                    requireContext()
+                )
+            ) {
                 recordId = bundleObj.getLong(DatabaseConstants.FinanceRecord.recordId)
                 viewModel.getRecordById(recordId)
             }
@@ -319,7 +331,7 @@ class RevenueFragment : Fragment(), FabClickListener {
         binding.spinnerCardLayout.isVisible = visibility
     }
 
-    private fun validateFields(): Boolean{
+    private fun validateFields(): Boolean {
 
         var isValid = false
 
@@ -331,7 +343,7 @@ class RevenueFragment : Fragment(), FabClickListener {
             binding.buttonDatePickerLayout.error = getString(R.string.date_cannot_be_empty)
         } else if (TextUtils.equals(binding.spinnerTypePay.text, getString(R.string.select))) {
             binding.spinnerTypePayLayout.error = getString(R.string.select_a_type)
-        } else if(cardViewModel.cardRecordList.value!!.isEmpty() and TextUtils.equals(binding.spinnerTypePay.text, getString(R.string.card))) {
+        } else if (cardViewModel.cardRecordList.value!!.isEmpty() and TextUtils.equals(binding.spinnerTypePay.text, getString(R.string.card))) {
             binding.spinnerTypePayLayout.error = getString(R.string.no_card)
 
             Snackbar.make(
@@ -342,11 +354,13 @@ class RevenueFragment : Fragment(), FabClickListener {
                 startActivity(Intent(context, CardCreateActivity::class.java))
             }.show()
 
-        } else if (TextUtils.equals(binding.spinnerCard.text, getString(R.string.select)) and TextUtils.equals(binding.spinnerTypePay.text,getString(R.string.card)) ) {
+            binding.spinnerTypePay.setText(context?.getString(R.string.select), false)
+
+        } else if (TextUtils.equals(binding.spinnerCard.text, getString(R.string.select)) and TextUtils.equals(binding.spinnerTypePay.text, getString(R.string.card))) {
             binding.spinnerCardLayout.error = getString(R.string.choose_a_card)
         } else if (TextUtils.isEmpty(binding.inputValue.text)) {
             binding.editValue.error = getString(R.string.value_cannot_be_empty)
-        } else{
+        } else {
             isValid = true
         }
 

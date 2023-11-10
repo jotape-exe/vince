@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.FragmentTransferBinding
@@ -70,11 +71,11 @@ class TransferFragment : Fragment(), FabClickListener {
         viewModel.getAllTypePayments()
         cardViewModel.getAllCards()
 
-        cardViewModel.cardRecordList.value?.let {
-            if (it.isNotEmpty()){
-                binding.spinnerTypePayTransfer.setText(context?.getString(R.string.select), false)
-            }
-        }
+        val selectedName = binding.spinnerTypePayTransfer.text.toString()
+
+        val visibilityBySpinnerSelected = selectedName == getString(R.string.card) && cards.isNotEmpty()
+
+        setCardSpinnerVisibility(visibilityBySpinnerSelected)
     }
 
     private fun observe() {
@@ -170,7 +171,7 @@ class TransferFragment : Fragment(), FabClickListener {
             binding.buttonDatePickerLayoutTransfer.error = getString(R.string.date_cannot_be_empty)
         } else if (TextUtils.equals(binding.spinnerTypePayTransfer.text, getString(R.string.select))) {
             binding.spinnerTypePayLayoutTransfer.error = getString(R.string.select_a_type)
-        }else if(cardViewModel.cardRecordList.value!!.isEmpty() and TextUtils.equals(binding.spinnerTypePayTransfer.text, getString(R.string.card))) {
+        } else if(cardViewModel.cardRecordList.value!!.isEmpty() and TextUtils.equals(binding.spinnerTypePayTransfer.text, getString(R.string.card))) {
             binding.spinnerTypePayLayoutTransfer.error = getString(R.string.no_card)
 
             Snackbar.make(
@@ -181,7 +182,9 @@ class TransferFragment : Fragment(), FabClickListener {
                 startActivity(Intent(context, CardCreateActivity::class.java))
             }.show()
 
-        } else if (TextUtils.equals(binding.spinnerCardTransfer.text, getString(R.string.select)) and binding.spinnerTypePayTransfer.text.equals("Cartão")){
+            binding.spinnerTypePayTransfer.setText(context?.getString(R.string.select), false)
+
+        } else if (TextUtils.equals(binding.spinnerCardTransfer.text, getString(R.string.select)) and TextUtils.equals(binding.spinnerTypePayTransfer.text, getString(R.string.card))){
             binding.spinnerCardLayoutTransfer.error = getString(R.string.choose_a_card)
         } else if (TextUtils.isEmpty(binding.inputValueTransfer.text)) {
             binding.editValueTransfer.error = getString(R.string.value_cannot_be_empty)
@@ -219,6 +222,7 @@ class TransferFragment : Fragment(), FabClickListener {
     }
 
     private fun listeners() {
+
         binding.inputTitleTransfer.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -310,7 +314,9 @@ class TransferFragment : Fragment(), FabClickListener {
 
                 setCardSpinnerVisibility(visibilityBySpinnerSelected)
 
-                binding.spinnerTypePayLayoutTransfer.error = null
+                if (visibilityBySpinnerSelected){
+                    binding.spinnerTypePayLayoutTransfer.error = null
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {

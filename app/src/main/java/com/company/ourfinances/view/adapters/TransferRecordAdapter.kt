@@ -11,9 +11,8 @@ import com.company.ourfinances.view.viewholder.FinanceRecordViewHolder
 import com.company.ourfinances.view.viewholder.TransferRecordViewHolder
 import com.company.ourfinances.viewmodel.FinanceActivityViewModel
 
-class TransferRecordAdapter: RecyclerView.Adapter<TransferRecordViewHolder>() {
+class TransferRecordAdapter(private val list: List<FinanceRecordEntity>): RecyclerView.Adapter<TransferRecordViewHolder>() {
 
-    private var _list: List<FinanceRecordEntity> = listOf()
     private lateinit var listener: OnFinanceRecordListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransferRecordViewHolder {
@@ -25,16 +24,11 @@ class TransferRecordAdapter: RecyclerView.Adapter<TransferRecordViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return _list.count()
+        return list.count()
     }
 
     override fun onBindViewHolder(holder: TransferRecordViewHolder, position: Int) {
-        holder.bind(_list[position])
-    }
-
-    fun updateList(list: List<FinanceRecordEntity>) {
-        _list = list
-        notifyDataSetChanged()
+        holder.bind(list[position])
     }
 
     fun attachToListener(itemListener: OnFinanceRecordListener) {

@@ -29,7 +29,7 @@ class TransferListFragment : Fragment() {
     private lateinit var cardViewModel: CardViewModel
 
     private lateinit var adapter: TransferRecordAdapter
-    private lateinit var textNotEmpty: TextView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,10 +38,15 @@ class TransferListFragment : Fragment() {
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
         cardViewModel = ViewModelProvider(this)[CardViewModel::class.java]
 
-        adapter = TransferRecordAdapter()
-
         binding.recyclerTransfer.layoutManager = LinearLayoutManager(context)
-        binding.recyclerTransfer.adapter = adapter
+
+
+        return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllByExpenseCategory(EnumUtils.getRegisterType(RegisterTypeEnum.TRANSFERENCIA,requireContext()))
 
         val listener = object : OnFinanceRecordListener {
             override fun onDelete(id: Long) {
@@ -63,17 +68,13 @@ class TransferListFragment : Fragment() {
             }
         }
 
+        viewModel.financeRecordList.value?.let{
+            adapter = TransferRecordAdapter(it)
+        }
+
+        binding.recyclerTransfer.adapter = adapter
+
         adapter.attachToListener(listener)
-
-        textNotEmpty = binding.root.findViewById(R.id.text_not_data)
-
-        return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getAllByExpenseCategory(EnumUtils.getRegisterType(RegisterTypeEnum.TRANSFERENCIA,requireContext())
-        )
 
         observe()
 
@@ -81,8 +82,7 @@ class TransferListFragment : Fragment() {
 
     private fun observe() {
         viewModel.financeRecordList.observe(viewLifecycleOwner) {
-            textNotEmpty.isVisible = it.isEmpty()
-            adapter.updateList(it)
+            binding.root.findViewById<TextView>(R.id.text_not_data).isVisible = it.isEmpty()
         }
     }
 

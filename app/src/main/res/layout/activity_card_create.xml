@@ -105,7 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         app:helperTextEnabled="true"
-        app:helperText="Numero salvo usando Criptografia"
+        app:helperText="@string/number_encryption"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_card_number">
 

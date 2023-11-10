@@ -175,4 +175,5 @@
     <string name="enter_number">Digite o numero</string>
     <string name="no_card">Sem cartão</string>
     <string name="dont_have_cards">Você não possui cartões!</string>
+    <string name="number_encryption">Numero salvo usando Criptografia</string>
 </resources>

@@ -171,5 +171,6 @@
     <string name="enter_number">Introduce el número</string>
     <string name="no_card">Sin tarjeta</string>
     <string name="dont_have_cards">¡No tienes tarjetas!</string>
+    <string name="number_encryption">Número guardado usando Criptografía</string>
 
 </resources>

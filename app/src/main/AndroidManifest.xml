@@ -19,6 +19,15 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".view.welcome.Welcome"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".view.SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings" />
@@ -43,7 +52,7 @@
         <activity
             android:name=".view.MainActivity"
             android:exported="false" />
-        <activity
+        <!--<activity
             android:name=".view.auth.LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -51,7 +60,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>-->
 
         <meta-data
             android:name="preloaded_fonts"

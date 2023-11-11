@@ -52,7 +52,9 @@ class ExpenseListFragment : Fragment() {
 
         val listener = object : OnFinanceRecordListener {
             override fun onDelete(id: Long) {
+                adapter.removeItemById(id)
                 viewModel.delete(id)
+                adapter.notifyDataSetChanged()
                 viewModel.getAllByExpenseCategory(EnumUtils.getRegisterType(RegisterTypeEnum.DESPESA, context))
             }
 

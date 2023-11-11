@@ -1,18 +1,11 @@
 package com.company.ourfinances.view
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.Intent
-import android.content.SharedPreferences
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -20,13 +13,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.company.ourfinances.R
 import com.company.ourfinances.databinding.ActivityMainBinding
-import com.company.ourfinances.view.auth.LoginActivity
 import com.company.ourfinances.view.fragments.CardFragment
 import com.company.ourfinances.view.fragments.GoalFragment
 import com.company.ourfinances.view.fragments.HomeFragment
 import com.company.ourfinances.view.fragments.InsightsFragment
 import com.company.ourfinances.view.preferences.ThemePreferences
-import com.company.ourfinances.view.utils.CurrencyObject
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
@@ -62,12 +53,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun firebaseLogout(): Boolean {
-        FirebaseAuth.getInstance().signOut()
-        finish()
-        startActivity(Intent(this, LoginActivity::class.java))
-        return true
-    }
 
     private fun listeners() {
 
@@ -91,7 +76,6 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this, SettingsActivity::class.java))
                 }
 
-                R.id.item_logout -> firebaseLogout()
             }
             drawerLayout.closeDrawer(GravityCompat.START)
 

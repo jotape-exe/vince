@@ -38,7 +38,7 @@ class RevenueListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRevenueListBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[FinanceActivityViewModel::class.java]
         cardViewModel = ViewModelProvider(this)[CardViewModel::class.java]
@@ -54,7 +54,9 @@ class RevenueListFragment : Fragment() {
 
         val listener = object : OnFinanceRecordListener {
             override fun onDelete(id: Long) {
+                adapter.removeItemById(id)
                 viewModel.delete(id)
+                adapter.notifyDataSetChanged()
                 viewModel.getAllByExpenseCategory(EnumUtils.getRegisterType(RegisterTypeEnum.RECEITA, context))
             }
 
@@ -82,6 +84,7 @@ class RevenueListFragment : Fragment() {
         adapter.attachToListener(listener)
 
         observe()
+
     }
 
     private fun observe() {

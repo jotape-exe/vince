@@ -220,9 +220,9 @@ class RevenueFragment : Fragment(), FabClickListener {
 
                 setCardSpinnerVisibility(visibilityBySpinnerSelected)
 
-                if (visibilityBySpinnerSelected) {
+                //if (visibilityBySpinnerSelected) {
                     binding.spinnerTypePayLayout.error = null
-                }
+                //}
             }
 
             override fun afterTextChanged(s: Editable?) {

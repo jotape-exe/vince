@@ -32,4 +32,15 @@ class FinanceRecordAdapter(private val list: List<FinanceRecordEntity>) : Recycl
     fun attachToListener(itemListener: OnFinanceRecordListener) {
         listener = itemListener
     }
+
+    fun removeItemById(id: Long) {
+        val position = list.indexOfFirst {
+            it.recordId == id
+        }
+        if (position != -1) {
+            (list as ArrayList).removeAt(position)
+            notifyItemRemoved(position)
+        }
+    }
+
 }

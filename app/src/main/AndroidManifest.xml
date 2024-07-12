@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:targetApi="31">
+        tools:targetApi="34">
         <activity
             android:name=".view.welcome.Welcome"
             android:exported="true">
@@ -44,23 +44,8 @@
             android:name=".view.FinanceActivity"
             android:exported="false" />
         <activity
-            android:name=".view.auth.ForgotPasswordActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.auth.RegisterActivity"
-            android:exported="false" />
-        <activity
             android:name=".view.MainActivity"
             android:exported="false" />
-        <!--<activity
-            android:name=".view.auth.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>-->
 
         <meta-data
             android:name="preloaded_fonts"
